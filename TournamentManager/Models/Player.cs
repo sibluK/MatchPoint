@@ -8,7 +8,7 @@ public class Player
     public string Nationality { get; set; } = string.Empty;
     public DateTime Birthday { get; set; }
     
-    //Current player status: 'Active', 'Benched', 'Retired'
+    // Current player status: 'Active', 'Benched', 'Retired'
     public string Status { get; set; } = string.Empty;
     
     // Foreign keys
@@ -16,8 +16,8 @@ public class Player
     
     // EF navigation
     public virtual Team CurrentTeam { get; set; } = null!;
-    public virtual ICollection<Team> Teams { get; set; } = null!;
+    public virtual ICollection<Team> Teams { get; set; } = new List<Team>();
 
 
-    
+
 }

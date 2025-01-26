@@ -8,7 +8,7 @@ public class Match
     // Current match status: 'Upcoming', 'Ongoing', 'Finished'
     public string Status { get; set; } = string.Empty;
     
-    //Foreign keys
+    // Foreign keys
     public Guid? VideoGameId { get; set; }
     public Guid? TournamentId { get; set; }
     public Guid? Team1Id { get; set; }

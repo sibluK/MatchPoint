@@ -14,6 +14,7 @@ public class Game
     public Guid Team2Id { get; set; }
     
     // EF navigation
+    public virtual Team Winner { get; set; } = null!;
     public virtual Map Map { get; set; } = null!;
     public virtual Match Match { get; set; } = null!;
     public virtual Team Team1 { get; set; } = null!;
