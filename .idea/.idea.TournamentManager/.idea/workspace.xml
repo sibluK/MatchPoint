@@ -9,80 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/IdentityComponentsEndpointRouteBuilderExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/IdentityNoOpEmailSender.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/IdentityRedirectManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/IdentityRevalidatingAuthenticationStateProvider.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/IdentityUserAccessor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/AccessDenied.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ConfirmEmail.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ConfirmEmailChange.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ExternalLogin.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ForgotPassword.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ForgotPasswordConfirmation.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/InvalidPasswordReset.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/InvalidUser.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Lockout.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Login.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/LoginWith2fa.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/LoginWithRecoveryCode.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/ChangePassword.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/DeletePersonalData.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/Disable2fa.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/Email.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/EnableAuthenticator.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/ExternalLogins.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/GenerateRecoveryCodes.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/Index.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/PersonalData.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/ResetAuthenticator.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/SetPassword.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/TwoFactorAuthentication.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Manage/_Imports.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/Register.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/RegisterConfirmation.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ResendEmailConfirmation.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ResetPassword.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/ResetPasswordConfirmation.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Pages/_Imports.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Shared/ExternalLoginPicker.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Shared/ManageLayout.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Shared/ManageNavMenu.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Shared/RedirectToLogin.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Shared/ShowRecoveryCodes.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Account/Shared/StatusMessage.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/App.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Auth.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Counter.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Error.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Home.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Weather.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Routes.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/_Imports.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Data/ApplicationUser.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Data/Migrations/00000000000000_CreateIdentitySchema.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Data/Migrations/00000000000000_CreateIdentitySchema.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Data/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/Game.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/Map.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/Match.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/Player.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/Tournament.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/Trophy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/VideoGame.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Properties/launchSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/TournamentManager.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/appsettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/wwwroot/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/wwwroot/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +32,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d382df578ec93391918cfaa4ce7f4b8f35c9aed1241d6556dc9be26df13c/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fcb986e26947524a3d3de6bad0913fde259fad0d6606868a648ccf3f45772c/AntiforgeryToken.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -115,24 +43,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.TournamentManager: http.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.TournamentManager: http.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.TournamentManager: http">
     <configuration name="TournamentManager: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/TournamentManager/TournamentManager.csproj" />
@@ -175,13 +104,14 @@
       <updated>1737825895218</updated>
       <workItem from="1737825898845" duration="9846000" />
       <workItem from="1737838501131" duration="97000" />
-      <workItem from="1737884503003" duration="11952000" />
+      <workItem from="1737884503003" duration="12753000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
