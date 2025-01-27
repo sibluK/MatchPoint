@@ -3,7 +3,7 @@
 public class Match
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public DateTime MatchDate { get; set; }
+    public DateTime StartDate { get; set; }
     public string Status { get; set; } = string.Empty; // Current match status: 'Upcoming', 'Ongoing', 'Finished'
     
     //Foreign keys

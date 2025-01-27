@@ -8,6 +8,7 @@ public class VideoGame
     
     // Foreign keys
     
+    
     // EF navigation
     public virtual ICollection<Tournament> Tournaments { get; set; } = new List<Tournament>();
 }
