@@ -4,8 +4,9 @@ public class Team
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
+    public int Points { get; set; } = 0;
+    public int Ranking { get; set; } = 0;
     
-    public virtual ICollection<Trophy> Trophies { get; set; } = new List<Trophy>();
     public virtual ICollection<Player> Players { get; set; } = new List<Player>();
 
 }
