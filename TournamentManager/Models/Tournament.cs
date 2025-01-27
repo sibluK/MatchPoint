@@ -6,10 +6,11 @@ public class Tournament
     public string Name { get; set; } = string.Empty;
     
     // Foreign keys
-    public Guid? WinnerId { get; set; }
     public Guid VideoGameId { get; set; }
+    public Guid? WinnerId { get; set; }
     
-    // EF navigation
+    //EF navigation
     public virtual VideoGame VideoGame { get; set; } = null!;
+    public virtual ICollection<Team> Teams { get; set; } = new List<Team>();
     public virtual ICollection<Match> Matches { get; set; } = new List<Match>();
 }

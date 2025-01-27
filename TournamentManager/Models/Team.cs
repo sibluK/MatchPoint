@@ -4,11 +4,9 @@ public class Team
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
-     
-    // Foreign keys
+    public int Points { get; set; } = 0;
+    public int Ranking { get; set; } = 0;
     
-    
-    // EF navigation
     public virtual ICollection<Player> Players { get; set; } = new List<Player>();
 
 }

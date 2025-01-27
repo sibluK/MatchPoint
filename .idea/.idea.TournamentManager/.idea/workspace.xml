@@ -9,8 +9,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TournamentManager/Models/PlayerMapStats.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Models/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Models/Game.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Models/Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Models/Map.cs" afterDir="false" />
@@ -32,18 +31,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "sibluK"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sibluK&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/sibluK/TournamentManager.git",
-    "accountId": "7abd3024-b841-45bd-bdbb-ea531e8896b3"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sibluK/TournamentManager.git&quot;,
+    &quot;accountId&quot;: &quot;7874d2ce-bc2f-4a45-ab2a-dd7bdb0147fe&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/90db52758c904b74836d89b150d7206f172400/48/a1cf25ea/0200003Fpdb19.il" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/e12429aac470410fae8a5bfb26767d3a3e400/8c/67276e25/0200001Cpdb8.il" root0="FORCE_HIGHLIGHTING" />
@@ -69,7 +68,7 @@
   &quot;keyToString&quot;: {
     &quot;.NET Launch Settings Profile.TournamentManager: http.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;models&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -127,7 +126,8 @@
       <workItem from="1737825898845" duration="9846000" />
       <workItem from="1737838501131" duration="97000" />
       <workItem from="1737884503003" duration="12753000" />
-      <workItem from="1737917057446" duration="5315000" />
+      <workItem from="1737964356851" duration="2061000" />
+      <workItem from="1737966921175" duration="2146000" />
     </task>
     <servers />
   </component>
