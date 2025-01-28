@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <data name="WelcomeMessage" xml:space="preserve">
+        <value>Sveiki!</value>
+    </data>
+    <data name="ButtonSubmit" xml:space="preserve">
+        <value>Pateikti</value>
+    </data>
+    <data name="ButtonCancel" xml:space="preserve">
+        <value>Atšaukti</value>
+    </data>
+    <data name="Region_EU" xml:space="preserve">
+        <value>Europa</value>
+    </data>
+    <data name="Region_NA" xml:space="preserve">
+        <value>Šiaurės Amerika</value>
+    </data>
+    <data name="ActivityStatus_Upcoming" xml:space="preserve">
+        <value>Ateinantis</value>
+    </data>
+    <data name="ActivityStatus_Live" xml:space="preserve">
+        <value>Tiesiogiai</value>
+    </data>
+    <data name="ActivityStatus_Ended" xml:space="preserve">
+        <value>Baigtas</value>
+    </data>
+    <data name="BracketType_SE" xml:space="preserve">
+        <value>Viengubas Iškritimas</value>
+    </data>
+    <data name="BracketType_DE" xml:space="preserve">
+        <value>Dvigubas Iškritimas</value>
+    </data>
+    <data name="PlayerStatus_Active" xml:space="preserve">
+        <value>Aktyvus</value>
+    </data>
+    <data name="PlayerStatus_Benched" xml:space="preserve">
+        <value>Atsarginis</value>
+    </data>
+    <data name="PlayerStatus_Retired" xml:space="preserve">
+        <value>Pasitraukęs</value>
+    </data>
+</root>

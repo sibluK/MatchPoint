@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TournamentManager.Data;
 
@@ -10,9 +11,11 @@ using TournamentManager.Data;
 namespace TournamentManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250128213425_models")]
+    partial class models
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -236,9 +239,8 @@ namespace TournamentManager.Migrations
                     b.Property<Guid>("TournamentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -266,9 +268,8 @@ namespace TournamentManager.Migrations
                     b.Property<Guid>("MatchId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid?>("WinnerTeamId")
                         .HasColumnType("TEXT");
@@ -331,9 +332,8 @@ namespace TournamentManager.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid?>("Team1Id")
                         .HasColumnType("TEXT");
@@ -387,9 +387,8 @@ namespace TournamentManager.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid?>("TeamId")
                         .HasColumnType("TEXT");
@@ -455,9 +454,8 @@ namespace TournamentManager.Migrations
                     b.Property<int>("Ranking")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Region")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Region")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -477,9 +475,8 @@ namespace TournamentManager.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("VideoGameId")
                         .HasColumnType("TEXT");

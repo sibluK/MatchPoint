@@ -10,8 +10,10 @@ public class PlayerGameStats
     // Foreign keys
     public Guid PlayerId { get; set; }
     public Guid GameId { get; set; }
+    public Guid TeamId { get; set; }
     
     // EF navigation 
     public virtual Player Player { get; set; } = null!;
     public virtual Game Game { get; set; } = null!;
+    public virtual Team Team { get; set; } = null!;
 }
