@@ -22,5 +22,5 @@ public class Match
     public virtual Bracket Bracket { get; set; } = null!;
     public virtual Team Team1 { get; set; } = null!;
     public virtual Team Team2 { get; set; } = null!;
-    public virtual Team Winner { get; set; } = null!;
+    public virtual Team WinnerTeam { get; set; } = null!;
 }
