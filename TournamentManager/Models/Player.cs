@@ -7,7 +7,6 @@ public class Player
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Nickname { get; set; } = string.Empty;
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public PlayerStatus Status { get; set; } = PlayerStatus.Active;
     public string? Name { get; set; } 
     public string? Nationality { get; set; }

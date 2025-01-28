@@ -10,7 +10,6 @@ public class Match
     public BestOf BestOf { get; set; }
     public int BracketRound { get; set; } // Which Round in Bracket
     public int MatchNumber { get; set; } // Order in Bracket
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public ActivityStatus Status { get; set; } = ActivityStatus.Upcoming;
     
     //Foreign keys

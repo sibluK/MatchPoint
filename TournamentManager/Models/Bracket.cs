@@ -7,7 +7,6 @@ public class Bracket
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public int NumberOfRounds { get; set; } // Total rounds in the bracket
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     public BracketType Type { get; set; }
     
     // Foreign keys
