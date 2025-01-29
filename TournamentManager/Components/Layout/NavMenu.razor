@@ -1,5 +1,8 @@
 ﻿@rendermode InteractiveServer
 
+@using Microsoft.Extensions.Localization
+@using Microsoft.FluentUI.AspNetCore.Components.Icons.Regular
+@inject IStringLocalizer<Strings> Localizer
 @implements IDisposable
 
 @inject NavigationManager NavigationManager
@@ -7,26 +10,29 @@
 <div class="navmenu">
     <input type="checkbox" title="Menu expand/collapse toggle" id="navmenu-toggle" class="navmenu-icon"/>
     <label for="navmenu-toggle" class="navmenu-icon">
-        <FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Fill"/>
+        <FluentIcon Value="@(new Size20.Navigation())" Color="Color.Fill"/>
     </label>
     <nav class="sitenav" aria-labelledby="main-menu">
         <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded" CustomToggle="true">
-            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
-            <FluentNavLink Href="counter" Icon="@(new Icons.Regular.Size20.NumberSymbolSquare())" IconColor="Color.Accent">Counter</FluentNavLink>
-            <FluentNavLink Href="weather" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">Weather</FluentNavLink>
-            <FluentNavLink Href="auth" Icon="@(new Icons.Regular.Size20.LockClosedKey())" IconColor="Color.Accent">Auth Required</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="/" Match="NavLinkMatch.All" Icon="@(new Size20.Home())" >Home</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="counter">Counter</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="weather">Weather</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="auth">Auth Required</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="tournaments" Icon="@(new Size20.Trophy())">@Localizer["NavLink_Tournaments"]</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="teams" Icon="@(new Size20.PeopleTeam())">@Localizer["NavLink_Teams"]</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="players" Icon="@(new Size20.Person())">@Localizer["NavLink_Players"]</FluentNavLink>
             <AuthorizeView>
                 <Authorized>
                     <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
                     <form action="Account/Logout" method="post">
                         <AntiforgeryToken/>
                         <input type="hidden" name="ReturnUrl" value="@currentUrl"/>
-                        <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
+                        <FluentButton Type="ButtonType.Submit" Style="width: 100%;" >@Localizer["NavLink_Logout"]</FluentButton>
                     </form>
                 </Authorized>
                 <NotAuthorized>
-                    <FluentNavLink Href="Account/Register">Register</FluentNavLink>
-                    <FluentNavLink Href="Account/Login">Login</FluentNavLink>
+                    <FluentNavLink Href="Account/Register">@Localizer["NavLink_Register"]</FluentNavLink>
+                    <FluentNavLink Href="Account/Login">@Localizer["NavLink_Login"]</FluentNavLink>
                 </NotAuthorized>
             </AuthorizeView>
         </FluentNavMenu>

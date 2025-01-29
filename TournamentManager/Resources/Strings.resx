@@ -58,4 +58,23 @@
     <data name="PlayerStatus_Retired" xml:space="preserve">
         <value>Retired</value>
     </data>
+    <data name="NavLink_Tournaments" xml:space="preserve">
+        <value>Tournaments</value>
+    </data>
+    <data name="NavLink_Teams" xml:space="preserve">
+        <value>Teams</value>
+    </data>
+    <data name="NavLink_Players" xml:space="preserve">
+        <value>Players</value>
+    </data>
+    <data name="NavLink_Register" xml:space="preserve">
+        <value>Register</value>
+    </data>
+    <data name="NavLink_Login" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="NavLink_Logout" xml:space="preserve">
+        <value>Logout</value>
+    </data>
+    
 </root>

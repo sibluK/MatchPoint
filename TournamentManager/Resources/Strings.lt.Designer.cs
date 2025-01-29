@@ -21,7 +21,7 @@ namespace TournamentManager.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings_lt {
+    public class Strings_lt {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -119,6 +119,60 @@ namespace TournamentManager.Resources {
         internal static string ButtonSubmit {
             get {
                 return ResourceManager.GetString("ButtonSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prisijungti.
+        /// </summary>
+        internal static string NavLink_Login {
+            get {
+                return ResourceManager.GetString("NavLink_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atsijungti.
+        /// </summary>
+        internal static string NavLink_Logout {
+            get {
+                return ResourceManager.GetString("NavLink_Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Žaidėjai.
+        /// </summary>
+        internal static string NavLink_Players {
+            get {
+                return ResourceManager.GetString("NavLink_Players", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registruotis.
+        /// </summary>
+        internal static string NavLink_Register {
+            get {
+                return ResourceManager.GetString("NavLink_Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Komandos.
+        /// </summary>
+        internal static string NavLink_Teams {
+            get {
+                return ResourceManager.GetString("NavLink_Teams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turnyrai.
+        /// </summary>
+        internal static string NavLink_Tournaments {
+            get {
+                return ResourceManager.GetString("NavLink_Tournaments", resourceCulture);
             }
         }
         

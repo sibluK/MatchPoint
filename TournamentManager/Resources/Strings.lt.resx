@@ -58,4 +58,23 @@
     <data name="PlayerStatus_Retired" xml:space="preserve">
         <value>Pasitraukęs</value>
     </data>
+    <data name="NavLink_Tournaments" xml:space="preserve">
+        <value>Turnyrai</value>
+    </data>
+    <data name="NavLink_Teams" xml:space="preserve">
+        <value>Komandos</value>
+    </data>
+    <data name="NavLink_Players" xml:space="preserve">
+        <value>Žaidėjai</value>
+    </data>
+    <data name="NavLink_Register" xml:space="preserve">
+        <value>Registruotis</value>
+    </data>
+    <data name="NavLink_Login" xml:space="preserve">
+        <value>Prisijungti</value>
+    </data>
+    <data name="NavLink_Logout" xml:space="preserve">
+        <value>Atsijungti</value>
+    </data>
+    
 </root>

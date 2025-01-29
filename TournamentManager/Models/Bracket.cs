@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using TournamentManager.Models.Enums;
+﻿using TournamentManager.Models.Enums;
 
 namespace TournamentManager.Models;
 
