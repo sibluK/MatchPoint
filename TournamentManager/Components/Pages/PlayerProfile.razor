@@ -1,0 +1,10 @@
+﻿@page "/players/{nickname}"
+
+<h1>Player Details</h1>
+<p>Nickname: @Nickname</p>
+
+@code {
+
+    [Parameter] public string Nickname { get; set; }
+
+}

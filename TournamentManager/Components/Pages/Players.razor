@@ -1,0 +1,32 @@
+﻿@page "/players"
+@inject NavigationManager Navigation
+@using TournamentManager.Models
+@rendermode InteractiveServer
+
+<h1>Players</h1>
+
+@foreach (var player in _players)
+{
+    <p>
+        <a @onclick="() => GoToProfile(player.Nickname)">
+            @player.Nickname
+        </a>
+    </p>
+}
+
+@code {
+
+    private void GoToProfile(string nickname)
+    {
+        Navigation.NavigateTo($"/players/{nickname}");
+    }
+    
+    
+    private List<Player> _players = new()
+    {
+        new Player { Nickname = "ropz" },
+        new Player { Nickname = "s1mple" }
+    };
+    
+    
+}

@@ -128,6 +128,22 @@ code {
     color: #c02d76;
 }
 
+.logo {
+    width: 3rem;
+}
+
+#page-header {
+    background-color: black;
+}
+
+.fluent-nav-item a.active .positioning-region::before {
+    background-color: black;
+}
+
+.fluent-nav-icon path {
+    fill: black;
+}
+
 @media (max-width: 600px) {
     .header-gutters {
         margin: 0.5rem 3rem 0.5rem 1.5rem !important;

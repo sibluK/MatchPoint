@@ -1,0 +1,25 @@
+﻿@page "/language-switcher"
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Strings> Localizer
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<select @onchange="ChangeLanguage">
+    <option value="en">English</option>
+    <option value="lt">Lietuvių</option>
+</select>
+
+<p>@Localizer["WelcomeMessage"]</p>
+
+@code {
+    private async Task ChangeLanguage(ChangeEventArgs e)
+    {
+        var selectedCulture = e.Value.ToString();
+
+        // Store culture in a cookie using proper JavaScript syntax
+        await JS.InvokeVoidAsync("eval", $"document.cookie = 'culture={selectedCulture}; path=/';");
+
+        // Reload page to apply new culture
+        await JS.InvokeVoidAsync("location.reload");
+    }
+}
