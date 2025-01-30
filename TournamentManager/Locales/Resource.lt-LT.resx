@@ -20,61 +20,60 @@
     </resheader>
 
     <data name="WelcomeMessage" xml:space="preserve">
-        <value>Welcome!</value>
+        <value>Sveiki!</value>
     </data>
     <data name="ButtonSubmit" xml:space="preserve">
-        <value>Submit</value>
+        <value>Pateikti</value>
     </data>
     <data name="ButtonCancel" xml:space="preserve">
-        <value>Cancel</value>
+        <value>Atšaukti</value>
     </data>
     <data name="Region_EU" xml:space="preserve">
-        <value>Europe</value>
+        <value>Europa</value>
     </data>
     <data name="Region_NA" xml:space="preserve">
-        <value>North America</value>
+        <value>Šiaurės Amerika</value>
     </data>
     <data name="ActivityStatus_Upcoming" xml:space="preserve">
-        <value>Upcoming</value>
+        <value>Ateinantis</value>
     </data>
     <data name="ActivityStatus_Live" xml:space="preserve">
-        <value>Live</value>
+        <value>Tiesiogiai</value>
     </data>
     <data name="ActivityStatus_Ended" xml:space="preserve">
-        <value>Ended</value>
+        <value>Baigtas</value>
     </data>
     <data name="BracketType_SE" xml:space="preserve">
-        <value>Single Elimination</value>
+        <value>Viengubas Iškritimas</value>
     </data>
     <data name="BracketType_DE" xml:space="preserve">
-        <value>Double Elimination</value>
+        <value>Dvigubas Iškritimas</value>
     </data>
     <data name="PlayerStatus_Active" xml:space="preserve">
-        <value>Active</value>
+        <value>Aktyvus</value>
     </data>
     <data name="PlayerStatus_Benched" xml:space="preserve">
-        <value>Benched</value>
+        <value>Atsarginis</value>
     </data>
     <data name="PlayerStatus_Retired" xml:space="preserve">
-        <value>Retired</value>
+        <value>Pasitraukęs</value>
     </data>
     <data name="NavLink_Tournaments" xml:space="preserve">
-        <value>Tournaments</value>
+        <value>Turnyrai</value>
     </data>
     <data name="NavLink_Teams" xml:space="preserve">
-        <value>Teams</value>
+        <value>Komandos</value>
     </data>
     <data name="NavLink_Players" xml:space="preserve">
-        <value>Players</value>
+        <value>Žaidėjai</value>
     </data>
     <data name="NavLink_Register" xml:space="preserve">
-        <value>Register</value>
+        <value>Registruotis</value>
     </data>
     <data name="NavLink_Login" xml:space="preserve">
-        <value>Login</value>
+        <value>Prisijungti</value>
     </data>
     <data name="NavLink_Logout" xml:space="preserve">
-        <value>Logout</value>
+        <value>Atsijungti</value>
     </data>
-    
 </root>
