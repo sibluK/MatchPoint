@@ -205,3 +205,17 @@ code {
         right: unset;
     }
 }
+
+.dropdown {
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .dropdown {
+        margin-right: 10px;
+        font-size: 0.875rem;
+        width: 100px;
+    }
+}

@@ -1,7 +1,5 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
 using TournamentManager.Components;
@@ -10,7 +8,6 @@ using TournamentManager.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddFluentUIComponents();
@@ -41,16 +38,20 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 builder.Services.AddLocalization();
+builder.Services.AddControllers();
 
-var supportedCultures = new[] { "en", "lt" };
-var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("en")
-    .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
+
+
+
 
 var app = builder.Build();
 
-// Ensure culture is set from cookie or fallback
+string[] supportedCultures = [ "en-US", "lt-LT" ];
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
 app.UseRequestLocalization(localizationOptions);
 
 // Configure the HTTP request pipeline.
@@ -68,6 +69,7 @@ else
 //app.UseHttpsRedirection();
 
 app.UseAntiforgery();
+app.MapControllers();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
