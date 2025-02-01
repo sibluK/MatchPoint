@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Icons.Color;
 using TournamentManager.Components;
 using TournamentManager.Components.Account;
 using TournamentManager.Data;
@@ -35,6 +34,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
@@ -45,10 +45,13 @@ builder.Services.AddLocalization();
 builder.Services.AddControllers();
 
 
-
-
-
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await ApplicationDbInitializer.SeedRolesAndAdmin(services);
+}
 
 string[] supportedCultures = [ "en-US", "lt-LT" ];
 var localizationOptions = new RequestLocalizationOptions()
@@ -82,9 +85,10 @@ app.MapRazorComponents<App>()
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 
+/*
 static void SeedData(ApplicationDbContext context)
 {
-    if (context.Tournaments.Any()) // Prevents duplicate data
+    if (!context.Tournaments.Any()) // Prevents duplicate data
     {
         using var transaction = context.Database.BeginTransaction();
         
@@ -149,12 +153,10 @@ static void SeedData(ApplicationDbContext context)
             new Player() { Nickname = "", Name = " ", Nationality = " ", Birthday = new DateTime() ,TeamId = new Guid(""), ImagePath = Path.Combine("Images", "Player", "spirit.webp").Replace("\\", "/")},
             new Player() { Nickname = "", Name = " ", Nationality = " ", Birthday = new DateTime() ,TeamId = new Guid(""), ImagePath = Path.Combine("Images", "Player", "spirit.webp").Replace("\\", "/")},
             new Player() { Nickname = "", Name = " ", Nationality = " ", Birthday = new DateTime() ,TeamId = new Guid(""), ImagePath = Path.Combine("Images", "Player", "spirit.webp").Replace("\\", "/")},
-            */
         });
         
         //context.SaveChanges();
         
-        /*
         var createdTournament = context.Tournaments.FirstOrDefault(t => t.Name == "IEM Katowice 2025");
         var teams = context.Teams.ToList();
         foreach (var team in teams)
@@ -198,7 +200,7 @@ static void SeedData(ApplicationDbContext context)
 
             context.Add(newGame);
         }
-        */
+        
         
         //context.SaveChanges();
         //transaction.Commit();
@@ -214,6 +216,7 @@ using (var scope = app.Services.CreateScope())
 
     SeedData(context);
 }
+*/
 
 
 app.Run();
