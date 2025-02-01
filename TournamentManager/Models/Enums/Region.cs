@@ -2,6 +2,10 @@
 
 public enum Region
 {
-    EU,
-    NA
+    Europe,
+    NorthAmerica,
+    SouthAmerica,
+    Asia,
+    Oceania,
+    Other,
 }
