@@ -9,6 +9,8 @@
 
     <ItemGroup>
         <None Update="Data\app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true"/>
+        <None Remove="Data\app.db-shm" />
+        <None Remove="Data\app.db-wal" />
     </ItemGroup>
 
     <ItemGroup>

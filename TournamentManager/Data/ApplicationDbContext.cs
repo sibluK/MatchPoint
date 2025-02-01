@@ -65,10 +65,13 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 v => v.ToString(),
                 v => (Region)Enum.Parse(typeof(Region), v)
             );
-        
+
+        modelBuilder.Entity<Match>()
+            .Property(g => g.BestOf)
+            .HasConversion(
+                v => v.ToString(),
+                v => (BestOf)Enum.Parse(typeof(BestOf), v));
         
     }
-    
-    
     
 }

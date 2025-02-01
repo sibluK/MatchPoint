@@ -1,6 +1,69 @@
 ﻿@page "/teams"
+@using Microsoft.EntityFrameworkCore
+@using TournamentManager.Models
+@inject Data.ApplicationDbContext DbContext
+
 <h3>Teams</h3>
 
+@if (teams is null)
+{
+    <p>Loading teams...</p>
+}
+else if (!teams.Any())
+{
+    <p>No teams found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var team in teams)
+        {
+            <li>@team.Name</li>
+            <li>@team.Region</li>
+            <img width="100x" height="100px" src="@team.ImagePath"/>
+
+            <p>Players</p>
+            if (team.Players.Any())
+            {
+                foreach (var player in team.Players)
+                {
+                    <li>@player.Nickname</li>
+                    <img width="100x" height="100px" src="@player.ImagePath"/>
+                }
+            }
+            else
+            {
+                <p>No players found in team.</p>
+            }
+            
+            
+            <p>Tournaments</p>
+            if (team.Tournaments.Any())
+            {
+                foreach (var tournament in team.Tournaments)
+                {
+                    <li>@tournament.Name</li>
+                    <li>@tournament.Status</li>
+                }
+            }
+            else
+            {
+                <p>No tournaments found.</p>
+            }
+        }
+    </ul>
+}
+
+
 @code {
-    
+    private List<Team>? teams;
+
+    protected override async Task OnInitializedAsync()
+    {
+        teams = await DbContext.Teams
+            .Include(t => t.Players)
+            .Include(t => t.Tournaments)
+            .ToListAsync();
+    }
+
 }

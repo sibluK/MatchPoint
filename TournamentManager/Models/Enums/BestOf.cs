@@ -2,7 +2,7 @@
 
 public enum BestOf
 {
-    B01,
-    B03,
-    B05
+    BO1,
+    BO3,
+    BO5
 }
