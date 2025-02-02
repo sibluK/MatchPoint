@@ -1,0 +1,9 @@
+﻿/* Apply hover effect to all rows */
+.table-row:hover {
+    background-color: lightgray !important;
+}
+
+/* Optionally, you can define custom row height */
+.fluent-data-grid tr {
+    height: 50px; /* Set your preferred height for rows */
+}

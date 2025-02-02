@@ -1,32 +1,94 @@
 ﻿@page "/players"
 @inject NavigationManager Navigation
+@inject PlayerService PlayerService
 @using TournamentManager.Models
+@using TournamentManager.Services
 @rendermode InteractiveServer
 
-<h1>Players</h1>
+<div style="overflow-x:auto; display:flex;">
+    <FluentDataGrid Items="@FilteredItems"
+                    GridTemplateColumns="0.2fr 0.2fr 0.2fr 0.2fr 0.2fr"
+                    Pagination="@pagination"
+                    TGridItem="Player"
+                    OnCellClick="HandleCellClick">
 
-@foreach (var player in _players)
-{
-    <p>
-        <a @onclick="() => GoToProfile(player.Nickname)">
-            @player.Nickname
-        </a>
-    </p>
-}
+        <!-- Player Image -->
+        <TemplateColumn class="table-row" Style="height: 50px" Title="Avatar" Tooltip="true" Align="Align.Center">
+            <img class="player-avatar" src="@context.ImagePath" alt="Avatar of @(context.Nickname)" style="width: 40px; height: 40px; border-radius: 5px;" />
+        </TemplateColumn>
+
+        <!-- Nickname with OnClick -->
+        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Nickname">
+            <ColumnOptions>
+                <div class="search-box">
+                    <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="Search nickname..." Style="width: 100%;" Label="Filter" />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
+
+        <!-- Nationality -->
+        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Nationality" />
+
+        <!-- Birthday -->
+        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Birthday)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Birthday" />
+
+        <!-- Status -->
+        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Status" />
+
+    </FluentDataGrid>
+
+
+</div>
+
+<FluentPaginator State="@pagination" />
 
 @code {
+    bool _clearItems = false;
+    IQueryable<Player>? items;
+    PaginationState pagination = new PaginationState { ItemsPerPage = 20 };
+    string nameFilter = string.Empty;
 
-    private void GoToProfile(string nickname)
+    IQueryable<Player>? FilteredItems
     {
-        Navigation.NavigateTo($"/players/{nickname}");
+        get
+        {
+            var result = items;
+
+            if (!string.IsNullOrEmpty(nameFilter))
+            {
+                result = result?.Where(c => c.Nickname.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            return result;
+        }
     }
-    
-    
-    private List<Player> _players = new()
+
+    protected override async Task OnInitializedAsync()
     {
-        new Player { Nickname = "ropz" },
-        new Player { Nickname = "s1mple" }
-    };
-    
-    
+        items = (await PlayerService.GetAllPlayersAsync()).AsQueryable();
+    }
+
+    private void HandlePlayerFilter(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            nameFilter = value;
+        }
+    }
+
+    private void HandleClear()
+    {
+        if (string.IsNullOrWhiteSpace(nameFilter))
+        {
+            nameFilter = string.Empty;
+        }
+    }
+
+    private void HandleCellClick(FluentDataGridCell<Player> cell)
+    {
+        if (cell.Item is Player player)
+        {
+            Navigation.NavigateTo($"/players/{player.Nickname}");
+        }
+    }
 }
