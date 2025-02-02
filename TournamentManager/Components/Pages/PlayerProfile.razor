@@ -1,10 +1,68 @@
 ﻿@page "/players/{nickname}"
 
-<h1>Player Details</h1>
-<p>Nickname: @Nickname</p>
+@using TournamentManager.Models
+@using TournamentManager.Services
+@rendermode InteractiveServer
+
+@inject PlayerService PlayerService
+
+<FluentStack Orientation="Orientation.Horizontal">
+    <img src="@player.ImagePath" alt="Photo of @player.Nickname"/>
+    <FluentDivider Style="height: 300px;" Role="DividerRole.Presentation" Orientation="Orientation.Vertical"></FluentDivider>
+    <FluentStack Orientation="Orientation.Vertical">
+        <p>Id: @player.Id</p>
+        <p>Nickname: @player.Nickname</p>
+        <p>Name: @player.Name</p>
+        <p>Nationality: @player.Nationality</p>
+        <p>Status: @player.Status</p>
+        <p>Birthday: @player.Birthday</p>
+    </FluentStack>
+
+</FluentStack>
+
+<div class="player-information">
+    <div class="image-wrapper">
+        <img class="player-image" src="@player.ImagePath" alt="Photo of @player.Nickname"/>
+    </div>
+    <div class="information-wrapper">
+        <p class="nickname">@player.Nickname</p>
+        <p class="name">@player.Name</p>
+    </div>
+
+</div>
+
+<FluentTabs ActiveTabId="tab-1" Width="100%">
+    <FluentTab>
+        <Header>Team</Header>
+        <Content>
+            <p>@player.Team.Name</p>
+            <img src="@player.Team.ImagePath"/>
+        </Content>
+    </FluentTab>
+    <FluentTab>
+        <Header>Statistics</Header>
+        <Content>
+            1 kd
+        </Content>
+    </FluentTab>
+    <FluentTab>
+        <Header>Tournaments</Header>
+        <Content>
+            IEM Cologne
+        </Content>
+    </FluentTab>
+    
+</FluentTabs>
+
 
 @code {
-
+    
     [Parameter] public string Nickname { get; set; }
 
+    Player player;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        player = await PlayerService.GetPlayerAndTeamByNicknameAsync(Nickname);
+    }
 }

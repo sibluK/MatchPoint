@@ -1,0 +1,50 @@
+﻿@rendermode InteractiveServer
+
+@inject NavigationManager Navigation
+
+<FluentBreadcrumb>
+    @foreach (var (name, url) in _breadcrumbs)
+    {
+        <FluentBreadcrumbItem Href="@url">@name</FluentBreadcrumbItem>
+    }
+</FluentBreadcrumb>
+
+@code {
+    
+    private List<(string Name, string Url)> _breadcrumbs = new();
+
+    protected override void OnInitialized()
+    {
+        Navigation.LocationChanged += HandleLocationChanged;
+        GenerateBreadcrumbs(); // Initial load
+    }
+
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        GenerateBreadcrumbs();
+        StateHasChanged(); 
+    }
+
+    private void GenerateBreadcrumbs()
+    {
+        _breadcrumbs.Clear();
+        var uri = Navigation.Uri.Replace(Navigation.BaseUri, "");
+        var segments = uri.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+        string path = "";
+        foreach (var segment in segments)
+        {
+            path += $"/{segment}";
+            _breadcrumbs.Add((FormatBreadcrumb(segment), path));
+        }
+    }
+
+    private string FormatBreadcrumb(string segment)
+    {
+        char firstLetter = char.ToUpper(segment[0]);
+        string finalString = firstLetter + segment.Substring(1);
+
+        return finalString;
+    }
+    
+}

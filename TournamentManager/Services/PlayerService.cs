@@ -17,4 +17,12 @@ public class PlayerService
     {
         return await _dbContext.Players.ToListAsync();
     }
+
+    public async Task<Player> GetPlayerAndTeamByNicknameAsync(string nickname)
+    {
+        return await _dbContext.Players
+            .Include(p => p.Team)
+            .FirstAsync(p => p.Nickname == nickname);
+
+    }
 }
