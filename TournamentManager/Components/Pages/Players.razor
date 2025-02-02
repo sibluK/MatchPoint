@@ -1,11 +1,13 @@
 ﻿@page "/players"
-@inject NavigationManager Navigation
-@inject PlayerService PlayerService
+
 @using TournamentManager.Models
 @using TournamentManager.Services
 @rendermode InteractiveServer
 
-<div style="overflow-x:auto; display:flex;">
+@inject NavigationManager Navigation
+@inject PlayerService PlayerService
+
+<div>
     <FluentDataGrid Items="@FilteredItems"
                     GridTemplateColumns="0.2fr 0.2fr 0.2fr 0.2fr 0.2fr"
                     Pagination="@pagination"

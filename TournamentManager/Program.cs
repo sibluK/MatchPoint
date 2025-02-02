@@ -22,6 +22,7 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<PlayerService>();
+builder.Services.AddScoped<MenuService>();
 
 
 builder.Services.AddAuthentication(options =>
