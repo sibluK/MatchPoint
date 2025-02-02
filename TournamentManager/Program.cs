@@ -8,6 +8,7 @@ using TournamentManager.Data;
 using TournamentManager.Models;
 using TournamentManager.Models.Enum;
 using TournamentManager.Models.Enums;
+using TournamentManager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +16,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddFluentUIComponents();
 
+
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<PlayerService>();
+
 
 builder.Services.AddAuthentication(options =>
     {
