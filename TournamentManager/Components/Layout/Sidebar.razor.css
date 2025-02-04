@@ -1,4 +1,73 @@
-﻿@media screen and (max-width: 968px) {
+﻿.sidebar {
+    width: 200px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(238,238,238,1) 0%, rgba(213,213,213,1) 52%, rgba(238,238,238,1) 100%);
+    height: fit-content;
+}
+
+.sidebar p {
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.match-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(50, 50, 93, 0.25);
+    transition: background-color 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.match-wrapper:hover {
+    background-color: #d3d3d3;
+}
+
+.matches-wrapper h3 {
+    font-weight: 670;
+    text-align: center;
+}
+
+div.matches-wrapper > div:last-child {
+    border-bottom: 0 !important;
+}
+
+.match-tournament-name {
+    margin-bottom: 5px !important;
+}
+
+.match-teams-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.team-image {
+    width: 30px;
+}
+
+.versus-icon {
+    width: 15px;
+}
+
+.match-date, .match-time {
+    text-align: center;
+}
+
+
+.match-status {
+    
+}
+
+
+
+@media screen and (max-width: 968px) {
     .sidebar {
         display: none;
     }

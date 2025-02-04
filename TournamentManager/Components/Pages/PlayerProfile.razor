@@ -6,6 +6,7 @@
 @rendermode InteractiveServer
 
 @inject PlayerService PlayerService
+@inject NavigationManager Navigation
 
 <div class="player-information">
     <div class="player-image-wrapper">
@@ -16,7 +17,7 @@
         <p class="player-name">@player.Name</p>
         <p class="player-nationality-age">@player.Nationality, @(_helpers.CalculateAge(player.Birthday))</p>
         
-        <div class="player-team-wrapper">
+        <div class="player-team-wrapper" onclick="@(() => HandleTeamClick(player.Team.Name))">
             <img class="player-team-image" src="@player.Team.ImagePath"/>
             <p class="player-team-name">@player.Team.Name</p>
         </div>
@@ -62,10 +63,17 @@
 
     private Player player;
 
-    private Helpers _helpers = new Helpers();
+    private Helpers _helpers = new ();
     
     protected override async Task OnInitializedAsync()
     {
         player = await PlayerService.GetPlayerAndTeamByNicknameAsync(Nickname);
     }
+
+    private void HandleTeamClick(string teamName)
+    {
+        var formattedName = teamName.Replace(" ", "").ToLower();
+        Navigation.NavigateTo($"/teams/{formattedName}", forceLoad: true);
+    }
+    
 }
