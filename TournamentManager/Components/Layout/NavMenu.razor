@@ -13,13 +13,11 @@
     </label>
     <nav class="sitenav" aria-labelledby="main-menu">
         <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded" CustomToggle="true">
-            <FluentNavLink Class="nav-link-icon" Href="/" Match="NavLinkMatch.All" Icon="@(new Size20.Home())" >Home</FluentNavLink>
-            <FluentNavLink Class="nav-link-icon" Href="counter">Counter</FluentNavLink>
-            <FluentNavLink Class="nav-link-icon" Href="weather">Weather</FluentNavLink>
-            <FluentNavLink Class="nav-link-icon" Href="auth">Auth Required</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="/" Match="NavLinkMatch.All" Icon="@(new Size20.Home())">@Localizer["NavLink_Home"]</FluentNavLink>
             <FluentNavLink Class="nav-link-icon" Href="tournaments" Icon="@(new Size20.Trophy())">@Localizer["NavLink_Tournaments"]</FluentNavLink>
             <FluentNavLink Class="nav-link-icon" Href="teams" Icon="@(new Size20.PeopleTeam())">@Localizer["NavLink_Teams"]</FluentNavLink>
             <FluentNavLink Class="nav-link-icon" Href="players" Icon="@(new Size20.Person())">@Localizer["NavLink_Players"]</FluentNavLink>
+            <FluentNavLink Class="nav-link-icon" Href="auth">Auth Required</FluentNavLink>
             <AuthorizeView>
                 <Authorized>
                     <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
@@ -30,8 +28,8 @@
                     </form>
                 </Authorized>
                 <NotAuthorized>
-                    <FluentNavLink Href="Account/Register">@Localizer["NavLink_Register"]</FluentNavLink>
-                    <FluentNavLink Href="Account/Login">@Localizer["NavLink_Login"]</FluentNavLink>
+                    <FluentNavLink Class="nav-link-icon" Href="Account/Register">@Localizer["NavLink_Register"]</FluentNavLink>
+                    <FluentNavLink Class="nav-link-icon" Href="Account/Login">@Localizer["NavLink_Login"]</FluentNavLink>
                 </NotAuthorized>
             </AuthorizeView>
         </FluentNavMenu>

@@ -15,12 +15,12 @@
                     OnCellClick="HandleCellClick">
 
         <!-- Player Image -->
-        <TemplateColumn class="table-row" Style="height: 50px" Title="Avatar" Tooltip="true" Align="Align.Center">
+        <TemplateColumn Style="height: 50px; cursor: pointer" Title="Avatar" Tooltip="true" Align="Align.Center">
             <img class="player-avatar" src="@context.ImagePath" alt="Avatar of @(context.Nickname)" style="width: 40px; height: 40px; border-radius: 5px;" />
         </TemplateColumn>
 
         <!-- Nickname with OnClick -->
-        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Nickname">
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Nickname">
             <ColumnOptions>
                 <div class="search-box">
                     <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="Search nickname..." Style="width: 100%;" Label="Filter" />
@@ -29,13 +29,13 @@
         </PropertyColumn>
 
         <!-- Nationality -->
-        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Nationality" />
+        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Nationality"/>
 
         <!-- Birthday -->
-        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Birthday)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Birthday" />
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Birthday)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Birthday" />
 
         <!-- Status -->
-        <PropertyColumn class="table-row" Style="height: 50px" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Status" />
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Status" />
 
     </FluentDataGrid>
 
@@ -90,7 +90,7 @@
     {
         if (cell.Item is Player player)
         {
-            Navigation.NavigateTo($"/players/{player.Nickname}");
+            Navigation.NavigateTo($"/players/{player.Nickname}", forceLoad: true);
         }
     }
 }

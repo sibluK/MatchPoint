@@ -1,0 +1,114 @@
+﻿.player-information {
+    display: flex;
+    gap: 5px;
+    border-radius: 10px;
+    position: relative;
+    background: linear-gradient(98deg, rgba(203,203,203,1) 12%, rgba(255,255,255,1) 64%, rgba(231,231,231,1) 100%);
+    padding-right: 150px;
+    width: fit-content;
+}
+
+.player-image-wrapper {
+
+}
+
+.player-image {
+    width: 200px;
+}
+
+.player-information-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.player-information-wrapper p {
+    margin-bottom: 0;
+}
+
+.player-nickname {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1; 
+    display: block;
+    width: 100%;
+    overflow-wrap: break-word;
+    padding-bottom: 10px;
+}
+
+.player-nationality-age,
+.player-name {
+    color: #8f8e8e;
+    padding-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.player-team-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.player-team-image {
+    width: 25px;
+
+}
+
+.player-team-name {
+    text-wrap: nowrap;
+    font-weight: 600;
+}
+
+.player-status-wrapper {
+    background-color: #52b352;
+    opacity: 55%;
+    place-content: center;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px inset;
+}
+
+.player-status {
+    color: white;
+    text-align: center;
+    padding: 3px 10px;
+}
+
+.player-rating {
+    position: absolute;
+    right: 0;
+    background-color: rgba(231,231,231,1);
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px inset;
+}
+
+.player-rating p {
+    font-size: 1.1em;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+@media screen and (max-width: 968px) {
+    .player-information {
+        width: 100% !important;
+        padding-right: 0;
+    }
+    
+    .player-information-wrapper {
+        width: fit-content;
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    .player-nickname {
+        font-size: 1.2rem;
+    }
+}
+

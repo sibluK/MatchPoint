@@ -76,4 +76,7 @@
     <data name="NavLink_Logout" xml:space="preserve">
         <value>Logout</value>
     </data>
+    <data name="NavLink_Home" xml:space="preserve">
+        <value>Home</value>
+    </data>
 </root>

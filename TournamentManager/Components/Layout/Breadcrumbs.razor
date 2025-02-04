@@ -2,12 +2,14 @@
 
 @inject NavigationManager Navigation
 
-<FluentBreadcrumb>
-    @foreach (var (name, url) in _breadcrumbs)
-    {
-        <FluentBreadcrumbItem Href="@url">@name</FluentBreadcrumbItem>
-    }
-</FluentBreadcrumb>
+<div class="breadcrumbs">
+    <FluentBreadcrumb>
+        @foreach (var (name, url) in _breadcrumbs)
+        {
+            <FluentBreadcrumbItem Href="@url">@name</FluentBreadcrumbItem>
+        }
+    </FluentBreadcrumb>
+</div>
 
 @code {
     
@@ -16,7 +18,7 @@
     protected override void OnInitialized()
     {
         Navigation.LocationChanged += HandleLocationChanged;
-        GenerateBreadcrumbs(); // Initial load
+        GenerateBreadcrumbs();
     }
 
     private void HandleLocationChanged(object sender, LocationChangedEventArgs e)

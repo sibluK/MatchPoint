@@ -1,7 +1,78 @@
-﻿<div class="sidebar">
-    <h2>Sidebar</h2>
+﻿@using TournamentManager.Models
+@using TournamentManager.Models.Enums
+@using TournamentManager.Services
+@rendermode InteractiveServer
+
+@inject TournamentService TournamentService
+@inject MatchService MatchService
+@inject NavigationManager Navigation
+
+<div class="sidebar">
+    <!--
+    <div class="tournaments-wrapper">
+        <h3>Tournaments</h3>
+        @foreach (var tournament in _tournaments)
+        {
+            <div class="tournament-wrapper">
+                <p>@tournament.Name</p>
+                <p>@tournament.StartDate</p>
+                <p>@tournament.Status</p>
+            </div>
+
+        }
+    </div>
+    -->
+
+    <div class="matches-wrapper">
+        <h3>Matches</h3>
+        @foreach (var match in _matches)
+        {
+            <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
+                <p class="match-tournament-name">@match.Bracket.Tournament.Name</p>
+
+                <div class="match-teams-wrapper">
+                    <img class="team-image" src="@($"{match.Team1.ImagePath}")"/>
+                    <img class="versus-icon" src="/Images/UI/swords.png"/>
+                    <img class="team-image" src="@($"{match.Team2.ImagePath}")"/>
+                </div>
+
+
+                @if (match.Status == ActivityStatus.Live)
+                {
+                    <p class="match-status">Live</p>
+                }
+                else
+                {
+                    <p class="match-date">@match.StartDate.ToString("D", CultureInfo.CurrentCulture)</p>
+                    <p class="match-time">@match.StartDate.ToString("t", CultureInfo.CurrentCulture)</p>
+                }
+            </div>
+        }
+    </div>
+
 </div>
 
 @code {
+
+    private List<Tournament> _tournaments;
+    private List<Match> _matches;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _tournaments = (await TournamentService.GetAllTournamentsAsync())
+            .OrderBy(t => Math.Abs((t.StartDate - DateTime.UtcNow).Ticks))
+            .ToList();
+        _matches = (await MatchService.GetAllMatchesAsync())
+            .OrderBy(t => Math.Abs((t.StartDate - DateTime.UtcNow).Ticks))
+            .Take(5)
+            .ToList();
+        StateHasChanged();
+    }
+
+    private void HandleMatchClick(Guid matchId)
+    {
+        Navigation.NavigateTo($"/matches/{matchId}", forceLoad: true);
+    }
+    
     
 }

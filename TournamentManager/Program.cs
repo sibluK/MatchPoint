@@ -16,13 +16,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddFluentUIComponents();
 
-
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<PlayerService>();
-builder.Services.AddScoped<MenuService>();
+builder.Services.AddScoped<TournamentService>();
+builder.Services.AddScoped<MatchService>();
 
 
 builder.Services.AddAuthentication(options =>
@@ -51,6 +51,8 @@ builder.Services.AddControllers();
 
 
 var app = builder.Build();
+
+app.UseStaticFiles();
 
 using (var scope = app.Services.CreateScope())
 {
