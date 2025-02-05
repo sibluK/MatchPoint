@@ -15,6 +15,8 @@ public class TournamentService
 
     public async Task<List<Tournament>> GetAllTournamentsAsync()
     {
-        return await _dbContext.Tournaments.ToListAsync();
+        return await _dbContext.Tournaments
+            .Include(t => t.Teams)
+            .ToListAsync();
     }
 }

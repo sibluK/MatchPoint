@@ -9,31 +9,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Match.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TeamProfile.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/Services/MatchService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/wwwroot/Images/UI/swords.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TournamentManager/wwwroot/js/site.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/App.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Match.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/_Imports.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.resx" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.resx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.resx" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.resx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Services/TournamentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/TournamentService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/wwwroot/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/wwwroot/app.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -88,6 +73,7 @@
   "keyToString": {
     ".NET Launch Settings Profile.TournamentManager: http.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "player-page",
     "ignore.virus.scanning.warn.message": "true",
     "list.type.of.created.stylesheet": "CSS",
@@ -158,7 +144,8 @@
       <workItem from="1738597087468" duration="2393000" />
       <workItem from="1738610810361" duration="2857000" />
       <workItem from="1738657111910" duration="19327000" />
-      <workItem from="1738705059313" duration="2278000" />
+      <workItem from="1738705059313" duration="2451000" />
+      <workItem from="1738786639806" duration="5758000" />
     </task>
     <servers />
   </component>

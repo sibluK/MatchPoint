@@ -1,8 +1,9 @@
 ﻿.sidebar {
-    width: 200px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background: var(--neutral-layer-2);
     height: fit-content;
+    min-width: 210px;
+    margin: 15px;
     padding-top: 5px;
 }
 
@@ -11,62 +12,64 @@
     font-weight: 600;
 }
 
-.match-wrapper {
+.sidebar h3 {
+    text-align: center;
+    font-weight: 670;
+}
+.tournament-tournament-name {
+    font-size: 1.1rem;
+}
+
+.tournament-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     border-bottom: 1px solid rgba(50, 50, 93, 0.25);
     transition: background-color 0.1s ease-in-out;
     cursor: pointer;
-    padding: 10px 10px;
+    padding: 10px 15px;
 }
 
-.match-wrapper:hover {
+.tournament-wrapper:hover {
     background: var(--neutral-layer-3);
 }
 
-.matches-wrapper h3 {
-    font-weight: 670;
-    text-align: center;
-}
-
-div.matches-wrapper > div:last-child {
+div.sidebar > div:last-child {
     border-bottom: 0 !important;
 }
 
-.match-tournament-name {
+div.tournament-wrapper > div:last-child:hover {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.tournament-tournament-name {
     margin-bottom: 5px !important;
 }
 
-.match-teams-wrapper {
+.tournament-teams-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
 }
 
-.team-image {
-    width: 30px;
-}
-
-.versus-icon {
-    width: 15px;
-}
-
-.match-date, .match-time {
+.tournament-date, .tournament-time {
     text-align: center;
 }
 
-
-.match-status {
-    
+.tournament-teams-wrapper {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 5px;
 }
 
+.tournament-team-image {
+    width: 20px;
+}
 
-
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 600px) {
     .sidebar {
         display: none;
     }

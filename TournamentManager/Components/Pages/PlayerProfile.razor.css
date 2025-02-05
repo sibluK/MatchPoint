@@ -3,7 +3,7 @@
     gap: 5px;
     border-radius: 10px;
     position: relative;
-    background: linear-gradient(98deg, rgba(203,203,203,1) 12%, rgba(255,255,255,1) 64%, rgba(231,231,231,1) 100%);
+    background: linear-gradient(90deg, rgba(222,221,221,1) 8%, rgba(246,246,246,1) 57%, rgba(238,238,238,1) 100%);
     padding-right: 150px;
     width: fit-content;
 }
