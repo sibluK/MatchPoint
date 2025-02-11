@@ -52,6 +52,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 v => (ActivityStatus)Enum.Parse(typeof(ActivityStatus), v)
             );
         
+        modelBuilder.Entity<Tournament>()
+            .Property(g => g.Type)
+            .HasConversion(
+                v => v.ToString(),
+                v => (TournamentType)Enum.Parse(typeof(TournamentType), v)
+            );
         modelBuilder.Entity<Player>()
             .Property(g => g.Status)
             .HasConversion(

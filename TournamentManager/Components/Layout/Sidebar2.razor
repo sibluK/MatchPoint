@@ -28,9 +28,13 @@
             }
             else
             {
-                <p class="tournament-date">@tournament.StartDate.ToString("D", CultureInfo.CurrentCulture)</p>
-                <p class="tournament-time">@tournament.StartDate.ToString("t", CultureInfo.CurrentCulture)</p>
+                <p class="tournament-date">
+                    @tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
+                    - 
+                    @tournament.EndDate.ToString("MMM d", CultureInfo.CurrentCulture)
+                </p>
             }
+            <p class="tournament-prize">$@tournament.Prize</p>
         </div>
     }
 </div>

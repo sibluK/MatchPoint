@@ -9,7 +9,7 @@
 
 <div>
     <FluentDataGrid Items="@FilteredItems"
-                    GridTemplateColumns="0.2fr 0.2fr 0.2fr 0.2fr 0.2fr"
+                    GridTemplateColumns="0.1fr 0.2fr 0.1fr 0.2fr 0.2fr 0.2fr"
                     Pagination="@pagination"
                     TGridItem="Player"
                     OnCellClick="HandleCellClick">
@@ -27,12 +27,15 @@
                 </div>
             </ColumnOptions>
         </PropertyColumn>
-
+        
+        <!-- Rating -->
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Rating)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Rating"/>
+        
         <!-- Nationality -->
         <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Nationality"/>
 
         <!-- Birthday -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Birthday)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Birthday" />
+        <PropertyColumn Style="height: 50px; cursor: pointer"  Property="@(c => GetFormattedDate(c.Birthday))"  Sortable="true" Align="Align.Center" Tooltip="true" Title="Birthday" />
 
         <!-- Status -->
         <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Status" />
@@ -90,5 +93,10 @@
         {
             Navigation.NavigateTo($"/players/{player.Nickname}", forceLoad: true);
         }
+    }
+    
+    private string GetFormattedDate(DateTime? date)
+    {
+        return date?.ToString("d", CultureInfo.CurrentCulture) ?? "N/A"; 
     }
 }

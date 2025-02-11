@@ -6,6 +6,8 @@
     background: linear-gradient(90deg, rgba(222,221,221,1) 8%, rgba(246,246,246,1) 57%, rgba(238,238,238,1) 100%);
     padding-right: 150px;
     width: fit-content;
+    background: black;
+    color: white;
 }
 
 .player-image-wrapper {
@@ -65,7 +67,6 @@
 
 .player-status-wrapper {
     background-color: #52b352;
-    opacity: 55%;
     place-content: center;
     width: 100px;
     border-radius: 5px;
@@ -86,6 +87,7 @@
     border-bottom-left-radius: 5px;
     padding: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px inset;
+    color: black;
 }
 
 .player-rating p {
@@ -93,6 +95,37 @@
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
 }
+
+.gold {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+    radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+    color: white;
+}
+
+.silver {
+    background: linear-gradient(
+            45deg,
+            #999 5%,
+            #fff 10%,
+            #ccc 30%,
+            #ddd 50%,
+            #ccc 70%,
+            #fff 80%,
+            #999 95%
+    );
+}
+
+.bronze {
+    background: linear-gradient(153deg, rgba(252,224,193,1) 0%, rgba(198,121,38,1) 23%, rgba(232,187,63,1) 60%, rgba(245,238,201,1) 100%);
+    color: white;
+}
+
+.white {
+    background-color: white;
+}
+
+
+
 
 @media screen and (max-width: 968px) {
     .player-information {
@@ -103,7 +136,6 @@
     .player-information-wrapper {
         width: fit-content;
     }
-
 }
 
 @media screen and (max-width: 500px) {

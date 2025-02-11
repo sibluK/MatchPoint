@@ -29,7 +29,7 @@
 
 .match-wrapper:hover {
     background: var(--neutral-layer-3);
-    background: #131313;
+    background: var(--blackbackground-hover);
 }
 
 .matches-wrapper h3 {

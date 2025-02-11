@@ -27,7 +27,9 @@
                 }
                 else
                 {
-                    <p class="match-date">@match.StartDate.ToString("D", CultureInfo.CurrentCulture)</p>
+                    <p class="match-date">
+                        @match.StartDate.ToString("MMMM d, dddd", CultureInfo.CurrentCulture)
+                    </p>
                     <p class="match-time">@match.StartDate.ToString("t", CultureInfo.CurrentCulture)</p>
                 }
             </div>
