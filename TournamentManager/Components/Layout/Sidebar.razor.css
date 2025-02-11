@@ -2,8 +2,12 @@
     width: 200px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background: var(--neutral-layer-2);
+    background: black;
+    color: white;
     height: fit-content;
     padding-top: 5px;
+    margin-left: auto;
+    border-radius: 7px;
 }
 
 .sidebar p {
@@ -25,6 +29,7 @@
 
 .match-wrapper:hover {
     background: var(--neutral-layer-3);
+    background: #131313;
 }
 
 .matches-wrapper h3 {
@@ -52,7 +57,7 @@ div.matches-wrapper > div:last-child {
 }
 
 .versus-icon {
-    width: 15px;
+    width: 20px;
 }
 
 .match-date, .match-time {

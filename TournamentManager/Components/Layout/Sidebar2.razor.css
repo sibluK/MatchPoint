@@ -1,10 +1,13 @@
 ﻿.sidebar {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background: var(--neutral-layer-2);
+    background: black;
+    color: white;
     height: fit-content;
     min-width: 210px;
     margin: 15px;
     padding-top: 5px;
+    border-radius: 7px;
 }
 
 .sidebar p {
@@ -34,6 +37,7 @@
 
 .tournament-wrapper:hover {
     background: var(--neutral-layer-3);
+    background: #131313;
 }
 
 div.sidebar > div:last-child {
