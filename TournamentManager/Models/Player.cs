@@ -10,6 +10,7 @@ public class Player
     public string? Name { get; set; } 
     public string? Nationality { get; set; }
     public DateTime? Birthday { get; set; }
+    public int Rating { get; set; } = 0;
     public string? ImagePath { get; set; } = string.Empty;
     
     // Foreign keys

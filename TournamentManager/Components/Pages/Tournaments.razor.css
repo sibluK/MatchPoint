@@ -1,0 +1,125 @@
+﻿.tournaments-page-wrapper {
+    width: 65%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tournaments-page-wrapper h3 {
+    margin-bottom: 0;
+}
+
+.featured-tournament {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-content: center;
+    text-align: center;
+    padding: 10px;
+    background: black;
+    color: white;
+    border-radius: 7px;
+    transition: background 0.1s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.featured-tournament:hover {
+    background: var(--blackbackground-hover);
+    cursor: pointer;
+}
+
+.tournament-teams-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: fit-content;
+    padding: 10px;
+}
+
+.left-column {
+    margin-left: 20px;
+}
+
+.right-column {
+    margin-right: 20px;
+}
+
+.tournament-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.tournament-prize {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.team-image {
+    width: 25px;
+}
+
+.up-tournament-list {
+    border-radius: 7px;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.up-tournament {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    transition: background-color 0.1s ease-in-out;
+    border-radius: 7px;
+}
+
+.up-tournament:hover {
+    background-color: var(--blackbackground-hover);
+    cursor: pointer;
+}
+
+.up-tournament-name-date {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.up-tournament-name, 
+.up-tournament-date {
+    margin-bottom: 0;
+}
+
+.up-tournament-type-prize {
+    display: flex;
+    gap: 60px;
+}
+
+.up-tournament-type,
+.up-tournament-prize {
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+}
+
+.up-tournament-prize {
+    margin-right: 50px;
+}
+
+
+@media screen and (max-width: 1260px) {
+    .tournaments-page-wrapper {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .tournaments-page-wrapper {
+        width: 100%;
+    }
+}

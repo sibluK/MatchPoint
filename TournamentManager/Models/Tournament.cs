@@ -7,6 +7,9 @@ public class Tournament
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
     public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public int Prize { get; set; } = 0;
+    public TournamentType Type { get; set; }
     public ActivityStatus Status { get; set; } = ActivityStatus.Upcoming;
     
     // Foreign keys

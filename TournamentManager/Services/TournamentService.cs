@@ -17,6 +17,16 @@ public class TournamentService
     {
         return await _dbContext.Tournaments
             .Include(t => t.Teams)
+            .OrderBy(t => t.StartDate)
             .ToListAsync();
+    }
+
+    public async Task<Tournament> GetFeaturedTournamentAsync()
+    {
+        return await _dbContext.Tournaments
+            .Include(t => t.Teams)
+            .OrderByDescending(t => t.Prize)
+            .ThenBy(t => t.StartDate)
+            .FirstOrDefaultAsync();
     }
 }
