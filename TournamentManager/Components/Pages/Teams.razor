@@ -1,69 +1,94 @@
 ﻿@page "/teams"
-@using Microsoft.EntityFrameworkCore
 @using TournamentManager.Models
+@using TournamentManager.Services
+@rendermode InteractiveServer
+
 @inject Data.ApplicationDbContext DbContext
+@inject NavigationManager Navigation
+@inject TeamService TeamService
 
-<h3>Teams</h3>
+<div>
+    <FluentDataGrid Items="@FilteredItems"
+                    GridTemplateColumns="0.2fr 0.2fr 0.2fr 0.2fr 0.2fr"
+                    Pagination="@pagination"
+                    TGridItem="Team"
+                    OnCellClick="HandleCellClick">
 
-@if (teams is null)
-{
-    <p>Loading teams...</p>
-}
-else if (!teams.Any())
-{
-    <p>No teams found.</p>
-}
-else
-{
-    <ul>
-        @foreach (var team in teams)
-        {
-            <li>@team.Name</li>
-            <li>@team.Region</li>
-            <img width="100x" height="100px" src="@team.ImagePath"/>
+        <!-- Team Image -->
+        <TemplateColumn Style="height: 50px; cursor: pointer" Title="Avatar" Tooltip="true" Align="Align.Center">
+            <img class="team-image" src="@context.ImagePath" alt="Avatar of @(context.Name)" style="width: 40px; height: 40px; border-radius: 5px;" />
+        </TemplateColumn>
 
-            <p>Players</p>
-            if (team.Players.Any())
-            {
-                foreach (var player in team.Players)
-                {
-                    <li>@player.Nickname</li>
-                    <img width="100x" height="100px" src="@player.ImagePath"/>
-                }
-            }
-            else
-            {
-                <p>No players found in team.</p>
-            }
-            
-            
-            <p>Tournaments</p>
-            if (team.Tournaments.Any())
-            {
-                foreach (var tournament in team.Tournaments)
-                {
-                    <li>@tournament.Name</li>
-                    <li>@tournament.Status</li>
-                }
-            }
-            else
-            {
-                <p>No tournaments found.</p>
-            }
-        }
-    </ul>
-}
+        <!-- Name -->
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Align="Align.Center" Tooltip="true" Title="Name">
+            <ColumnOptions>
+                <div class="search-box">
+                    <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="Search name..." Style="width: 100%;" Label="Filter" />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
 
+        <!-- Ranking -->
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Ranking)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Ranking" />
+        
+        <!-- Points -->
+        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Points)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Points"/>
+        
+        <!-- Region -->
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Region)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Region" />
+
+    </FluentDataGrid>
+</div>
+
+<FluentPaginator State="@pagination" />
 
 @code {
-    private List<Team>? teams;
+    bool _clearItems = false;
+    IQueryable<Team>? items;
+    PaginationState pagination = new PaginationState { ItemsPerPage = 20 };
+    string nameFilter = string.Empty;
+
+    IQueryable<Team>? FilteredItems
+    {
+        get
+        {
+            var result = items;
+
+            if (!string.IsNullOrEmpty(nameFilter))
+            {
+                result = result?.Where(c => c.Name.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            return result;
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        teams = await DbContext.Teams
-            .Include(t => t.Players)
-            .Include(t => t.Tournaments)
-            .ToListAsync();
+        items = (await TeamService.GetAllTeamsAsync()).AsQueryable();
     }
 
+    private void HandlePlayerFilter(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            nameFilter = value;
+        }
+    }
+
+    private void HandleClear()
+    {
+        if (string.IsNullOrWhiteSpace(nameFilter))
+        {
+            nameFilter = string.Empty;
+        }
+    }
+
+    private void HandleCellClick(FluentDataGridCell<Team> cell)
+    {
+        if (cell.Item is Team team)
+        {
+            Navigation.NavigateTo($"/teams/{team.Name}", forceLoad: true);
+        }
+    }
 }

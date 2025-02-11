@@ -20,7 +20,7 @@
         </TemplateColumn>
 
         <!-- Nickname with OnClick -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Nickname">
+        <PropertyColumn Align="Align.Center" Style="height: 50px; cursor: pointer" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Nickname">
             <ColumnOptions>
                 <div class="search-box">
                     <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="Search nickname..." Style="width: 100%;" Label="Filter" />
@@ -38,8 +38,6 @@
         <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Status" />
 
     </FluentDataGrid>
-
-
 </div>
 
 <FluentPaginator State="@pagination" />

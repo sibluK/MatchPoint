@@ -1,0 +1,55 @@
+﻿@using TournamentManager.Models
+@using TournamentManager.Models.Enums
+@using TournamentManager.Services
+@rendermode InteractiveServer
+
+@inject TournamentService TournamentService
+@inject NavigationManager Navigation
+
+
+<div class="sidebar">
+    <h3 class="">Tournaments</h3>
+    @foreach (var tournament in _tournaments)
+    {
+        <div class="tournament-wrapper" onclick="@(() => HandleTournamentClick(tournament.Id))">
+            <p class="tournament-tournament-name">@tournament.Name</p>
+            
+            <div class="tournament-teams-wrapper">
+                @foreach (var team in tournament.Teams)
+                {
+                    <img class="tournament-team-image" src="@team.ImagePath"/>
+                }
+            </div>
+
+
+            @if (tournament.Status == ActivityStatus.Live)
+            {
+                <p class="tournament-status">Live</p>
+            }
+            else
+            {
+                <p class="tournament-date">@tournament.StartDate.ToString("D", CultureInfo.CurrentCulture)</p>
+                <p class="tournament-time">@tournament.StartDate.ToString("t", CultureInfo.CurrentCulture)</p>
+            }
+        </div>
+    }
+</div>
+
+
+@code {
+    private List<Tournament> _tournaments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _tournaments = (await TournamentService.GetAllTournamentsAsync())
+            .OrderBy(t => Math.Abs((t.StartDate - DateTime.UtcNow).Ticks))
+            .ToList();
+        
+        StateHasChanged();
+    }
+
+    private void HandleTournamentClick(Guid tournamentId)
+    {
+        Navigation.NavigateTo($"/tournaments/{tournamentId}");
+    }
+}

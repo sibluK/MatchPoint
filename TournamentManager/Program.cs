@@ -23,6 +23,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuth
 builder.Services.AddScoped<PlayerService>();
 builder.Services.AddScoped<TournamentService>();
 builder.Services.AddScoped<MatchService>();
+builder.Services.AddScoped<TeamService>(); 
 
 
 builder.Services.AddAuthentication(options =>

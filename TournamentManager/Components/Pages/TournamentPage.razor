@@ -1,0 +1,8 @@
+﻿@page "/tournaments/{tournamentId}"
+<h3>TournamentPage</h3>
+
+<p>@tournamentId</p>
+
+@code {
+    [Parameter] public string tournamentId { get; set; }
+}
