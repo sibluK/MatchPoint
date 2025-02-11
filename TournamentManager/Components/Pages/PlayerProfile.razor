@@ -1,5 +1,6 @@
 ﻿@page "/players/{nickname}"
 
+@using TournamentManager.DTOs
 @using TournamentManager.Models
 @using TournamentManager.Services
 @using TournamentManager.Utility
@@ -43,13 +44,26 @@
     <FluentTab>
         <Header>Statistics</Header>
         <Content>
-            1 kd
+            <div class="player-stats-wrapper">
+                <div class="statistic">Maps Played<span class="stat-value">@stats.MapsPlayed</span></div>
+                <div class="statistic">Kills<span class="stat-value">@stats.Kills</span></div>
+                <div class="statistic">KDR<span class="stat-value @GetKDRClass(stats.KDR)">@stats.KDR</span></div>
+                <div class="statistic">Deaths<span class="stat-value">@stats.Deaths</span></div>
+                <div class="statistic">Kill - Death difference<span class="stat-value">@stats.KillDeathDiff</span></div>
+                <div class="statistic">Assists<span class="stat-value">@stats.Assists</span></div>
+            </div>
         </Content>
     </FluentTab>
     <FluentTab>
         <Header>Tournaments</Header>
         <Content>
             IEM Cologne
+        </Content>
+    </FluentTab>
+    <FluentTab>
+        <Header>Matches</Header>
+        <Content>
+            Match card
         </Content>
     </FluentTab>
     
@@ -62,11 +76,14 @@
 
     private Player player;
 
+    private PlayerStatistics stats;
+
     private Helpers _helpers = new ();
     
     protected override async Task OnInitializedAsync()
     {
         player = await PlayerService.GetPlayerAndTeamByNicknameAsync(Nickname);
+        stats = await PlayerService.GetPlayerStatsByNicknameAsync(Nickname);
     }
 
     private void HandleTeamClick(string teamName)
@@ -83,6 +100,16 @@
             <= 10 => "silver",
             <= 20 => "bronze",
             _ => "white"
+        };
+    }
+    
+    private string GetKDRClass(double KDR)
+    {
+        return KDR switch
+        {
+            <= 0.99 => "underOne",
+            >= 1 => "overOne",
+            _ => "" 
         };
     }
     

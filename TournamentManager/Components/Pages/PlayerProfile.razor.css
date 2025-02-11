@@ -124,6 +124,34 @@
     background-color: white;
 }
 
+.player-stats-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 70%;
+    padding: 10px;
+    text-wrap: nowrap;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 1.1em;
+
+}
+
+.statistic {
+
+}
+
+.stat-value {
+    margin-right: 50px;
+    float: right;
+}
+
+.underOne {
+    color: red;
+}
+
+.overOne {
+    color: green;
+}
 
 
 
@@ -135,6 +163,10 @@
     
     .player-information-wrapper {
         width: fit-content;
+    }
+
+    .player-stats-wrapper {
+        width: 100%;
     }
 }
 
