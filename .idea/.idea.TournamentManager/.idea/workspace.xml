@@ -9,15 +9,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TournamentManager/DTOs/PlayerStatistics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/TeamService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/TeamService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/PlayerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/PlayerService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,10 +52,12 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36c6debb2d92c5b09cb925ed47ceead26bc93f9a5d64cc961f6865d5961b/FluentDataGrid.razor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/56a854a5077d6d3174e5f0a7b767acbfbbf941ac5f38dd2a2587e0b69cd196/FluentTab.razor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7597204134a25228a35a9844e77fcf89deaa11ac995fa4da81d8ca2ac5e443/FluentStack.razor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d382df578ec93391918cfaa4ce7f4b8f35c9aed1241d6556dc9be26df13c/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c333538d8f8419e6653f459a98486459a863b8a4b30ff6beb6ead8d7d7ae477/AuthorizeView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cac5fa534f7d4cbab179d985825c9173457254ca9c124794f13ff6494b9c1a3/FluentMenuProvider.razor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cec84dbd502bd78a65a06d7a1a14d2dbea5edefe7bd352789cdd9f38a7ef/FluentSpacer.razor.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -73,7 +75,7 @@
     &quot;.NET Launch Settings Profile.TournamentManager: http.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;teams-page&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;player-page&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -147,6 +149,7 @@
       <workItem from="1738786639806" duration="5835000" />
       <workItem from="1739213411541" duration="921000" />
       <workItem from="1739268609941" duration="2575000" />
+      <workItem from="1739312511489" duration="570000" />
     </task>
     <servers />
   </component>
