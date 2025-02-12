@@ -9,9 +9,7 @@ using TournamentManager.Models;
 using TournamentManager.Models.Enum;
 using TournamentManager.Models.Enums;
 using TournamentManager.Services;
-using Google.Apis.Auth.AspNetCore3;
 using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
