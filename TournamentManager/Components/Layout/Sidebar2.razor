@@ -5,10 +5,11 @@
 
 @inject TournamentService TournamentService
 @inject NavigationManager Navigation
+@inject IStringLocalizer<Resource> Localizer
 
 
 <div class="sidebar">
-    <h3 class="">Tournaments</h3>
+    <h3>@Localizer["Tournaments"]</h3>
     @foreach (var tournament in _tournaments)
     {
         <div class="tournament-wrapper" onclick="@(() => HandleTournamentClick(tournament.Id))">
@@ -48,7 +49,6 @@
         _tournaments = (await TournamentService.GetAllTournamentsAsync())
             .OrderBy(t => Math.Abs((t.StartDate - DateTime.UtcNow).Ticks))
             .ToList();
-        
         StateHasChanged();
     }
 

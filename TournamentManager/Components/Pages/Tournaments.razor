@@ -6,9 +6,10 @@
 
 @inject TournamentService TournamentService
 @inject NavigationManager Navigation
+@inject IStringLocalizer<Resource> Localizer
 
 <div class="tournaments-page-wrapper">
-    <h3>Featured</h3>
+    <h3>@Localizer["Featured"]</h3>
     <div class="featured-tournament" onclick="@(() => HandleTournamentClick(_featuredTournament.Id))">
         <div class="tournament-teams-column left-column">
             @foreach (var team in firstColumnTeams)
@@ -32,7 +33,7 @@
 
     </div>
 
-    <h3>Upcoming tournaments</h3>
+    <h3>@Localizer["Upcoming_Tournaments"]</h3>
     <div class="up-tournaments">
         <div class="up-tournament-list">
             @foreach (var tournament in _tournaments)

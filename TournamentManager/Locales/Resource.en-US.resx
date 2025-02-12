@@ -79,4 +79,49 @@
     <data name="NavLink_Home" xml:space="preserve">
         <value>Home</value>
     </data>
+    <data name="Avatar" xml:space="preserve">
+        <value>Avatar</value>
+    </data>
+    <data name="Nickname" xml:space="preserve">
+        <value>Nickname</value>
+    </data>
+    <data name="Nickname_Search" xml:space="preserve">
+        <value>Search nickname...</value>
+    </data>
+    <data name="Rating" xml:space="preserve">
+        <value>Rating</value>
+    </data>
+    <data name="Nationality" xml:space="preserve">
+        <value>Nationality</value>
+    </data>
+    <data name="Birthday" xml:space="preserve">
+        <value>Birthday</value>
+    </data>
+    <data name="Player_Status" xml:space="preserve">
+        <value>Status</value>
+    </data>
+    <data name="Team_Name" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="Team_Ranking" xml:space="preserve">
+        <value>Ranking</value>
+    </data>
+    <data name="Team_Points" xml:space="preserve">
+        <value>Points</value>
+    </data>
+    <data name="Team_Region" xml:space="preserve">
+        <value>Region</value>
+    </data>
+    <data name="Featured" xml:space="preserve">
+        <value>Featured</value>
+    </data>
+    <data name="Upcoming_Tournaments" xml:space="preserve">
+        <value>Upcoming tournaments</value>
+    </data>
+    <data name="Tournaments" xml:space="preserve">
+        <value>Tournaments</value>
+    </data>
+    <data name="Matches" xml:space="preserve">
+        <value>Matches</value>
+    </data>
 </root>

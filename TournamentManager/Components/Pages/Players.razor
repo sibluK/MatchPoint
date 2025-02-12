@@ -6,39 +6,40 @@
 
 @inject NavigationManager Navigation
 @inject PlayerService PlayerService
+@inject IStringLocalizer<Resource> Localizer
 
 <div>
     <FluentDataGrid Items="@FilteredItems"
-                    GridTemplateColumns="0.1fr 0.2fr 0.1fr 0.2fr 0.2fr 0.2fr"
+                    GridTemplateColumns="0.2fr 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr"
                     Pagination="@pagination"
                     TGridItem="Player"
                     OnCellClick="HandleCellClick">
 
         <!-- Player Image -->
-        <TemplateColumn Style="height: 50px; cursor: pointer" Title="Avatar" Tooltip="true" Align="Align.Center">
+        <TemplateColumn Style="height: 50px; cursor: pointer" Title="@Localizer["Avatar"]" Tooltip="true" Align="Align.Center">
             <img class="player-avatar" src="@context.ImagePath" alt="Avatar of @(context.Nickname)" style="width: 40px; height: 40px; border-radius: 5px;" />
         </TemplateColumn>
 
         <!-- Nickname with OnClick -->
-        <PropertyColumn Align="Align.Center" Style="height: 50px; cursor: pointer" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Nickname">
+        <PropertyColumn Align="Align.Center" Style="height: 50px; cursor: pointer" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="@Localizer["Nickname"]">
             <ColumnOptions>
                 <div class="search-box">
-                    <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="Search nickname..." Style="width: 100%;" Label="Filter" />
+                    <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="@Localizer["Nickname_Search"]" Style="width: 100%;" Label="Filter" />
                 </div>
             </ColumnOptions>
         </PropertyColumn>
         
         <!-- Rating -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Rating)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Rating"/>
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Rating)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Rating"]"/>
         
         <!-- Nationality -->
-        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Nationality"/>
+        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Nationality"]"/>
 
         <!-- Birthday -->
-        <PropertyColumn Style="height: 50px; cursor: pointer"  Property="@(c => GetFormattedDate(c.Birthday))"  Sortable="true" Align="Align.Center" Tooltip="true" Title="Birthday" />
+        <PropertyColumn Style="height: 50px; cursor: pointer"  Property="@(c => GetFormattedDate(c.Birthday))"  Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Birthday"]" />
 
         <!-- Status -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Status" />
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Player_Status"]" />
 
     </FluentDataGrid>
 </div>
