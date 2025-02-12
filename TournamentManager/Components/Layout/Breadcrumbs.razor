@@ -30,7 +30,10 @@
     private void GenerateBreadcrumbs()
     {
         _breadcrumbs.Clear();
+        
         var uri = Navigation.Uri.Replace(Navigation.BaseUri, "");
+        uri = uri.Split('?')[0];
+
         var segments = uri.Split('/', StringSplitOptions.RemoveEmptyEntries);
 
         string path = "";
