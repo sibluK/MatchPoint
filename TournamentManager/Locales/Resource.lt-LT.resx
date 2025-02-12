@@ -79,4 +79,49 @@
     <data name="NavLink_Home" xml:space="preserve">
         <value>Pagrindinis</value>
     </data>
+    <data name="Avatar" xml:space="preserve">
+        <value>Nuotrauka</value>
+    </data>
+    <data name="Nickname" xml:space="preserve">
+        <value>Slapyvardis</value>
+    </data>
+    <data name="Nickname_Search" xml:space="preserve">
+        <value>Ieškokite slapyvardžio...</value>
+    </data>
+    <data name="Rating" xml:space="preserve">
+        <value>Reitingas</value>
+    </data>
+    <data name="Nationality" xml:space="preserve">
+        <value>Tautybė</value>
+    </data>
+    <data name="Birthday" xml:space="preserve">
+        <value>Gimimo data</value>
+    </data>
+    <data name="Player_Status" xml:space="preserve">
+        <value>Statusas</value>
+    </data>
+    <data name="Team_Name" xml:space="preserve">
+        <value>Pavadinimas</value>
+    </data>
+    <data name="Team_Ranking" xml:space="preserve">
+        <value>Reitingas</value>
+    </data>
+    <data name="Team_Points" xml:space="preserve">
+        <value>Taškai</value>
+    </data>
+    <data name="Team_Region" xml:space="preserve">
+        <value>Regionas</value>
+    </data>
+    <data name="Featured" xml:space="preserve">
+        <value>Populiaru</value>
+    </data>
+    <data name="Upcoming_Tournaments" xml:space="preserve">
+        <value>Artimiausi turnyrai</value>
+    </data>
+    <data name="Tournaments" xml:space="preserve">
+        <value>Turnyrai</value>
+    </data>
+    <data name="Matches" xml:space="preserve">
+        <value>Rungtynės</value>
+    </data>
 </root>

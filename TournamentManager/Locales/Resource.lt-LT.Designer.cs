@@ -87,6 +87,24 @@ namespace TournamentManager.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nuotrauka.
+        /// </summary>
+        internal static string Avatar {
+            get {
+                return ResourceManager.GetString("Avatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gimimo data.
+        /// </summary>
+        internal static string Birthday {
+            get {
+                return ResourceManager.GetString("Birthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dvigubas Iškritimas.
         /// </summary>
         internal static string BracketType_DE {
@@ -119,6 +137,33 @@ namespace TournamentManager.Locales {
         internal static string ButtonSubmit {
             get {
                 return ResourceManager.GetString("ButtonSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Populiaru.
+        /// </summary>
+        internal static string Featured {
+            get {
+                return ResourceManager.GetString("Featured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rungtynės.
+        /// </summary>
+        internal static string Matches {
+            get {
+                return ResourceManager.GetString("Matches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tautybė.
+        /// </summary>
+        internal static string Nationality {
+            get {
+                return ResourceManager.GetString("Nationality", resourceCulture);
             }
         }
         
@@ -186,6 +231,33 @@ namespace TournamentManager.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slapyvardis.
+        /// </summary>
+        internal static string Nickname {
+            get {
+                return ResourceManager.GetString("Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ieškokite slapyvardžio....
+        /// </summary>
+        internal static string Nickname_Search {
+            get {
+                return ResourceManager.GetString("Nickname_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statusas.
+        /// </summary>
+        internal static string Player_Status {
+            get {
+                return ResourceManager.GetString("Player_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aktyvus.
         /// </summary>
         internal static string PlayerStatus_Active {
@@ -213,6 +285,15 @@ namespace TournamentManager.Locales {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reitingas.
+        /// </summary>
+        internal static string Rating {
+            get {
+                return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Europa.
         /// </summary>
         internal static string Region_EU {
@@ -227,6 +308,60 @@ namespace TournamentManager.Locales {
         internal static string Region_NA {
             get {
                 return ResourceManager.GetString("Region_NA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pavadinimas.
+        /// </summary>
+        internal static string Team_Name {
+            get {
+                return ResourceManager.GetString("Team_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taškai.
+        /// </summary>
+        internal static string Team_Points {
+            get {
+                return ResourceManager.GetString("Team_Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reitingas.
+        /// </summary>
+        internal static string Team_Ranking {
+            get {
+                return ResourceManager.GetString("Team_Ranking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regionas.
+        /// </summary>
+        internal static string Team_Region {
+            get {
+                return ResourceManager.GetString("Team_Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turnyrai.
+        /// </summary>
+        internal static string Tournaments {
+            get {
+                return ResourceManager.GetString("Tournaments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Artimiausi turnyrai.
+        /// </summary>
+        internal static string Upcoming_Tournaments {
+            get {
+                return ResourceManager.GetString("Upcoming_Tournaments", resourceCulture);
             }
         }
         

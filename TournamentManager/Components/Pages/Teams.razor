@@ -6,6 +6,7 @@
 @inject Data.ApplicationDbContext DbContext
 @inject NavigationManager Navigation
 @inject TeamService TeamService
+@inject IStringLocalizer<Resource> Localizer
 
 <div>
     <FluentDataGrid Items="@FilteredItems"
@@ -15,12 +16,12 @@
                     OnCellClick="HandleCellClick">
 
         <!-- Team Image -->
-        <TemplateColumn Style="height: 50px; cursor: pointer" Title="Avatar" Tooltip="true" Align="Align.Center">
+        <TemplateColumn Style="height: 50px; cursor: pointer" Title="@Localizer["Avatar"]" Tooltip="true" Align="Align.Center">
             <img class="team-image" src="@context.ImagePath" alt="Avatar of @(context.Name)" style="width: 40px; height: 40px; border-radius: 5px;" />
         </TemplateColumn>
 
         <!-- Name -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Align="Align.Center" Tooltip="true" Title="Name">
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Name"]">
             <ColumnOptions>
                 <div class="search-box">
                     <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="Search name..." Style="width: 100%;" Label="Filter" />
@@ -29,13 +30,13 @@
         </PropertyColumn>
 
         <!-- Ranking -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Ranking)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Ranking" />
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Ranking)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Ranking"]" />
         
         <!-- Points -->
-        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Points)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Points"/>
+        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Points)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Points"]"/>
         
         <!-- Region -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Region)" Sortable="true" Align="Align.Center" Tooltip="true" Title="Region" />
+        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Region)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Region"]" />
 
     </FluentDataGrid>
 </div>

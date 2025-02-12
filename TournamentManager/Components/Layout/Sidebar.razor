@@ -5,10 +5,11 @@
 
 @inject MatchService MatchService
 @inject NavigationManager Navigation
+@inject IStringLocalizer<Resource> Localizer
 
 <div class="sidebar">
     <div class="matches-wrapper">
-        <h3>Matches</h3>
+        <h3>@Localizer["Matches"]</h3>
         @foreach (var match in _matches)
         {
             <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
