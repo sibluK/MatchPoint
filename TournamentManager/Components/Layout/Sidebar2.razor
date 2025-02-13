@@ -25,7 +25,10 @@
 
             @if (tournament.Status == ActivityStatus.Live)
             {
-                <p class="tournament-status">Live</p>
+                <div class="live-status-wrapper">
+                    <div class="live-bubble"></div>
+                    <p class="tournament-status">Live</p>
+                </div>
             }
             else
             {

@@ -25,6 +25,7 @@ public class TournamentService
     {
         return await _dbContext.Tournaments
             .Include(t => t.Teams)
+            .Where(t => t.EndDate > DateTime.UtcNow)
             .OrderByDescending(t => t.Prize)
             .ThenBy(t => t.StartDate)
             .FirstOrDefaultAsync();
