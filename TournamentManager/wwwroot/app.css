@@ -152,6 +152,35 @@ code {
     fill: black;
 }
 
+.live-status-wrapper {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+    align-items: center;
+}
+
+.live-bubble {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: red;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
 @media screen and (max-width: 968px) {
     .content {
         width: 100%;

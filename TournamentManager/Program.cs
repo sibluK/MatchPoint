@@ -5,11 +5,9 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using TournamentManager.Components;
 using TournamentManager.Components.Account;
 using TournamentManager.Data;
-using TournamentManager.Models;
-using TournamentManager.Models.Enum;
-using TournamentManager.Models.Enums;
 using TournamentManager.Services;
 using Microsoft.AspNetCore.Authentication.Google;
+using TournamentManager.AutoDbUpdates;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +22,10 @@ builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuth
 builder.Services.AddScoped<PlayerService>();
 builder.Services.AddScoped<TournamentService>();
 builder.Services.AddScoped<MatchService>();
-builder.Services.AddScoped<TeamService>(); 
+builder.Services.AddScoped<TeamService>();
 
+builder.Services.AddHostedService<TournamentStatusUpdater>();
+builder.Services.AddHostedService<MatchStatusUpdater>();
 
 builder.Services.AddAuthentication(options =>
     {

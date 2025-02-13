@@ -64,12 +64,9 @@ div.matches-wrapper > div:last-child {
     text-align: center;
 }
 
-
 .match-status {
-    
+    color: red;
 }
-
-
 
 @media screen and (max-width: 968px) {
     .sidebar {

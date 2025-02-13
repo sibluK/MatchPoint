@@ -73,6 +73,24 @@ div.tournament-wrapper > div:last-child:hover {
     width: 20px;
 }
 
+.tournament-status {
+    color: red;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    
+    50% {
+        transform: scale(0);
+    }
+    
+    100% {
+        transform: scale(1);
+    }
+}
+
 @media screen and (max-width: 600px) {
     .sidebar {
         display: none;

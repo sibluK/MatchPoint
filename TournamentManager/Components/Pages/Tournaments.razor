@@ -1,5 +1,6 @@
 ﻿@page "/tournaments"
 @using TournamentManager.Models
+@using TournamentManager.Models.Enums
 @using TournamentManager.Services
 
 @rendermode InteractiveServer
@@ -20,7 +21,18 @@
 
         <div class="tournament-information">
             <h3 class="tournament-name">@_featuredTournament.Name</h3>
-            <span class="tournament-date">@_featuredTournament.StartDate.ToString("D")</span>
+            @if (_featuredTournament.Status == ActivityStatus.Live)
+            {
+                <div class="live-status-wrapper">
+                    <div class="live-bubble"></div>
+                    <p class="tournament-status">Live</p>
+                </div>
+            }
+            else
+            {
+                <span class="tournament-date">@_featuredTournament.StartDate.ToString("D")</span>
+            }
+
             <span class="tournament-prize">$@_featuredTournament.Prize</span>
         </div>
 
