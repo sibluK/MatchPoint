@@ -11,18 +11,12 @@
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.resx" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.en-US.resx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.resx" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Locales/Resource.lt-LT.resx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar2.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/wwwroot/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/wwwroot/app.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +74,7 @@
     ".NET Launch Settings Profile.TournamentManager: http.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "localization",
+    "git-widget-placeholder": "random",
     "ignore.virus.scanning.warn.message": "true",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -157,7 +151,9 @@
       <workItem from="1739312511489" duration="641000" />
       <workItem from="1739351118640" duration="351000" />
       <workItem from="1739352476623" duration="5013000" />
-      <workItem from="1739366950511" duration="7960000" />
+      <workItem from="1739366950511" duration="16295000" />
+      <workItem from="1739448689926" duration="5997000" />
+      <workItem from="1739471755566" duration="7084000" />
     </task>
     <servers />
   </component>
