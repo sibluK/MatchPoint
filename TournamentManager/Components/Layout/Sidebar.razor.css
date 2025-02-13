@@ -1,13 +1,14 @@
 ﻿.sidebar {
-    width: 200px;
+    width: 250px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    background: var(--neutral-layer-2);
     background: black;
     color: white;
-    height: fit-content;
-    padding-top: 5px;
-    margin-left: auto;
-    border-radius: 7px;
+    right: 0;
+    position: fixed;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    transform: translateY(-0.5rem);
+    padding-top: 10px;
 }
 
 .sidebar p {

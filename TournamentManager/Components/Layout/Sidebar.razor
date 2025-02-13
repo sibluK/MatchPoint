@@ -50,7 +50,7 @@
     {
         _matches = (await MatchService.GetAllMatchesAsync())
             .OrderBy(t => Math.Abs((t.StartDate - DateTime.UtcNow).Ticks))
-            .Take(5)
+            .Take(15)
             .ToList();
         StateHasChanged();
     }
