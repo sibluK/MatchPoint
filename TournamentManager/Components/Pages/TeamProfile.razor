@@ -1,6 +1,8 @@
 ﻿@page "/teams/{name}"
 <h3>@name</h3>
 
+<PageTitle>Profile - @name</PageTitle>
+
 @code {
     
     [Parameter] public string name { get; set; }

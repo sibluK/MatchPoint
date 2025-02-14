@@ -1,8 +1,87 @@
-﻿@page "/tournaments/{tournamentId}"
-<h3>TournamentPage</h3>
+﻿@page "/tournaments/{tournamentName}"
+@using TournamentManager.Models
+@using TournamentManager.Services
 
-<p>@tournamentId</p>
+@rendermode InteractiveServer
+
+@inject TournamentService TournamentService
+@inject NavigationManager NavigationManager
+
+<PageTitle>@tournamentName</PageTitle>
+
+<div class="tournament-page-wrapper">
+    <h2>@_tournament.Name</h2>
+    <div class="tournament-information">
+        <div class="info-wrapper">
+            <span class="wrapper-title">Date</span>
+            <span class="wrapper-value">
+                @_tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
+                -
+                @_tournament.EndDate.ToString("MMM d, yyyy", CultureInfo.CurrentCulture)
+            </span>
+        </div>
+        <div class="info-wrapper">
+            <span class="wrapper-title">Teams</span>
+            <span class="wrapper-value">@_tournament.Teams.Count</span>
+        </div>
+        <div class="info-wrapper">
+            <span class="wrapper-title">Type</span>
+            <span class="wrapper-value">@_tournament.Type</span>
+        </div>
+        <div class="info-wrapper">
+            <span class="wrapper-title">Prize pool</span>
+            <span class="wrapper-value">$@_tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
+        </div>
+    </div>
+    
+    <div class="tournament-teams-wrapper">
+        @foreach (var team in _tournament.Teams)
+        {
+            <div class="team-card-wrapper">
+                <span class="team-name" onclick="@(() => HandleTeamClick(team.Name))">@team.Name</span>
+                <img class="team-image" src="@team.ImagePath" alt="@team.Name"/>
+                <span class="@GetRankingClass(team.Ranking) team-ranking">#@team.Ranking</span>
+                <div class="team-card-players">
+                    @foreach (var player in team.Players)
+                    {
+                        <span class="player-name" onclick="@(() => HandlePlayerClick(player.Nickname))">@player.Nickname</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    
+</div>
+
 
 @code {
-    [Parameter] public string tournamentId { get; set; }
+    [Parameter] public string tournamentName { get; set; }
+    private Tournament _tournament = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _tournament = await TournamentService.GetTournamentByNameAsync(tournamentName);
+    }
+    
+    private string GetRankingClass(int ranking)
+    {
+        return ranking switch
+        {
+            <= 3 => "gold",
+            <= 10 => "silver",
+            <= 20 => "bronze",
+            _ => "white"
+        };
+    }
+
+    private void HandleTeamClick(string name)
+    {
+        NavigationManager.NavigateTo($"teams/{name}", forceLoad: true);
+    }
+
+    private void HandlePlayerClick(string nickname)
+    {
+        NavigationManager.NavigateTo($"players/{nickname}", forceLoad: true);
+    }
+    
 }

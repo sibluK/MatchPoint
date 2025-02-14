@@ -36,7 +36,7 @@ body {
 
 .content {
     align-self: stretch !important;
-    width: 80%;
+    width: calc(100% - 250px);
 }
 
 .manage {
@@ -168,6 +168,32 @@ code {
     animation: pulse 2.5s infinite ease-in-out;
 }
 
+.gold {
+    background: linear-gradient(153deg, rgba(252,224,193,1) 0%, rgba(198,121,38,1) 23%, rgba(232,187,63,1) 60%, rgba(245,238,201,1) 100%);
+    color: white;
+}
+
+.silver {
+    background: linear-gradient(
+            45deg,
+            #999 5%,
+            #fff 10%,
+            #ccc 30%,
+            #ddd 50%,
+            #ccc 70%,
+            #fff 80%,
+            #999 95%
+    );
+}
+
+.bronze {
+    background: linear-gradient(153deg, rgba(236,205,172,1) 0%, rgba(203,109,40,1) 23%, rgba(194,118,32,1) 60%, rgba(184,155,11,1) 100%);    color: white;
+}
+
+.white {
+    background-color: white;
+}
+
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -218,11 +244,11 @@ code {
 
     .navmenu {
         width: 100%;
+        padding-right: 0 !important;
     }
     
     .sitenav {
-        background: black !important;
-        color: white !important;
+
     }
 
     #navmenu-toggle {

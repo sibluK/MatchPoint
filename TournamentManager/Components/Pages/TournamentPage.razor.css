@@ -1,0 +1,137 @@
+﻿.tournament-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tournament-page-wrapper h2 {
+    padding: 20px 0 10px 0;
+    font-weight: 900;
+    font-size: 3rem;
+    letter-spacing: 3px;
+    text-align: center;
+    line-height: 3rem;
+}
+
+.tournament-information {
+    display: flex;
+    color: white;
+    background-color: black;
+    justify-content: space-between;
+    gap: 2em;
+    padding: 20px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    color: white;
+    min-width: 150px;
+    gap: 5px;
+}
+
+.wrapper-title {
+    color: lightgray;
+    opacity: 0.8;
+}
+
+.tournament-teams-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 20px;
+    border-radius: 10px;
+    gap: 10px;
+    background-color: black;
+    color: white;
+    width: 80%;
+}
+
+.team-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid gray;
+}
+
+.team-name {
+    padding-top: 10px;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+.team-image {
+    width: 70%;
+    padding: 30px;
+}
+
+.team-ranking {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    border-bottom-left-radius: 5px;
+    width: 35px;
+    text-align: center;
+}
+
+.team-card-players {
+    flex-direction: column;
+    position: absolute;
+    justify-content: space-between;
+    height: calc(100% - 40px);
+    background-color: black;
+    width: inherit;
+    opacity: 0.8;
+    display: none;
+    padding: 20px;
+    bottom: 0;
+    border-top: 1px solid gray;
+}
+
+.team-card-wrapper:hover .team-card-players {
+    display: flex;
+}
+
+.player-name {
+    cursor: pointer;
+    width: fit-content;
+}
+
+@media screen and (max-width: 1300px) {
+    .tournament-teams-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .team-card-players {
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .tournament-teams-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .tournament-teams-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .team-card-wrapper {
+        min-width: 0.5em;
+    }
+
+    .team-card-players {
+        padding: 0;
+    }
+}

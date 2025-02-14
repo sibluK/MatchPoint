@@ -12,7 +12,7 @@
     <h3>@Localizer["Tournaments"]</h3>
     @foreach (var tournament in _tournaments)
     {
-        <div class="tournament-wrapper" onclick="@(() => HandleTournamentClick(tournament.Id))">
+        <div class="tournament-wrapper" onclick="@(() => HandleTournamentClick(tournament.Name))">
             <p class="tournament-tournament-name">@tournament.Name</p>
             
             <div class="tournament-teams-wrapper">
@@ -38,7 +38,7 @@
                     @tournament.EndDate.ToString("MMM d", CultureInfo.CurrentCulture)
                 </p>
             }
-            <p class="tournament-prize">$@tournament.Prize</p>
+            <p class="tournament-prize">$@tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</p>
         </div>
     }
 </div>
@@ -55,8 +55,8 @@
         StateHasChanged();
     }
 
-    private void HandleTournamentClick(Guid tournamentId)
+    private void HandleTournamentClick(string tournamentName)
     {
-        Navigation.NavigateTo($"/tournaments/{tournamentId}");
+        Navigation.NavigateTo($"/tournaments/{tournamentName}");
     }
 }
