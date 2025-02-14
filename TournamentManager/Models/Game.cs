@@ -11,7 +11,7 @@ public class Game
     
     // Foreign keys
     public Guid? WinnerTeamId { get; set; }
-    public Guid MapId { get; set; }
+    public Guid? MapId { get; set; }
     public Guid MatchId { get; set; }
     
     // EF navigation

@@ -10,10 +10,6 @@
     color: white;
 }
 
-.player-image-wrapper {
-
-}
-
 .player-image {
     width: 200px;
 }
@@ -83,8 +79,8 @@
     position: absolute;
     right: 0;
     background-color: rgba(231,231,231,1);
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     padding: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px inset;
     color: black;
@@ -96,34 +92,6 @@
     margin-bottom: 0 !important;
 }
 
-.gold {
-    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
-    radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
-    color: white;
-}
-
-.silver {
-    background: linear-gradient(
-            45deg,
-            #999 5%,
-            #fff 10%,
-            #ccc 30%,
-            #ddd 50%,
-            #ccc 70%,
-            #fff 80%,
-            #999 95%
-    );
-}
-
-.bronze {
-    background: linear-gradient(153deg, rgba(252,224,193,1) 0%, rgba(198,121,38,1) 23%, rgba(232,187,63,1) 60%, rgba(245,238,201,1) 100%);
-    color: white;
-}
-
-.white {
-    background-color: white;
-}
-
 .player-stats-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -133,10 +101,6 @@
     gap: 10px;
     font-weight: 500;
     font-size: 1.1em;
-
-}
-
-.statistic {
 
 }
 
@@ -152,8 +116,6 @@
 .overOne {
     color: green;
 }
-
-
 
 @media screen and (max-width: 968px) {
     .player-information {

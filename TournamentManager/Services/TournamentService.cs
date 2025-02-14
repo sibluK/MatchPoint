@@ -30,4 +30,14 @@ public class TournamentService
             .ThenBy(t => t.StartDate)
             .FirstOrDefaultAsync();
     }
+
+    public async Task<Tournament> GetTournamentByNameAsync(string name)
+    {
+        return await _dbContext.Tournaments
+            .Include(tour => tour.Teams)
+                .ThenInclude(team => team.Players)
+            .Include(t => t.Bracket)
+                .ThenInclude(b => b.Matches)
+            .FirstOrDefaultAsync(t => t.Name == name);
+    }
 }

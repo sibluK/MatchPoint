@@ -9,9 +9,11 @@
 @inject NavigationManager Navigation
 @inject IStringLocalizer<Resource> Localizer
 
+<PageTitle>Tournaments</PageTitle>
+
 <div class="tournaments-page-wrapper">
     <h3>@Localizer["Featured"]</h3>
-    <div class="featured-tournament" onclick="@(() => HandleTournamentClick(_featuredTournament.Id))">
+    <div class="featured-tournament" onclick="@(() => HandleTournamentClick(_featuredTournament.Name))">
         <div class="tournament-teams-column left-column">
             @foreach (var team in firstColumnTeams)
             {
@@ -33,7 +35,7 @@
                 <span class="tournament-date">@_featuredTournament.StartDate.ToString("D")</span>
             }
 
-            <span class="tournament-prize">$@_featuredTournament.Prize</span>
+            <span class="tournament-prize">$@_featuredTournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
         </div>
 
         <div class="tournament-teams-column right-column">
@@ -50,14 +52,14 @@
         <div class="up-tournament-list">
             @foreach (var tournament in _tournaments)
             {
-                <div class="up-tournament" onclick="@(() => HandleTournamentClick(tournament.Id))">
+                <div class="up-tournament" onclick="@(() => HandleTournamentClick(tournament.Name))">
                     <div class="up-tournament-name-date">
                         <h4 class="up-tournament-name">@tournament.Name</h4>
                         <p class="up-tournament-date">@tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture) - @tournament.EndDate.ToString("MMM d", CultureInfo.CurrentCulture)</p>
                     </div>
                     <div class="up-tournament-type-prize">
                         <span class="up-tournament-type">@tournament.Type.ToString().ToUpper()</span>
-                        <span class="up-tournament-prize">$@tournament.Prize</span>
+                        <span class="up-tournament-prize">$@tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
                     </div>
                 </div>
             }
@@ -85,8 +87,8 @@
         }
     }
 
-    private void HandleTournamentClick(Guid tournamentId)
+    private void HandleTournamentClick(string tournamentName)
     {
-        Navigation.NavigateTo($"/tournaments/{tournamentId}");
+        Navigation.NavigateTo($"/tournaments/{tournamentName}");
     }
 }
