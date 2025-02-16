@@ -23,6 +23,7 @@ builder.Services.AddScoped<PlayerService>();
 builder.Services.AddScoped<TournamentService>();
 builder.Services.AddScoped<MatchService>();
 builder.Services.AddScoped<TeamService>();
+builder.Services.AddScoped<GameService>();
 
 builder.Services.AddHostedService<TournamentStatusUpdater>();
 builder.Services.AddHostedService<MatchStatusUpdater>();
