@@ -1,0 +1,8 @@
+﻿@page "/games/{gameId}"
+<h3>@gameId</h3>
+
+<PageTitle>Game</PageTitle>
+
+@code {
+    [Parameter] public string gameId { get; set; }
+}

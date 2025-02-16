@@ -25,7 +25,7 @@ public class MatchStatusUpdater : BackgroundService
                 var currentTime = DateTime.UtcNow;
 
                 var liveMatches = allMatches
-                    .Where(m => m.StartDate.ToUniversalTime() <= currentTime)
+                    .Where(m => m.StartDate.ToUniversalTime() <= currentTime && m.Status != ActivityStatus.Ended)
                     .ToList();
                 
                 foreach (var liveMatch in liveMatches)

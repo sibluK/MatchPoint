@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TournamentManager.Data;
 using TournamentManager.Models;
+using TournamentManager.Models.Enums;
 
 namespace TournamentManager.Services;
 
@@ -27,7 +28,7 @@ public class MatchService
     {
         return await _dbContext.Matches
             .Where(m => m.StartDate.Day == DateTime.Now.Day && m.StartDate.Month == DateTime.Now.Month &&
-                        m.StartDate.Year == DateTime.Now.Year)
+                        m.StartDate.Year == DateTime.Now.Year && m.Status != ActivityStatus.Ended)
             .Include(m => m.Bracket)
             .ThenInclude(b => b.Tournament)
             .Include(m => m.Team1)
