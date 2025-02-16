@@ -37,6 +37,7 @@ body {
 .content {
     align-self: stretch !important;
     width: calc(100% - 250px);
+    padding-top: 15px;
 }
 
 .manage {
@@ -68,7 +69,6 @@ footer {
     border: 1px dashed var(--accent-fill-rest);
     padding: 5px;
 }
-
 
 #blazor-error-ui {
     background: lightyellow;
@@ -184,6 +184,7 @@ code {
             #fff 80%,
             #999 95%
     );
+    color: black;
 }
 
 .bronze {
@@ -293,6 +294,10 @@ code {
         margin-right: 10px;
         font-size: 0.875rem;
         width: 100px;
+    }
+    
+    .body-content {
+        padding: 10px;
     }
 }
 

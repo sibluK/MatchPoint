@@ -1,5 +1,6 @@
 ﻿@page "/tournaments/{tournamentName}"
 @using TournamentManager.Models
+@using TournamentManager.Models.Enums
 @using TournamentManager.Services
 
 @rendermode InteractiveServer
@@ -11,48 +12,117 @@
 
 <div class="tournament-page-wrapper">
     <h2>@_tournament.Name</h2>
-    <div class="tournament-information">
-        <div class="info-wrapper">
-            <span class="wrapper-title">Date</span>
-            <span class="wrapper-value">
+    <div class="tournament-information-wrapper">
+        <h4 class="header">Information</h4>
+        <div class="tournament-information">
+            <div class="info-wrapper">
+                <span class="wrapper-title">Date</span>
+                <span class="wrapper-value">
                 @_tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
-                -
-                @_tournament.EndDate.ToString("MMM d, yyyy", CultureInfo.CurrentCulture)
+                    -
+                    @_tournament.EndDate.ToString("MMM d, yyyy", CultureInfo.CurrentCulture)
             </span>
+            </div>
+            <div class="info-wrapper">
+                <span class="wrapper-title">Teams</span>
+                <span class="wrapper-value">@_tournament.Teams.Count</span>
+            </div>
+            <div class="info-wrapper">
+                <span class="wrapper-title">Type</span>
+                <span class="wrapper-value">@_tournament.Type</span>
+            </div>
+            <div class="info-wrapper">
+                <span class="wrapper-title">Prize pool</span>
+                <span class="wrapper-value">$@_tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
+            </div>
         </div>
-        <div class="info-wrapper">
-            <span class="wrapper-title">Teams</span>
-            <span class="wrapper-value">@_tournament.Teams.Count</span>
-        </div>
-        <div class="info-wrapper">
-            <span class="wrapper-title">Type</span>
-            <span class="wrapper-value">@_tournament.Type</span>
-        </div>
-        <div class="info-wrapper">
-            <span class="wrapper-title">Prize pool</span>
-            <span class="wrapper-value">$@_tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
-        </div>
+
     </div>
     
-    <div class="tournament-teams-wrapper">
-        @foreach (var team in _tournament.Teams)
-        {
-            <div class="team-card-wrapper">
-                <span class="team-name" onclick="@(() => HandleTeamClick(team.Name))">@team.Name</span>
-                <img class="team-image" src="@team.ImagePath" alt="@team.Name"/>
-                <span class="@GetRankingClass(team.Ranking) team-ranking">#@team.Ranking</span>
-                <div class="team-card-players">
-                    @foreach (var player in team.Players)
-                    {
-                        <span class="player-name" onclick="@(() => HandlePlayerClick(player.Nickname))">@player.Nickname</span>
-                    }
-                </div>
+    <div class="brackets-wrapper">
+        <h4 class="header">Bracket</h4>
+        <div class="bracket-wrapper">
+            <div class="bracket-information">
+                @GetBracketType(_tournament.Bracket.Type)
             </div>
-        }
+            <div class="rounds-wrapper">
+                @for (var i = 1; i <= _tournament.Bracket.NumberOfRounds; i++)
+                {
+                    <div class="round-wrapper">
+                        @if (_tournament.Bracket.Matches.Any(m => m.BracketRound == i))
+                        {
+                            @foreach (var match in _tournament.Bracket.Matches.OrderBy(m => m.MatchNumber))
+                            {
+                                @if (match.BracketRound == i)
+                                {
+                                    <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
+                                        <div class="team-wrapper">
+                                            <img src="@match.Team1.ImagePath"/>
+                                            <span>@match.Team1.Name</span>
+                                            <span class="score">1</span>
+                                        </div>
+                                        <div class="team-wrapper">
+                                            <img src="@match.Team2.ImagePath"/>
+                                            <span>@match.Team2.Name</span>
+                                            <span class="score">0</span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            @if (_tournament.Bracket.NumberOfRounds == i)
+                            {
+                                <div class="match-wrapper">
+                                    <div class="team-wrapper">TBD</div>
+                                    <div class="team-wrapper">TBD</div>
+                                </div>
+                            }
+                            else
+                            {
+                                @for (var j = 1; j <= _tournament.Bracket.Matches.Count(m => m.BracketRound == i - 1) / 2; j++)
+                                {
+                                    <div class="match-wrapper">
+                                        <div class="team-wrapper">TBD</div>
+                                        <div class="team-wrapper">TBD</div>
+                                    </div>
+                                }
+                            }
+                        }
+
+                    </div>
+                }
+            </div>
+        </div>
+  
+
+
+    </div>
+
+
+    <div class="tournament-teams">
+        <h4 class="header">Teams</h4>
+        <div class="tournament-teams-wrapper">
+            @foreach (var team in _tournament.Teams)
+            {
+                <div class="team-card-wrapper">
+                    <span class="team-name" onclick="@(() => HandleTeamClick(team.Name))">@team.Name</span>
+                    <img class="team-image" src="@team.ImagePath" alt="@team.Name"/>
+                    <span class="@GetRankingClass(team.Ranking) team-ranking">#@team.Ranking</span>
+                    <div class="team-card-players">
+                        @foreach (var player in team.Players)
+                        {
+                            <span class="player-name" onclick="@(() => HandlePlayerClick(player.Nickname))">@player.Nickname</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
     </div>
     
 </div>
-
 
 @code {
     [Parameter] public string tournamentName { get; set; }
@@ -74,6 +144,16 @@
         };
     }
 
+    private string GetBracketType(BracketType type)
+    {
+        return type switch
+        {
+            BracketType.SE => "Single Elimination",
+            BracketType.DE => "Double Elimination",
+            _ => "No type"
+        };
+    }
+
     private void HandleTeamClick(string name)
     {
         NavigationManager.NavigateTo($"teams/{name}", forceLoad: true);
@@ -82,6 +162,11 @@
     private void HandlePlayerClick(string nickname)
     {
         NavigationManager.NavigateTo($"players/{nickname}", forceLoad: true);
+    }
+
+    private void HandleMatchClick(Guid matchId)
+    {
+        NavigationManager.NavigateTo($"/matches/{matchId}", forceLoad: true);
     }
     
 }

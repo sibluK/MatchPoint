@@ -11,6 +11,10 @@
 <div class="sidebar">
     <div class="matches-wrapper">
         <h3>@Localizer["Matches"]</h3>
+        @if (!_matches.Any())
+        {
+            <div class="match-wrapper">No matches today.</div>
+        }
         @foreach (var match in _matches)
         {
             <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
@@ -48,11 +52,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _matches = (await MatchService.GetAllMatchesAsync())
+        _matches = (await MatchService.GetTodaysMatchesAsync())
             .OrderBy(t => Math.Abs((t.StartDate - DateTime.UtcNow).Ticks))
             .Take(15)
             .ToList();
-        StateHasChanged();
     }
 
     private void HandleMatchClick(Guid matchId)
