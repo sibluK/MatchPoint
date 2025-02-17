@@ -10,10 +10,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/Sidebar.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +157,8 @@
       <workItem from="1739636196927" duration="7514000" />
       <workItem from="1739647994465" duration="3591000" />
       <workItem from="1739701358624" duration="10923000" />
-      <workItem from="1739728844289" duration="6416000" />
+      <workItem from="1739728844289" duration="6817000" />
+      <workItem from="1739823249200" duration="2741000" />
     </task>
     <servers />
   </component>
