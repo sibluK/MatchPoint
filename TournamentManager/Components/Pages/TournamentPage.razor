@@ -59,9 +59,16 @@
                                 {
                                     <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
                                         <div class="match-information-wrapper">@match.BestOf</div>
-                                        @if (match.StartDate > DateTime.Now)
+                                        @if (match.StartDate > DateTime.Now && match.Status != ActivityStatus.Ended)
                                         {
                                             <div class="match-time">@TimeTillMatch(match.StartDate)</div>
+                                        }
+                                        else if(match.Status == ActivityStatus.Live)
+                                        {
+                                            <div class="live-status-wrapper match-time">
+                                                <div class="live-bubble"></div>
+                                                <div>Live</div>
+                                            </div>
                                         }
                                         <div class="@GetTeamClass(match.WinnerTeamId, match.Team1.Id)">
                                             <img src="@match.Team1.ImagePath"/>
@@ -171,12 +178,7 @@
 
     private string TimeTillMatch(DateTime startDate)
     {
-        if (startDate > DateTime.Now)
-        {
-            return startDate.ToString("g");
-        }
-
-        return null;
+        return startDate.ToString("g");
     }
 
     private string GetTeamClass(Guid? winnerTeamId, Guid teamId)
