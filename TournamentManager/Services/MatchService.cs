@@ -59,6 +59,7 @@ public class MatchService
     {
         var matches = await _dbContext.Matches
             .Where(m => (m.Team1Id == team1Id && m.Team2Id == team2Id) || (m.Team1Id == team2Id && m.Team2Id == team1Id))
+            .Take(20)
             .ToListAsync();
         
         int team1Score = 0;
@@ -66,8 +67,6 @@ public class MatchService
 
         foreach (var match in matches)
         {
-            Console.WriteLine($"--------------------{match.WinnerTeamId}----------------------");
-
             if (match.WinnerTeamId != null)
             {
                 if (match.WinnerTeamId == team1Id)
@@ -89,7 +88,7 @@ public class MatchService
         var games = await _dbContext.Games
             .Where(g => g.MapId == mapId && 
                         (g.Match.Team1Id == teamId || g.Match.Team2Id == teamId))
-            .Take(10)
+            .Take(15)
             .ToListAsync();
 
         if (games.Count == 0)
@@ -99,6 +98,4 @@ public class MatchService
 
         return (int)((double)wins / games.Count * 100); 
     }
-    
-    
 }
