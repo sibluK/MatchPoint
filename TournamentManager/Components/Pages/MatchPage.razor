@@ -44,7 +44,7 @@
                 <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
                 <span class="head-to-head-team-name">@_match.Team1.Name</span>
                 <div class="team-wins">
-                    <span class="wins-number">4</span>
+                    <span class="wins-number">@_headToHeadScores.Item1</span>
                     <span class="wins-text">Wins</span>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 
             <div class="head-to-head-team">
                 <div class="team-wins">
-                    <span class="wins-number">8</span>
+                    <span class="wins-number">@_headToHeadScores.Item2</span>
                     <span class="wins-text">Wins</span>
                 </div>
                 <span class="head-to-head-team-name">@_match.Team2.Name</span>
@@ -76,33 +76,34 @@
                         <div class="game-team-scores">
                             <div class="team-score">
                                 <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                <span class="score">13</span>
+                                <span class="score">@game.Team1Score</span>
                             </div>
                             <div class="team-score">
-                                <span class="score">11</span>
+                                <span class="score">@game.Team2Score</span>
                                 <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
                             </div>
                         </div>
                     </div>
                 }
             </div>
-
         </div>
         <div class="map-winrates-wrapper">
             <h5 class="header">Map winrates (past 10 games)</h5>
             <div class="map-winrate-wrapper">
                 @foreach (var game in _games)
                 {
+                    var winRates = _mapWinRates.TryGetValue(game.Map.Id, out var rates) ? rates : (0, 0);
+
                     <div class="game">
                         <div class="game-team-scores">
                             <div class="team-percentage">
                                 <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                <span class="percentage">40%</span>
+                                <span class="percentage">@winRates.Item1%</span>
                             </div>
                             <div>@game.Map.Name</div>
                             <div class="team-percentage">
                                 <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
-                                <span class="percentage">78%</span>
+                                <span class="percentage">@winRates.Item2%</span>
                             </div>
                         </div>
                     </div>
@@ -116,11 +117,24 @@
     [Parameter] public string matchId { get; set; }
     private Match _match = new();
     private List<Game> _games = new();
+    private Tuple<int, int> _headToHeadScores;
+    private Dictionary<Guid, (int team1WinRate, int team2WinRate)> _mapWinRates = new();
 
     protected override async Task OnInitializedAsync()
     {
         _match = await MatchService.GetMatchByIdAsync(Guid.Parse(matchId));
         _games = await GameService.GetMatchGames(Guid.Parse(matchId));
+        _headToHeadScores = await MatchService.GetHeadToHeadScore(_match.Team1.Id, _match.Team2.Id);
+        
+        _mapWinRates.Clear();
+    
+        foreach (var game in _games)
+        {
+            int team1WinRate = await MatchService.GetMapWinrate(_match.Team1.Id, game.Map.Id);
+            int team2WinRate = await MatchService.GetMapWinrate(_match.Team2.Id, game.Map.Id);
+        
+            _mapWinRates[game.Map.Id] = (team1WinRate, team2WinRate);
+        }
     }
 
     private void HandleTeamClick(string teamName)

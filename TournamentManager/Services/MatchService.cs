@@ -54,4 +54,51 @@ public class MatchService
 
         return match;
     }
+    
+    public async Task<Tuple<int, int>> GetHeadToHeadScore(Guid team1Id, Guid team2Id)
+    {
+        var matches = await _dbContext.Matches
+            .Where(m => (m.Team1Id == team1Id && m.Team2Id == team2Id) || (m.Team1Id == team2Id && m.Team2Id == team1Id))
+            .ToListAsync();
+        
+        int team1Score = 0;
+        int team2Score = 0;
+
+        foreach (var match in matches)
+        {
+            Console.WriteLine($"--------------------{match.WinnerTeamId}----------------------");
+
+            if (match.WinnerTeamId != null)
+            {
+                if (match.WinnerTeamId == team1Id)
+                {
+                    team1Score++;
+                }
+                else
+                {
+                    team2Score++;
+                }
+            }
+        }
+        
+        return Tuple.Create(team1Score, team2Score);
+    }
+    
+    public async Task<int> GetMapWinrate(Guid teamId, Guid mapId)
+    {
+        var games = await _dbContext.Games
+            .Where(g => g.MapId == mapId && 
+                        (g.Match.Team1Id == teamId || g.Match.Team2Id == teamId))
+            .Take(10)
+            .ToListAsync();
+
+        if (games.Count == 0)
+            return 0; 
+
+        var wins = games.Count(g => g.WinnerTeamId == teamId);
+
+        return (int)((double)wins / games.Count * 100); 
+    }
+    
+    
 }
