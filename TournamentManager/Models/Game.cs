@@ -6,7 +6,9 @@ public class Game
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public int GameNumber { get; set; } // Which game in match if bo3, bo5
-    public string? GameStats { get; set; } // JSON string containing various game statistics
+    public int Team1Score { get; set; }
+    public int Team2Score { get; set; }
+    
     public ActivityStatus Status { get; set; } = ActivityStatus.Upcoming;
     
     // Foreign keys
