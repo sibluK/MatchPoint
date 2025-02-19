@@ -1,0 +1,281 @@
+﻿.match-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.header {
+    padding-bottom: 0;
+    margin-bottom: 5px;
+}
+
+.match-information-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    gap: 20px;
+}
+
+.match-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.match-team span {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.match-team img {
+    width: 100px;   
+}
+
+.match-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.match-time {
+    font-size: 1.7em;
+}
+
+.match-tournament {
+    cursor: pointer;
+    transition: opacity 0.05s ease-in-out;
+}
+
+.match-tournament:hover {
+    opacity: 0.7;
+}
+
+.head-to-head-section {
+    width: 100%;
+}
+
+.head-to-head-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: black;
+    border-radius: 10px;
+    color: white;
+}
+
+.head-to-head-team {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
+
+.head-to-head-team:first-child {
+    padding-right: 15px;
+}
+
+.head-to-head-team img {
+    width: 50px;
+}
+
+.team-wins {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.games-mapwinrates-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+.games-section {
+    width: 50%;
+}
+
+.game-wrapper, .map-winrate-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    gap: 20px;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+    gap: 10px;
+}
+
+.game:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.game-map,
+.game-team-scores {
+    width: 100%;
+}
+
+.game-map {
+    position: relative;
+}
+
+.map-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: white;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.game-team-scores {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.team-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+
+.score {
+    margin: 0 auto;
+}
+
+.map-image {
+    width: 100%;
+    height: 50px;
+    object-fit: cover;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.team-score img {
+    width: 40px;
+}
+
+.map-winrates-wrapper {
+    width: 50%;
+}
+
+.map-winrate-wrapper {
+    background-color: black;
+    color: white;
+}
+
+.percentage {
+    font-size: 0.9em;
+}
+
+.team-percentage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.team-percentage img {
+    width: 30px;
+}
+
+.match-information-wrapper,
+.head-to-head-section, 
+.games-mapwinrates-wrapper {
+    width: 70%;
+}
+
+.spacer {
+    border: 1px solid gray;
+}
+
+.ended {
+    font-size: 1.5em;
+}
+
+@media screen and (max-width: 1500px) {
+    .match-information-wrapper,
+    .head-to-head-section,
+    .games-mapwinrates-wrapper {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .match-information-wrapper,
+    .head-to-head-section,
+    .games-mapwinrates-wrapper {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .match-information-wrapper,
+    .head-to-head-section,
+    .games-mapwinrates-wrapper {
+        width: 100%;
+    }
+    
+}
+
+@media screen and (max-width: 500px) {
+    
+    .header {
+        font-size: 0.8em;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+    
+    .match-information-wrapper {
+        gap: 5px;
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    
+    .match-team img {
+        width: 50px;
+    }
+    
+    .match-team {
+        min-width: 30%;
+        text-align: center;
+    }
+
+    .head-to-head-team {
+        font-size: 0.8em;
+        
+    }
+    
+    .head-to-head-team img {
+        width: 30px;
+    }
+
+    .head-to-head-team-name {
+        text-wrap: nowrap;
+    }
+}
+
+

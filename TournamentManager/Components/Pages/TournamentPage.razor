@@ -1,5 +1,5 @@
 ﻿@page "/tournaments/{tournamentName}"
-@using System.Runtime.InteropServices.JavaScript
+
 @using TournamentManager.Models
 @using TournamentManager.Models.Enums
 @using TournamentManager.Services
@@ -15,7 +15,7 @@
 <div class="tournament-page-wrapper">
     <h2>@_tournament.Name</h2>
     <div class="tournament-information-wrapper">
-        <h4 class="header">Information</h4>
+        <h5 class="header">Information</h5>
         <div class="tournament-information">
             <div class="info-wrapper">
                 <span class="wrapper-title">Date</span>
@@ -42,7 +42,7 @@
     </div>
     
     <div class="brackets-wrapper">
-        <h4 class="header">Bracket</h4>
+        <h5 class="header">Bracket</h5>
         <div class="bracket-wrapper">
             <div class="bracket-information">
                 @GetBracketType(_tournament.Bracket.Type)
@@ -111,7 +111,7 @@
     </div>
     
     <div class="tournament-teams">
-        <h4 class="header">Teams</h4>
+        <h5 class="header">Teams</h5>
         <div class="tournament-teams-wrapper">
             @foreach (var team in _tournament.Teams)
             {

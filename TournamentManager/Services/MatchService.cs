@@ -35,4 +35,23 @@ public class MatchService
             .Include(m => m.Team2)
             .ToListAsync();
     }
+
+    public async Task<Match> GetMatchByIdAsync(Guid matchId)
+    {
+        
+        var match = await _dbContext.Matches
+            .Include(m => m.Team1)
+            .Include(m => m.Team2)
+            .Include(m => m.Bracket)
+            .ThenInclude(b => b.Tournament)
+            .FirstOrDefaultAsync(m => m.Id == matchId);
+
+        if (match == null)
+        {
+            Console.WriteLine("Match not found");
+            return null;
+        }
+
+        return match;
+    }
 }
