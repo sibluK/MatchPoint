@@ -1,9 +1,135 @@
 ﻿@page "/matches/{matchId}"
 
-<PageTitle>Match</PageTitle>
-<h3>Match</h3>
-<h4>@matchId</h4>
+@using TournamentManager.Models
+@using TournamentManager.Models.Enums
+@using TournamentManager.Services
+
+@rendermode InteractiveServer
+
+@inject GameService GameService;
+@inject MatchService MatchService;
+@inject NavigationManager NavigationManager
+
+<PageTitle>@_match.Team1.Name vs @_match.Team2.Name</PageTitle>
+
+<div class="match-page-wrapper">
+    <div class="match-information-wrapper">
+        <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
+            <span>@_match.Team1.Name</span>
+            <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+        </div>
+        <div class="match-info">
+            @if (_match.Status != ActivityStatus.Ended)
+            {
+                <span class="match-time">@_match.StartDate.ToString("t", CultureInfo.CurrentCulture)</span>
+                <span class="match-date">@_match.StartDate.ToString("D", CultureInfo.CurrentCulture)</span>
+            }
+            else
+            {
+                <span class="ended">Ended</span>
+            }
+            <span class="match-type">@_match.BestOf</span>
+            <span onclick="@(() => HandleTournamentClick(_match.Bracket.Tournament.Name))" class="match-tournament">@_match.Bracket.Tournament.Name</span>
+        </div>
+        <div onclick="@(() => HandleTeamClick(_match.Team2.Name))" class="match-team">
+            <span>@_match.Team2.Name</span>
+            <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+        </div>
+    </div>
+    
+    <div class="head-to-head-section">
+        <h5 class="header">Head to Head</h5>
+        <div class="head-to-head-wrapper">
+            <div class="head-to-head-team">
+                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                <span class="head-to-head-team-name">@_match.Team1.Name</span>
+                <div class="team-wins">
+                    <span class="wins-number">4</span>
+                    <span class="wins-text">Wins</span>
+                </div>
+            </div>
+            
+            <div class="spacer"></div>
+
+            <div class="head-to-head-team">
+                <div class="team-wins">
+                    <span class="wins-number">8</span>
+                    <span class="wins-text">Wins</span>
+                </div>
+                <span class="head-to-head-team-name">@_match.Team2.Name</span>
+                <img class="head-to-head-team-image" src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+            </div>
+        </div>
+    </div>
+    
+    <div class="games-mapwinrates-wrapper">
+        <div class="games-section">
+            <h5 class="header">Games</h5>
+            <div class="game-wrapper">
+                @foreach (var game in _games)
+                {
+                    <div class="game">
+                        <div class="game-map">
+                            <img class="map-image" src="@game.Map.ImagePath" alt="@game.Map.Name"/>
+                            <span class="map-name">@game.Map.Name</span>
+                        </div>
+                        <div class="game-team-scores">
+                            <div class="team-score">
+                                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                <span class="score">13</span>
+                            </div>
+                            <div class="team-score">
+                                <span class="score">11</span>
+                                <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+        <div class="map-winrates-wrapper">
+            <h5 class="header">Map winrates (past 10 games)</h5>
+            <div class="map-winrate-wrapper">
+                @foreach (var game in _games)
+                {
+                    <div class="game">
+                        <div class="game-team-scores">
+                            <div class="team-percentage">
+                                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                <span class="percentage">40%</span>
+                            </div>
+                            <div>@game.Map.Name</div>
+                            <div class="team-percentage">
+                                <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                <span class="percentage">78%</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
     [Parameter] public string matchId { get; set; }
+    private Match _match = new();
+    private List<Game> _games = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _match = await MatchService.GetMatchByIdAsync(Guid.Parse(matchId));
+        _games = await GameService.GetMatchGames(Guid.Parse(matchId));
+    }
+
+    private void HandleTeamClick(string teamName)
+    {
+        NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
+    }
+
+    private void HandleTournamentClick(string tournamentName)
+    {
+        NavigationManager.NavigateTo($"/tournaments/{tournamentName}", forceLoad: true);
+    }
 }

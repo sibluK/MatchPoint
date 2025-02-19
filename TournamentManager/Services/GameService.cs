@@ -16,6 +16,7 @@ public class GameService
     public async Task<List<Game>> GetMatchGames(Guid matchId)
     {
         return await _dbContext.Games
+            .Include(g => g.Map)
             .Where(g => g.MatchId == matchId)
             .ToListAsync();
     }

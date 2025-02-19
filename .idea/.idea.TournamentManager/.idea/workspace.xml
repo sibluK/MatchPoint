@@ -9,11 +9,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/MatchService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/MatchService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,28 +70,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.TournamentManager: http.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tournament-page&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.TournamentManager: http.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "match-page",
+    "ignore.virus.scanning.warn.message": "true",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.TournamentManager: http">
     <configuration name="TournamentManager: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/TournamentManager/TournamentManager.csproj" />
@@ -158,7 +162,8 @@
       <workItem from="1739701358624" duration="10923000" />
       <workItem from="1739728844289" duration="6817000" />
       <workItem from="1739823249200" duration="3149000" />
-      <workItem from="1739902377272" duration="3739000" />
+      <workItem from="1739902377272" duration="3881000" />
+      <workItem from="1739960972640" duration="12904000" />
     </task>
     <servers />
   </component>
