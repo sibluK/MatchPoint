@@ -73,11 +73,12 @@
                             <img class="map-image" src="@game.Map.ImagePath" alt="@game.Map.Name"/>
                             <span class="map-name">@game.Map.Name</span>
                         </div>
-                        <div class="game-team-scores">
+                        <div class="@GetStylingForGameWinner(game.WinnerTeamId)">
                             <div class="team-score">
                                 <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
                                 <span class="score">@game.Team1Score</span>
                             </div>
+                            <div onclick="@(() => HandleGameStatsClick(game.Id))" class="game-stats-button">Stats</div>
                             <div class="team-score">
                                 <span class="score">@game.Team2Score</span>
                                 <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
@@ -137,6 +138,17 @@
         }
     }
 
+    private string GetStylingForGameWinner(Guid? winnerId)
+    {
+        if (winnerId == _match.Team1.Id)
+            return "game-team-scores left";
+        
+        if (winnerId == _match.Team2.Id)
+            return "game-team-scores right";
+
+        return "game-team-scores";
+    }
+
     private void HandleTeamClick(string teamName)
     {
         NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
@@ -145,5 +157,10 @@
     private void HandleTournamentClick(string tournamentName)
     {
         NavigationManager.NavigateTo($"/tournaments/{tournamentName}", forceLoad: true);
+    }
+
+    private void HandleGameStatsClick(Guid gameId)
+    {
+        NavigationManager.NavigateTo($"/games/{gameId}", forceLoad: true);
     }
 }

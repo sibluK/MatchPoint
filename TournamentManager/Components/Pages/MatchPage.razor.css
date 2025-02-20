@@ -151,6 +151,17 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 5px 0;
+}
+
+.game-team-scores.left {
+    background: linear-gradient(90deg, rgba(29,176,12,1) 0%, rgba(41,138,41,1) 12%, rgba(26,79,26,1) 27%, rgba(0,0,0,1) 48%);
+    border-radius: 10px;
+}
+
+.game-team-scores.right {
+    background: linear-gradient(270deg, rgba(29,176,12,1) 0%, rgba(41,138,41,1) 12%, rgba(26,79,26,1) 27%, rgba(0,0,0,1) 48%);
+    border-radius: 10px;
 }
 
 .team-score {
@@ -211,6 +222,18 @@
 
 .ended {
     font-size: 2em;
+}
+
+.game-stats-button {
+    padding: 5px 10px;
+    background-color: var(--blackbackground-hover);
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.game-stats-button:hover {
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 1500px) {
