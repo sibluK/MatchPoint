@@ -1,0 +1,156 @@
+﻿.home-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 70px;
+    width: 80%;
+}
+
+.hero-section {
+    display: flex;
+    margin-top: 3rem;
+    gap: 1rem;
+    width: 100%;
+}
+
+.hero-section-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50%;
+}
+
+.hero-text-name {
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+.hero-text-description {
+    line-height: 1.8;
+    max-width: 80%;
+    font-weight: 400;
+}
+
+.hero-section-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.hero-section-buttons button {
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-weight: 600;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+} 
+
+.tournaments-button {
+    background-color: black;
+    color: white;
+}
+
+.tournaments-button:hover {
+    background-color: var(--blackbackground-hover);
+}
+
+.players-button {
+    background-color: white;
+    border: 2px solid black;
+}
+
+.players-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.hero-section-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    position: relative;
+}
+
+.player {
+    width: 190px;
+    position: absolute;
+}
+
+.player1 {
+    transform: translateX(-35%);
+    z-index: 2;
+}
+
+.player2 {
+    transform: translateY(-10%);
+}
+
+.player3 {
+    transform: translateX(35%);
+    z-index: 2;
+}
+
+.arrow-up-long {
+    position: absolute;
+    transform: translate(-180px, -10px);
+}
+
+.arrow-up-short {
+    position: absolute;
+    transform: translate(140px, -60px);
+}
+
+.arrow-down-long {
+    position: absolute;
+    transform: translate(180px, 10px);
+}
+
+.arrow-down-short {
+    position: absolute;
+    transform: translate(-140px, -60px);
+}
+
+.teams-wrapper {
+    display: flex;
+    background-color: black;
+    padding: 20px 30px;
+    border-radius: 10px;
+    justify-content: space-between;
+}
+
+.team-icon {
+    width: 50px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.team-icon:hover {
+    transform: translateY(-5px);
+}
+
+.teams-button {
+    width: 50px;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 1.5em;
+    border: 1px solid white;
+    transition: background-color 0.1s ease-in-out,
+                color 0.1s ease-in-out;
+}
+
+.teams-button:hover {
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+}
+
+@media screen and (max-width: 1500px) {
+    .home-page-wrapper {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .home-page-wrapper {
+        width: 100%;
+    }
+}

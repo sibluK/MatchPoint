@@ -10,11 +10,12 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Home.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Home.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Home.razor.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
     &quot;.NET Launch Settings Profile.TournamentManager: http.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;match-page&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;home-page&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -163,6 +164,8 @@
       <workItem from="1739960972640" duration="13071000" />
       <workItem from="1739994887290" duration="7199000" />
       <workItem from="1740040269047" duration="4192000" />
+      <workItem from="1740053333758" duration="14635000" />
+      <workItem from="1740132151873" duration="686000" />
     </task>
     <servers />
   </component>

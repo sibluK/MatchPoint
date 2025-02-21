@@ -90,8 +90,7 @@
 
     private void HandleTeamClick(string teamName)
     {
-        var formattedName = teamName.Replace(" ", "").ToLower();
-        Navigation.NavigateTo($"/teams/{formattedName}", forceLoad: true);
+        Navigation.NavigateTo($"/teams/{teamName}", forceLoad: true);
     }
     
     private string GetRatingClass(int rating)
