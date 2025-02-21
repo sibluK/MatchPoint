@@ -1,9 +1,81 @@
 ﻿@page "/"
+@using TournamentManager.Models
+@using TournamentManager.Services
+
+@rendermode InteractiveServer
 
 @inject IStringLocalizer<Resource> Localizer
+@inject TeamService TeamService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Home</PageTitle>
 
-<h1>@Localizer["WelcomeMessage"]</h1>
+<div class="home-page-wrapper">
+    <div class="hero-section">
+        <div class="hero-section-text">
+            <h2 class="hero-text-name">MatchPoint</h2>
+            <p class="hero-text-description">Welcome to MatchPoint, your go-to hub for
+                esports tournaments, matches, teams,
+                and players. Stay updated with the latest games, results, and rankings!</p>
+            <div class="hero-section-buttons">
+                <button onclick="@(() => HandleTournamentButton())" class="tournaments-button">Latest Tournaments</button>
+                <button onclick="@(() => HandlePlayerRankingButton())" class="players-button">Player Rankings</button>
+            </div>
 
-Welcome to your new Fluent Blazor app.
+        </div>
+        <div class="hero-section-photo">
+            <img class="arrow-up-long" src="/Images/UI/arrow up long.drawio.png"/>
+            <img class="arrow-up-short" src="/Images/UI/arrow up short.drawio.png"/>
+            <img class="arrow-down-long" src="/Images/UI/arrow down long.drawio.png"/>
+            <img class="arrow-down-short" src="/Images/UI/arrow down short.drawio.png"/>
+            <img class="player1 player" src="Images/Player/broky.webp"/>
+            <img class="player2 player" src="Images/Player/Twistzz.webp"/>
+            <img class="player3 player" src="Images/Player/Aleksib.webp"/>
+        </div>
+    </div>
+    
+    <div class="teams-by-ranking-wrapper">
+        <h5>Counter Strike 2 Teams (By ranking)</h5>
+        <div class="teams-wrapper">
+            @foreach (var team in _teams.Take(10).OrderBy(t => t.Ranking))
+            {
+                <img onclick="@(() => HandleTeamClick(team.Name))" class="team-icon" src="@team.ImagePath"/>
+            }
+            <button onclick="@(() => HandleMoreTeamsButton())" class="teams-button">
+                ->
+            </button>
+        </div>
+    </div>
+    
+</div>
+
+
+@code {
+
+    private List<Team> _teams = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _teams = await TeamService.GetAllTeamsAsync();
+    }
+
+    private void HandleTournamentButton()
+    {
+        NavigationManager.NavigateTo("/tournaments", forceLoad: true);
+    }
+
+    private void HandlePlayerRankingButton()
+    {
+        NavigationManager.NavigateTo("/players", forceLoad: true);
+    }
+
+    private void HandleTeamClick(string teamName)
+    {
+        NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
+    }
+    
+    private void HandleMoreTeamsButton()
+    {
+        NavigationManager.NavigateTo($"/teams", forceLoad: true);
+    }
+}
