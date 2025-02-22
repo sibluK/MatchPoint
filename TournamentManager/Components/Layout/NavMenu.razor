@@ -1,6 +1,7 @@
 ﻿@rendermode InteractiveServer
 
 @using Microsoft.FluentUI.AspNetCore.Components.Icons.Regular
+@using Size28 = Microsoft.FluentUI.AspNetCore.Components.Icons.Filled.Size28
 @inject IStringLocalizer<Resource> Localizer
 @implements IDisposable
 
@@ -17,10 +18,9 @@
             <FluentNavLink Class="nav-link-icon" Href="tournaments" Icon="@(new Size20.Trophy())">@Localizer["NavLink_Tournaments"]</FluentNavLink>
             <FluentNavLink Class="nav-link-icon" Href="teams" Icon="@(new Size20.PeopleTeam())">@Localizer["NavLink_Teams"]</FluentNavLink>
             <FluentNavLink Class="nav-link-icon" Href="players" Icon="@(new Size20.Person())">@Localizer["NavLink_Players"]</FluentNavLink>
-            <FluentNavLink Class="nav-link-icon" Href="auth">Auth Required</FluentNavLink>
             <AuthorizeView>
                 <Authorized>
-                    <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
+                    <FluentNavLink Icon="@(new Size20.PersonCircle())" Href="Account/Manage">Profile</FluentNavLink>
                     <form action="Account/Logout" method="post">
                         <AntiforgeryToken/>
                         <input type="hidden" name="ReturnUrl" value="@currentUrl"/>

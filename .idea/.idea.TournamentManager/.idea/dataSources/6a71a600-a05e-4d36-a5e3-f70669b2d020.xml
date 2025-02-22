@@ -499,7 +499,7 @@
     </routine>
     <schema id="191" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-02-13.12:22:43</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-02-21.11:35:59</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="192" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1959,547 +1959,551 @@ Name</ColNames>
       <Position>2</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="648" parent="563" name="GameStats">
+    <column id="648" parent="563" name="MapId">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="649" parent="563" name="MapId">
+    <column id="649" parent="563" name="MatchId">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="650" parent="563" name="MatchId">
+    <column id="650" parent="563" name="Status">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="651" parent="563" name="Status">
+    <column id="651" parent="563" name="Team1Score">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StoredType>TEXT|0s</StoredType>
+      <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="652" parent="563" name="WinnerTeamId">
+    <column id="652" parent="563" name="Team2Score">
+      <NotNull>1</NotNull>
       <Position>7</Position>
+      <StoredType>INTEGER|0s</StoredType>
+    </column>
+    <column id="653" parent="563" name="WinnerTeamId">
+      <Position>8</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="653" parent="563" name="FK_Games_Maps_MapId">
+    <foreign-key id="654" parent="563" name="FK_Games_Maps_MapId">
       <ColNames>MapId</ColNames>
-      <OnDelete>cascade</OnDelete>
       <RefColNames>Id</RefColNames>
       <RefTableName>Maps</RefTableName>
     </foreign-key>
-    <foreign-key id="654" parent="563" name="FK_Games_Matches_MatchId">
+    <foreign-key id="655" parent="563" name="FK_Games_Matches_MatchId">
       <ColNames>MatchId</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>Id</RefColNames>
       <RefTableName>Matches</RefTableName>
     </foreign-key>
-    <foreign-key id="655" parent="563" name="FK_Games_Teams_WinnerTeamId">
+    <foreign-key id="656" parent="563" name="FK_Games_Teams_WinnerTeamId">
       <ColNames>WinnerTeamId</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>Teams</RefTableName>
     </foreign-key>
-    <index id="656" parent="563" name="sqlite_autoindex_Games_1">
+    <index id="657" parent="563" name="sqlite_autoindex_Games_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="657" parent="563" name="IX_Games_MapId">
+    <index id="658" parent="563" name="IX_Games_MapId">
       <ColNames>MapId</ColNames>
     </index>
-    <index id="658" parent="563" name="IX_Games_MatchId">
+    <index id="659" parent="563" name="IX_Games_MatchId">
       <ColNames>MatchId</ColNames>
     </index>
-    <index id="659" parent="563" name="IX_Games_WinnerTeamId">
+    <index id="660" parent="563" name="IX_Games_WinnerTeamId">
       <ColNames>WinnerTeamId</ColNames>
     </index>
-    <key id="660" parent="563" name="PK_Games">
+    <key id="661" parent="563" name="PK_Games">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_Games_1</UnderlyingIndexName>
     </key>
-    <column id="661" parent="564" name="Id">
+    <column id="662" parent="564" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="662" parent="564" name="Name">
+    <column id="663" parent="564" name="Name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="663" parent="564" name="CompetitivePool">
+    <column id="664" parent="564" name="CompetitivePool">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="664" parent="564" name="ImagePath">
+    <column id="665" parent="564" name="ImagePath">
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="665" parent="564" name="VideoGameId">
+    <column id="666" parent="564" name="VideoGameId">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="666" parent="564" name="FK_Maps_VideoGames_VideoGameId">
+    <foreign-key id="667" parent="564" name="FK_Maps_VideoGames_VideoGameId">
       <ColNames>VideoGameId</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>VideoGames</RefTableName>
     </foreign-key>
-    <index id="667" parent="564" name="sqlite_autoindex_Maps_1">
+    <index id="668" parent="564" name="sqlite_autoindex_Maps_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="668" parent="564" name="IX_Maps_VideoGameId">
+    <index id="669" parent="564" name="IX_Maps_VideoGameId">
       <ColNames>VideoGameId</ColNames>
     </index>
-    <key id="669" parent="564" name="PK_Maps">
+    <key id="670" parent="564" name="PK_Maps">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_Maps_1</UnderlyingIndexName>
     </key>
-    <column id="670" parent="565" name="Id">
+    <column id="671" parent="565" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="671" parent="565" name="BestOf">
+    <column id="672" parent="565" name="BestOf">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="672" parent="565" name="BracketId">
+    <column id="673" parent="565" name="BracketId">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="673" parent="565" name="BracketRound">
+    <column id="674" parent="565" name="BracketRound">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="674" parent="565" name="MatchNumber">
+    <column id="675" parent="565" name="MatchNumber">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="675" parent="565" name="StartDate">
+    <column id="676" parent="565" name="StartDate">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="676" parent="565" name="Status">
+    <column id="677" parent="565" name="Status">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="677" parent="565" name="Team1Id">
+    <column id="678" parent="565" name="Team1Id">
       <Position>8</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="678" parent="565" name="Team2Id">
+    <column id="679" parent="565" name="Team2Id">
       <Position>9</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="679" parent="565" name="TournamentId">
+    <column id="680" parent="565" name="TournamentId">
       <Position>10</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="680" parent="565" name="WinnerTeamId">
+    <column id="681" parent="565" name="WinnerTeamId">
       <Position>11</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="681" parent="565" name="FK_Matches_Brackets_BracketId">
+    <foreign-key id="682" parent="565" name="FK_Matches_Brackets_BracketId">
       <ColNames>BracketId</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>Brackets</RefTableName>
     </foreign-key>
-    <foreign-key id="682" parent="565" name="FK_Matches_Teams_Team1Id">
+    <foreign-key id="683" parent="565" name="FK_Matches_Teams_Team1Id">
       <ColNames>Team1Id</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>Teams</RefTableName>
     </foreign-key>
-    <foreign-key id="683" parent="565" name="FK_Matches_Teams_Team2Id">
+    <foreign-key id="684" parent="565" name="FK_Matches_Teams_Team2Id">
       <ColNames>Team2Id</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>Teams</RefTableName>
     </foreign-key>
-    <foreign-key id="684" parent="565" name="FK_Matches_Tournaments_TournamentId">
+    <foreign-key id="685" parent="565" name="FK_Matches_Tournaments_TournamentId">
       <ColNames>TournamentId</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>Tournaments</RefTableName>
     </foreign-key>
-    <foreign-key id="685" parent="565" name="FK_Matches_Teams_WinnerTeamId">
+    <foreign-key id="686" parent="565" name="FK_Matches_Teams_WinnerTeamId">
       <ColNames>WinnerTeamId</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>Teams</RefTableName>
     </foreign-key>
-    <index id="686" parent="565" name="sqlite_autoindex_Matches_1">
+    <index id="687" parent="565" name="sqlite_autoindex_Matches_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="687" parent="565" name="IX_Matches_BracketId">
+    <index id="688" parent="565" name="IX_Matches_BracketId">
       <ColNames>BracketId</ColNames>
     </index>
-    <index id="688" parent="565" name="IX_Matches_Team1Id">
+    <index id="689" parent="565" name="IX_Matches_Team1Id">
       <ColNames>Team1Id</ColNames>
     </index>
-    <index id="689" parent="565" name="IX_Matches_Team2Id">
+    <index id="690" parent="565" name="IX_Matches_Team2Id">
       <ColNames>Team2Id</ColNames>
     </index>
-    <index id="690" parent="565" name="IX_Matches_TournamentId">
+    <index id="691" parent="565" name="IX_Matches_TournamentId">
       <ColNames>TournamentId</ColNames>
     </index>
-    <index id="691" parent="565" name="IX_Matches_WinnerTeamId">
+    <index id="692" parent="565" name="IX_Matches_WinnerTeamId">
       <ColNames>WinnerTeamId</ColNames>
     </index>
-    <key id="692" parent="565" name="PK_Matches">
+    <key id="693" parent="565" name="PK_Matches">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_Matches_1</UnderlyingIndexName>
     </key>
-    <column id="693" parent="566" name="Id">
+    <column id="694" parent="566" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="694" parent="566" name="Assists">
+    <column id="695" parent="566" name="Assists">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="695" parent="566" name="Deaths">
+    <column id="696" parent="566" name="Deaths">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="696" parent="566" name="GameId">
+    <column id="697" parent="566" name="GameId">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="697" parent="566" name="Kills">
+    <column id="698" parent="566" name="Kills">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="698" parent="566" name="PlayerId">
+    <column id="699" parent="566" name="PlayerId">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="699" parent="566" name="FK_PlayerGameStats_Games_GameId">
+    <foreign-key id="700" parent="566" name="FK_PlayerGameStats_Games_GameId">
       <ColNames>GameId</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>Id</RefColNames>
       <RefTableName>Games</RefTableName>
     </foreign-key>
-    <foreign-key id="700" parent="566" name="FK_PlayerGameStats_Players_PlayerId">
+    <foreign-key id="701" parent="566" name="FK_PlayerGameStats_Players_PlayerId">
       <ColNames>PlayerId</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>Id</RefColNames>
       <RefTableName>Players</RefTableName>
     </foreign-key>
-    <index id="701" parent="566" name="sqlite_autoindex_PlayerGameStats_1">
+    <index id="702" parent="566" name="sqlite_autoindex_PlayerGameStats_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="702" parent="566" name="IX_PlayerGameStats_GameId">
+    <index id="703" parent="566" name="IX_PlayerGameStats_GameId">
       <ColNames>GameId</ColNames>
     </index>
-    <index id="703" parent="566" name="IX_PlayerGameStats_PlayerId">
+    <index id="704" parent="566" name="IX_PlayerGameStats_PlayerId">
       <ColNames>PlayerId</ColNames>
     </index>
-    <key id="704" parent="566" name="PK_PlayerGameStats">
+    <key id="705" parent="566" name="PK_PlayerGameStats">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_PlayerGameStats_1</UnderlyingIndexName>
     </key>
-    <column id="705" parent="567" name="Id">
+    <column id="706" parent="567" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="706" parent="567" name="Birthday">
+    <column id="707" parent="567" name="Birthday">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="707" parent="567" name="ImagePath">
+    <column id="708" parent="567" name="ImagePath">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="708" parent="567" name="Name">
+    <column id="709" parent="567" name="Name">
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="709" parent="567" name="Nationality">
+    <column id="710" parent="567" name="Nationality">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="710" parent="567" name="Nickname">
+    <column id="711" parent="567" name="Nickname">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="711" parent="567" name="Status">
+    <column id="712" parent="567" name="Status">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="712" parent="567" name="TeamId">
+    <column id="713" parent="567" name="TeamId">
       <Position>8</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="713" parent="567" name="Rating">
+    <column id="714" parent="567" name="Rating">
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>9</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <foreign-key id="714" parent="567" name="FK_Players_Teams_TeamId">
+    <foreign-key id="715" parent="567" name="FK_Players_Teams_TeamId">
       <ColNames>TeamId</ColNames>
       <RefColNames>Id</RefColNames>
       <RefTableName>Teams</RefTableName>
     </foreign-key>
-    <index id="715" parent="567" name="sqlite_autoindex_Players_1">
+    <index id="716" parent="567" name="sqlite_autoindex_Players_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="716" parent="567" name="IX_Players_TeamId">
+    <index id="717" parent="567" name="IX_Players_TeamId">
       <ColNames>TeamId</ColNames>
     </index>
-    <key id="717" parent="567" name="PK_Players">
+    <key id="718" parent="567" name="PK_Players">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_Players_1</UnderlyingIndexName>
     </key>
-    <column id="718" parent="568" name="TeamsId">
+    <column id="719" parent="568" name="TeamsId">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="719" parent="568" name="TournamentsId">
+    <column id="720" parent="568" name="TournamentsId">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="720" parent="568" name="FK_TeamTournament_Teams_TeamsId">
+    <foreign-key id="721" parent="568" name="FK_TeamTournament_Teams_TeamsId">
       <ColNames>TeamsId</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>Id</RefColNames>
       <RefTableName>Teams</RefTableName>
     </foreign-key>
-    <foreign-key id="721" parent="568" name="FK_TeamTournament_Tournaments_TournamentsId">
+    <foreign-key id="722" parent="568" name="FK_TeamTournament_Tournaments_TournamentsId">
       <ColNames>TournamentsId</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>Id</RefColNames>
       <RefTableName>Tournaments</RefTableName>
     </foreign-key>
-    <index id="722" parent="568" name="sqlite_autoindex_TeamTournament_1">
+    <index id="723" parent="568" name="sqlite_autoindex_TeamTournament_1">
       <ColNames>TeamsId
 TournamentsId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="723" parent="568" name="IX_TeamTournament_TournamentsId">
+    <index id="724" parent="568" name="IX_TeamTournament_TournamentsId">
       <ColNames>TournamentsId</ColNames>
     </index>
-    <key id="724" parent="568" name="PK_TeamTournament">
+    <key id="725" parent="568" name="PK_TeamTournament">
       <ColNames>TeamsId
 TournamentsId</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_TeamTournament_1</UnderlyingIndexName>
     </key>
-    <column id="725" parent="569" name="Id">
+    <column id="726" parent="569" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="726" parent="569" name="ImagePath">
+    <column id="727" parent="569" name="ImagePath">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="727" parent="569" name="Name">
+    <column id="728" parent="569" name="Name">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="728" parent="569" name="Points">
+    <column id="729" parent="569" name="Points">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="729" parent="569" name="Ranking">
+    <column id="730" parent="569" name="Ranking">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="730" parent="569" name="Region">
+    <column id="731" parent="569" name="Region">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="731" parent="569" name="sqlite_autoindex_Teams_1">
+    <index id="732" parent="569" name="sqlite_autoindex_Teams_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="732" parent="569" name="PK_Teams">
+    <key id="733" parent="569" name="PK_Teams">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_Teams_1</UnderlyingIndexName>
     </key>
-    <column id="733" parent="570" name="Id">
+    <column id="734" parent="570" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="734" parent="570" name="Name">
+    <column id="735" parent="570" name="Name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="735" parent="570" name="StartDate">
+    <column id="736" parent="570" name="StartDate">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="736" parent="570" name="Status">
+    <column id="737" parent="570" name="Status">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="737" parent="570" name="VideoGameId">
+    <column id="738" parent="570" name="VideoGameId">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="738" parent="570" name="WinnerId">
+    <column id="739" parent="570" name="WinnerId">
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="739" parent="570" name="EndDate">
+    <column id="740" parent="570" name="EndDate">
       <DefaultExpression>&apos;0001-01-01 00:00:00&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="740" parent="570" name="Prize">
+    <column id="741" parent="570" name="Prize">
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="741" parent="570" name="Type">
+    <column id="742" parent="570" name="Type">
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>9</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="742" parent="570" name="FK_Tournaments_VideoGames_VideoGameId">
+    <foreign-key id="743" parent="570" name="FK_Tournaments_VideoGames_VideoGameId">
       <ColNames>VideoGameId</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>Id</RefColNames>
       <RefTableName>VideoGames</RefTableName>
     </foreign-key>
-    <index id="743" parent="570" name="sqlite_autoindex_Tournaments_1">
+    <index id="744" parent="570" name="sqlite_autoindex_Tournaments_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <index id="744" parent="570" name="IX_Tournaments_VideoGameId">
+    <index id="745" parent="570" name="IX_Tournaments_VideoGameId">
       <ColNames>VideoGameId</ColNames>
     </index>
-    <key id="745" parent="570" name="PK_Tournaments">
+    <key id="746" parent="570" name="PK_Tournaments">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_Tournaments_1</UnderlyingIndexName>
     </key>
-    <column id="746" parent="571" name="Id">
+    <column id="747" parent="571" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="747" parent="571" name="Name">
+    <column id="748" parent="571" name="Name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="748" parent="571" name="ImagePath">
+    <column id="749" parent="571" name="ImagePath">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="749" parent="571" name="sqlite_autoindex_VideoGames_1">
+    <index id="750" parent="571" name="sqlite_autoindex_VideoGames_1">
       <ColNames>Id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="750" parent="571" name="PK_VideoGames">
+    <key id="751" parent="571" name="PK_VideoGames">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_VideoGames_1</UnderlyingIndexName>
     </key>
-    <column id="751" parent="572" name="MigrationId">
+    <column id="752" parent="572" name="MigrationId">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="752" parent="572" name="ProductVersion">
+    <column id="753" parent="572" name="ProductVersion">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="753" parent="572" name="sqlite_autoindex___EFMigrationsHistory_1">
+    <index id="754" parent="572" name="sqlite_autoindex___EFMigrationsHistory_1">
       <ColNames>MigrationId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="754" parent="572" name="PK___EFMigrationsHistory">
+    <key id="755" parent="572" name="PK___EFMigrationsHistory">
       <ColNames>MigrationId</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex___EFMigrationsHistory_1</UnderlyingIndexName>
     </key>
-    <column id="755" parent="573" name="Id">
+    <column id="756" parent="573" name="Id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="756" parent="573" name="Timestamp">
+    <column id="757" parent="573" name="Timestamp">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <key id="757" parent="573" name="PK___EFMigrationsLock">
+    <key id="758" parent="573" name="PK___EFMigrationsLock">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="758" parent="574" name="type">
+    <column id="759" parent="574" name="type">
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="759" parent="574" name="name">
+    <column id="760" parent="574" name="name">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="760" parent="574" name="tbl_name">
+    <column id="761" parent="574" name="tbl_name">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="761" parent="574" name="rootpage">
+    <column id="762" parent="574" name="rootpage">
       <Position>4</Position>
       <StoredType>INT|0s</StoredType>
     </column>
-    <column id="762" parent="574" name="sql">
+    <column id="763" parent="574" name="sql">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="763" parent="575" name="name">
+    <column id="764" parent="575" name="name">
       <Position>1</Position>
     </column>
-    <column id="764" parent="575" name="seq">
+    <column id="765" parent="575" name="seq">
       <Position>2</Position>
     </column>
   </database-model>
