@@ -14,28 +14,87 @@ public class PlayerService
         _dbContext = applicationDbContext;
     }
     
-    public async Task<List<Player>> GetAllPlayersAsync()
+    public async Task<List<Player>> GetAllPlayersAsync(CancellationToken ct)
     {
-        return await _dbContext.Players.ToListAsync();
+        try
+        {
+            return await _dbContext.Players.ToListAsync(ct);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Operation cancelled.");
+            return null!;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching player: {ex.Message}");
+            return null!;
+        }
     }
 
-    public async Task<Player> GetPlayerAndTeamByNicknameAsync(string nickname)
+    public async Task<Player> GetPlayerAndTeamByNicknameAsync(string nickname, CancellationToken ct)
     {
-        return await _dbContext.Players
-            .Include(p => p.Team)
-            .FirstAsync(p => p.Nickname == nickname);
+        try
+        {
+            return await _dbContext.Players
+                .Include(p => p.Team)
+                .FirstOrDefaultAsync(p => p.Nickname == nickname, ct);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Operation was canceled.");
+            return null!;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching player: {ex.Message}");
+            return null!;
+        }
     }
 
-    public async Task<PlayerStatistics> GetPlayerStatsByNicknameAsync(string nickname)
+    public async Task UpdatePlayerAsync(Player player)
+    {
+        var existingPlayer = await _dbContext.Players.FindAsync(player.Id);
+    
+        if (existingPlayer is null)
+        {
+            return;
+        }
+        
+        existingPlayer.Name = player.Name;
+        existingPlayer.Nickname = player.Nickname;
+        existingPlayer.Birthday = player.Birthday;
+        existingPlayer.ImagePath = player.ImagePath;
+        existingPlayer.Rating = player.Rating;
+        existingPlayer.Nationality = player.Nationality;
+        existingPlayer.Status = player.Status;
+        existingPlayer.TeamId = player.TeamId;
+
+        try
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating player: {ex.Message}");
+        }
+    }
+    
+    public async Task<PlayerStatistics> GetPlayerStatsByNicknameAsync(string nickname, CancellationToken ct)
     {
         var stats = new PlayerStatistics();
         
         var player = await _dbContext.Players
-            .FirstAsync(p => p.Nickname == nickname);
+            .FirstOrDefaultAsync(p => p.Nickname == nickname, ct);
+
+        if (player is null)
+        {
+            return null!;
+        }
         
         List<PlayerGameStats> playerGameStats = await _dbContext.PlayerGameStats
             .Where(p => p.PlayerId == player.Id)
-            .ToListAsync();
+            .ToListAsync(ct);
         
         stats.MapsPlayed = playerGameStats.Count;
         stats.Kills = playerGameStats.Select(p => p.Kills).Sum();
@@ -49,5 +108,4 @@ public class PlayerService
 
         return stats;
     }
-    
 }

@@ -1,9 +1,10 @@
 ﻿@page "/teams"
 @using TournamentManager.Models
+@using TournamentManager.Models.Enum
 @using TournamentManager.Services
 @rendermode InteractiveServer
 
-@inject Data.ApplicationDbContext DbContext
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigation
 @inject TeamService TeamService
 @inject IStringLocalizer<Resource> Localizer
@@ -35,22 +36,83 @@
         <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Ranking)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Ranking"]" />
         
         <!-- Points -->
-        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Points)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Points"]"/>
+        <!--<PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Points)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Points"]"/>-->
         
         <!-- Region -->
         <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Region)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Team_Region"]" />
 
+        @if (IsAdmin)
+        {
+            <TemplateColumn Style="height: 50px; cursor: pointer" Title="Actions" Tooltip="true" Align="Align.Center">
+                <ChildContent Context="itemContext">
+                    <FluentButton StopPropagation="true" OnClick="@(() => HandleEditTeam(itemContext))">
+                        Edit
+                    </FluentButton>
+                </ChildContent>
+            </TemplateColumn>
+        }
+        
     </FluentDataGrid>
 </div>
 
 <FluentPaginator State="@pagination" />
 
+@if (_isEditDialogOpen)
+{
+    <FluentDialog @bind-Open="_isEditDialogOpen">
+        <FluentDialogBody>
+            @if (_selectedTeam is not null)
+            {
+                <div class="dialog-wrapper">
+                    <div class="object-name-id-wrapper">
+                        <p class="dialog-object-name">@_selectedTeam.Name</p>
+                        <p class="dialog-object-id">ID: @_selectedTeam.Id.ToString()</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img class="dialog-object-image" src="@_selectedTeam.ImagePath" alt="Object Image"/>
+                    </div>
+
+                    <FluentTextField @bind-Value="@_selectedTeam.Name">Name: </FluentTextField>
+                    <FluentNumberField @bind-Value="@_selectedTeam.Points">Points: </FluentNumberField>
+                    <FluentNumberField @bind-Value="@_selectedTeam.Ranking">Ranking: </FluentNumberField>
+                    <label for="region">Region: </label>
+                    <select id="region" class="region" @bind="_selectedTeam.Region">
+                        @foreach (var region in Enum.GetValues(typeof(Region)))
+                        {
+                            <option value="@region">@region</option>
+                        }
+                    </select>
+                    <FluentTextField @bind-Value="@_selectedTeam.ImagePath" Label="Image Path" ReadOnly="true"/>
+                    <FluentInputFile
+                        AnchorId="MyUploadStream"
+                        DragDropZoneVisible="false"
+                        Mode="InputFileMode.Stream"
+                        Multiple="false"
+                        MaximumFileSize="@(20 * 1024 * 1024)"
+                        Accept="image/*"
+                        OnFileUploaded="@OnFileUploadedAsync"/>
+
+                    <FluentButton Appearance="Appearance.Accent" Id="MyUploadStream">
+                        Upload files
+                    </FluentButton>
+                    <div class="dialog-button-wrapper">
+                        <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+                        <FluentButton @onclick="CloseEditDialog">Cancel</FluentButton>
+                    </div>
+                </div>
+            }
+        </FluentDialogBody>
+    </FluentDialog>
+}
+
+
 @code {
+    //Table fields
     bool _clearItems = false;
     IQueryable<Team>? items;
-    PaginationState pagination = new PaginationState { ItemsPerPage = 20 };
+    PaginationState pagination = new() { ItemsPerPage = 20 };
     string nameFilter = string.Empty;
-
     IQueryable<Team>? FilteredItems
     {
         get
@@ -65,10 +127,26 @@
             return result;
         }
     }
+    
+    private bool IsAdmin { get; set; }
+    
+    //Fields for the dialog window
+    private bool _isEditDialogOpen;
+    private Team? _selectedTeam;
 
     protected override async Task OnInitializedAsync()
     {
-        items = (await TeamService.GetAllTeamsAsync()).AsQueryable();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        IsAdmin = user.IsInRole("Admin");
+
+        var cts = new CancellationTokenSource();
+        
+        items = (await TeamService.GetAllTeamsAsync(cts.Token)).AsQueryable();
+        
+        _isEditDialogOpen = false;
+        _selectedTeam = null;
     }
 
     private void HandlePlayerFilter(ChangeEventArgs args)
@@ -93,5 +171,60 @@
         {
             Navigation.NavigateTo($"/teams/{team.Name}", forceLoad: true);
         }
+    }
+    
+    private async Task HandleEditTeam(Team team)
+    {
+        _selectedTeam = new Team
+        {
+            Id = team.Id,
+            Name = team.Name,
+            Points = team.Points,
+            Ranking = team.Ranking,
+            Region = team.Region,
+            ImagePath = team.ImagePath
+        };
+
+        _isEditDialogOpen = true;
+    }
+
+    private void CloseEditDialog()
+    {
+        _isEditDialogOpen = false;
+        _selectedTeam = null;
+    }
+
+    private async Task SaveChanges()
+    {
+        var cts = new CancellationTokenSource();
+        
+        if (_selectedTeam is not null)
+        {
+            await TeamService.UpdateTeamAsync(_selectedTeam, cts.Token);
+            
+            _isEditDialogOpen = false;
+        }
+    }
+    
+    private async Task OnFileUploadedAsync(FluentInputFileEventArgs file)
+    {
+        if (_selectedTeam != null)
+        {
+            _selectedTeam.ImagePath = await SaveImageAsync(file);
+        }
+    }
+
+    private async Task<string> SaveImageAsync(FluentInputFileEventArgs file)
+    {
+        var fileName = Path.GetFileName(file.Name);
+        var filePath = Path.Combine("wwwroot", "Images", "Team", fileName);
+        
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.Stream!.CopyToAsync(stream);
+            await file.Stream.DisposeAsync();
+        }
+        
+        return $"Images/Team/{fileName}";
     }
 }

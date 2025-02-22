@@ -1,59 +1,130 @@
 ﻿@page "/players"
 
 @using TournamentManager.Models
+@using TournamentManager.Models.Enums
 @using TournamentManager.Services
+
 @rendermode InteractiveServer
 
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigation
 @inject PlayerService PlayerService
+@inject TeamService TeamService
 @inject IStringLocalizer<Resource> Localizer
 
 <PageTitle>Players</PageTitle>
 
-<div>
-    <FluentDataGrid Items="@FilteredItems"
-                    GridTemplateColumns="0.2fr 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr"
-                    Pagination="@pagination"
-                    TGridItem="Player"
-                    OnCellClick="HandleCellClick">
+<FluentDataGrid Items="@FilteredItems"
+                GridTemplateColumns="0.2fr 0.2fr 0.1fr"
+                Pagination="@pagination"
+                TGridItem="Player"
+                OnCellClick="HandleCellClick">
 
-        <!-- Player Image -->
-        <TemplateColumn Style="height: 50px; cursor: pointer" Title="@Localizer["Avatar"]" Tooltip="true" Align="Align.Center">
-            <img class="player-avatar" src="@context.ImagePath" alt="Avatar of @(context.Nickname)" style="width: 40px; height: 40px; border-radius: 5px;" />
+    <!-- Player Image -->
+    <TemplateColumn Style="height: 50px; cursor: pointer" Title="@Localizer["Avatar"]" Tooltip="true" Align="Align.Center">
+        <img class="player-avatar" src="@context.ImagePath" alt="Avatar of @(context.Nickname)" style="width: 40px; height: 40px; border-radius: 5px;" />
+    </TemplateColumn>
+
+    <!-- Nickname with OnClick -->
+    <PropertyColumn Align="Align.Center" Style="height: 50px; cursor: pointer" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="@Localizer["Nickname"]">
+        <ColumnOptions>
+            <div class="search-box">
+                <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="@Localizer["Nickname_Search"]" Style="width: 100%;" Label="Filter" />
+            </div>
+        </ColumnOptions>
+    </PropertyColumn>
+        
+    <!-- Rating -->
+    <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Rating)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Rating"]"/>
+        
+    <!-- Nationality -->
+    <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Nationality"]"/>
+
+    <!-- Birthday -->
+    <PropertyColumn Style="height: 50px; cursor: pointer"  Property="@(c => GetFormattedDate(c.Birthday))"  Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Birthday"]" />
+
+    <!-- Status -->
+    <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Player_Status"]" />
+
+    @if (IsAdmin)
+    {
+        <TemplateColumn Style="height: 50px; cursor: pointer" Title="Actions" Tooltip="true" Align="Align.Center">
+            <ChildContent Context="itemContext">
+                <FluentButton StopPropagation="true" OnClick="@(() => HandleEditPlayer(itemContext))">
+                    Edit
+                </FluentButton>
+            </ChildContent>
         </TemplateColumn>
-
-        <!-- Nickname with OnClick -->
-        <PropertyColumn Align="Align.Center" Style="height: 50px; cursor: pointer" Property="@(c => c.Nickname)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="@Localizer["Nickname"]">
-            <ColumnOptions>
-                <div class="search-box">
-                    <FluentSearch Autofocus="true" @bind-Value="nameFilter" @oninput="HandlePlayerFilter" @bind-Value:after="HandleClear" Placeholder="@Localizer["Nickname_Search"]" Style="width: 100%;" Label="Filter" />
-                </div>
-            </ColumnOptions>
-        </PropertyColumn>
-        
-        <!-- Rating -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Rating)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Rating"]"/>
-        
-        <!-- Nationality -->
-        <PropertyColumn class="hover-background" Style="height: 50px; cursor: pointer" Property="@(c => c.Nationality)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Nationality"]"/>
-
-        <!-- Birthday -->
-        <PropertyColumn Style="height: 50px; cursor: pointer"  Property="@(c => GetFormattedDate(c.Birthday))"  Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Birthday"]" />
-
-        <!-- Status -->
-        <PropertyColumn Style="height: 50px; cursor: pointer" Property="@(c => c.Status)" Sortable="true" Align="Align.Center" Tooltip="true" Title="@Localizer["Player_Status"]" />
-
-    </FluentDataGrid>
-</div>
+    }
+</FluentDataGrid>
 
 <FluentPaginator State="@pagination" />
 
+@if (_isEditDialogOpen)
+{
+    <FluentDialog @bind-Open="_isEditDialogOpen">
+        <FluentDialogBody>
+            @if (_selectedPlayer is not null)
+            {
+                <div class="dialog-wrapper">
+                    <div class="object-name-id-wrapper">
+                        <p class="dialog-object-name">@_selectedPlayer.Nickname</p>
+                        <p class="dialog-object-id">ID: @_selectedPlayer.Id.ToString()</p>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <img class="dialog-object-image" src="@_selectedPlayer.ImagePath" alt="Player Image"/>
+                    </div>
+
+                    <FluentTextField @bind-Value="@_selectedPlayer.Nickname">Nickname: </FluentTextField>
+                    <label for="activity-status">Status:</label>
+                    <select id="activity-status" class="activity-status" @bind="_selectedPlayer.Status">
+                        @foreach (var status in Enum.GetValues(typeof(PlayerStatus)))
+                        {
+                            <option value="@status">@status</option>
+                        }
+                    </select>
+                    <FluentTextField @bind-Value="@_selectedPlayer.Name">Name: </FluentTextField>
+                    <FluentTextField @bind-Value="@_selectedPlayer.Nationality">Nationality: </FluentTextField>
+                    <FluentDatePicker Label="Birthday:" @bind-Value="@_selectedPlayer.Birthday"></FluentDatePicker>
+                    <FluentNumberField @bind-Value="@_selectedPlayer.Rating">Rating: </FluentNumberField>
+                    <label for="object-team">Team:</label>
+                    <select id="object-team" class="object-team" @bind="_selectedPlayer.TeamId">
+                        @foreach (var team in _teams)
+                        {
+                            <option value="@team.Id">@team.Name</option>
+                        }
+                    </select>
+                    <FluentTextField @bind-Value="@_selectedPlayer.ImagePath" Label="Image Path" ReadOnly="true"/>
+                    <FluentInputFile
+                        AnchorId="MyUploadStream"
+                        DragDropZoneVisible="false"
+                        Mode="InputFileMode.Stream"
+                        Multiple="false"
+                        MaximumFileSize="@(20 * 1024 * 1024)"
+                        Accept="image/*"
+                        OnFileUploaded="@OnFileUploadedAsync"/>
+
+                    <FluentButton Appearance="Appearance.Accent" Id="MyUploadStream">
+                        Upload files
+                    </FluentButton>
+                    <div class="dialog-button-wrapper">
+                        <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+                        <FluentButton @onclick="CloseEditDialog">Cancel</FluentButton>
+                    </div>
+                </div>
+            }
+        </FluentDialogBody>
+    </FluentDialog>
+}
+
 @code {
+    
+    //Table fields
     bool _clearItems = false;
     IQueryable<Player>? items;
-    PaginationState pagination = new PaginationState { ItemsPerPage = 20 };
+    PaginationState pagination = new() { ItemsPerPage = 20 };
     string nameFilter = string.Empty;
-
     IQueryable<Player>? FilteredItems
     {
         get
@@ -68,10 +139,29 @@
             return result;
         }
     }
+    
+    private bool IsAdmin { get; set; }
+    
+    //Fields for the dialog window
+    private bool _isEditDialogOpen;
+    private Player? _selectedPlayer;
+    
+    //Fields for the team select dropdown
+    private List<Team> _teams;
 
     protected override async Task OnInitializedAsync()
     {
-        items = (await PlayerService.GetAllPlayersAsync()).AsQueryable();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        IsAdmin = user.IsInRole("Admin");
+
+        var cts = new CancellationTokenSource();
+        
+        items = (await PlayerService.GetAllPlayersAsync(cts.Token)).AsQueryable();
+
+        _isEditDialogOpen = false;
+        _selectedPlayer = null;
     }
 
     private void HandlePlayerFilter(ChangeEventArgs args)
@@ -101,5 +191,68 @@
     private string GetFormattedDate(DateTime? date)
     {
         return date?.ToString("d", CultureInfo.CurrentCulture) ?? "N/A"; 
+    }
+
+    private async Task HandleEditPlayer(Player player)
+    {
+        var cts = new CancellationTokenSource();
+        
+        if (_teams is null)
+        {
+            _teams = await TeamService.GetAllTeamsAsync(cts.Token);
+        }
+
+        _selectedPlayer = new Player
+        {
+            Id = player.Id,
+            Nickname = player.Nickname,
+            Status = player.Status,
+            Name = player.Name,
+            Nationality = player.Nationality,
+            Birthday = player.Birthday,
+            Rating = player.Rating,
+            ImagePath = player.ImagePath,
+            TeamId = player.TeamId,
+        };
+
+        _isEditDialogOpen = true;
+    }
+
+    private void CloseEditDialog()
+    {
+        _isEditDialogOpen = false;
+        _selectedPlayer = null;
+    }
+
+    private async Task SaveChanges()
+    {
+        if (_selectedPlayer is not null)
+        {
+            await PlayerService.UpdatePlayerAsync(_selectedPlayer);
+            
+            _isEditDialogOpen = false;
+        }
+    }
+    
+    private async Task OnFileUploadedAsync(FluentInputFileEventArgs file)
+    {
+        if (_selectedPlayer != null)
+        {
+            _selectedPlayer.ImagePath = await SaveImageAsync(file);
+        }
+    }
+
+    private async Task<string> SaveImageAsync(FluentInputFileEventArgs file)
+    {
+        var fileName = Path.GetFileName(file.Name);
+        var filePath = Path.Combine("wwwroot", "Images", "Player", fileName);
+        
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.Stream!.CopyToAsync(stream);
+            await file.Stream.DisposeAsync();
+        }
+        
+        return $"Images/Player/{fileName}";
     }
 }
