@@ -56,7 +56,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _teams = await TeamService.GetAllTeamsAsync();
+        var cts = new CancellationTokenSource();
+        
+        _teams = await TeamService.GetAllTeamsAsync(cts.Token);
     }
 
     private void HandleTournamentButton()

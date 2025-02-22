@@ -1,0 +1,13 @@
+﻿@using TournamentManager.Models
+@implements IDialogContentComponent<Player>
+
+<FluentDialogBody>
+    <h3>@Content.Nickname </h3>
+
+    <FluentTextField @bind-Value="@Content.Name">Your firstname:</FluentTextField>
+    <FluentNumberField @bind-Value="@Content.Birthday">Your birthday:</FluentNumberField>
+</FluentDialogBody>
+
+@code {
+    [Parameter] public Player Content { get; set; } = default!;
+}

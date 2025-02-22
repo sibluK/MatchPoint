@@ -11,3 +11,7 @@
 <AuthorizeView>
     Hello @context.User.Identity?.Name!
 </AuthorizeView>
+
+<AuthorizeView Roles="Admin">
+    Hello admin
+</AuthorizeView>
