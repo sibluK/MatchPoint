@@ -8,6 +8,7 @@ using TournamentManager.Data;
 using TournamentManager.Services;
 using Microsoft.AspNetCore.Authentication.Google;
 using TournamentManager.AutoDbUpdates;
+using TournamentManager.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddScoped<TournamentService>();
 builder.Services.AddScoped<MatchService>();
 builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<VideoGameService>();
 
 builder.Services.AddHostedService<TournamentStatusUpdater>();
 builder.Services.AddHostedService<MatchStatusUpdater>();

@@ -7,15 +7,23 @@
 @rendermode InteractiveServer
 
 @inject TournamentService TournamentService
+@inject VideoGameService VideoGameService
+@inject TeamService TeamService;
 @inject GameService GameService;
 @inject NavigationManager NavigationManager
 
-<PageTitle>@tournamentName</PageTitle>
+<PageTitle>@_tournament.Name</PageTitle>
 
 <div class="tournament-page-wrapper">
     <h2>@_tournament.Name</h2>
     <div class="tournament-information-wrapper">
         <h5 class="header">Information</h5>
+        <AuthorizeView Roles="Admin">
+            <div class="admin-button">
+                <FluentButton OnClick="@HandleEditTournamentInfo">Edit</FluentButton>
+            </div>
+        </AuthorizeView>
+
         <div class="tournament-information">
             <div class="info-wrapper">
                 <span class="wrapper-title">Date</span>
@@ -43,110 +51,305 @@
     
     <div class="brackets-wrapper">
         <h5 class="header">Bracket</h5>
-        <div class="bracket-wrapper">
-            <div class="bracket-information">
-                @GetBracketType(_tournament.Bracket.Type)
-            </div>
-            <div class="rounds-wrapper">
-                @for (var i = 1; i <= _tournament.Bracket.NumberOfRounds; i++)
-                {
-                    <div class="round-wrapper">
-                        @if (_tournament.Bracket.Matches.Any(m => m.BracketRound == i))
+            @if (_tournament.Bracket is not null)
+            {
+                <div class="bracket-wrapper">
+                    <div class="bracket-information">
+                        @GetBracketType(_tournament.Bracket.Type)
+                    </div>
+                    <div class="rounds-wrapper">
+                        @for (var i = 1; i <= _tournament.Bracket.NumberOfRounds; i++)
                         {
-                            @foreach (var match in _tournament.Bracket.Matches.OrderBy(m => m.MatchNumber))
-                            {
-                                @if (match.BracketRound == i)
+                            <div class="round-wrapper">
+                                @if (_tournament.Bracket.Matches.Any(m => m.BracketRound == i))
                                 {
-                                    <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
-                                        <div class="match-information-wrapper">@match.BestOf</div>
-                                        @if (match.StartDate > DateTime.Now && match.Status != ActivityStatus.Ended)
+                                    @foreach (var match in _tournament.Bracket.Matches.OrderBy(m => m.MatchNumber))
+                                    {
+                                        @if (match.BracketRound == i)
                                         {
-                                            <div class="match-time">@TimeTillMatch(match.StartDate)</div>
-                                        }
-                                        else if(match.Status == ActivityStatus.Live)
-                                        {
-                                            <div class="live-status-wrapper match-time">
-                                                <div class="live-bubble"></div>
-                                                <div>Live</div>
+                                            <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
+                                                <div class="match-information-wrapper">@match.BestOf</div>
+                                                @if (match.StartDate > DateTime.Now && match.Status != ActivityStatus.Ended)
+                                                {
+                                                    <div class="match-time">@TimeTillMatch(match.StartDate)</div>
+                                                }
+                                                else if (match.Status == ActivityStatus.Live)
+                                                {
+                                                    <div class="live-status-wrapper match-time">
+                                                        <div class="live-bubble"></div>
+                                                        <div>Live</div>
+                                                    </div>
+                                                }
+                                                <div class="@GetTeamClass(match.WinnerTeamId, match.Team1.Id)">
+                                                    <img src="@match.Team1.ImagePath"/>
+                                                    <span>@match.Team1.Name</span>
+                                                    <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team1.Id))</span>
+                                                </div>
+                                                <div class="@GetTeamClass(match.WinnerTeamId, match.Team2.Id)">
+                                                    <img src="@match.Team2.ImagePath"/>
+                                                    <span>@match.Team2.Name</span>
+                                                    <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team2.Id))</span>
+                                                </div>
                                             </div>
                                         }
-                                        <div class="@GetTeamClass(match.WinnerTeamId, match.Team1.Id)">
-                                            <img src="@match.Team1.ImagePath"/>
-                                            <span>@match.Team1.Name</span>
-                                            <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team1.Id))</span>
-                                        </div>
-                                        <div class="@GetTeamClass(match.WinnerTeamId, match.Team2.Id)">
-                                            <img src="@match.Team2.ImagePath"/>
-                                            <span>@match.Team2.Name</span>
-                                            <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team2.Id))</span>
-                                        </div>
-                                    </div>
+                                    }
                                 }
-                            }
-                        }
-                        else
-                        {
-                            @if (_tournament.Bracket.NumberOfRounds == i)
-                            {
-                                <div class="match-wrapper">
-                                    <div class="team-wrapper">TBD</div>
-                                    <div class="team-wrapper">TBD</div>
-                                </div>
-                            }
-                            else
-                            {
-                                @for (var j = 1; j <= _tournament.Bracket.Matches.Count(m => m.BracketRound == i - 1) / 2; j++)
+                                else
                                 {
-                                    <div class="match-wrapper">
-                                        <div class="team-wrapper">TBD</div>
-                                        <div class="team-wrapper">TBD</div>
-                                    </div>
+                                    @if (_tournament.Bracket.NumberOfRounds == i)
+                                    {
+                                        <div class="match-wrapper">
+                                            <div class="team-wrapper">TBD</div>
+                                            <div class="team-wrapper">TBD</div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @for (var j = 1; j <= _tournament.Bracket.Matches.Count(m => m.BracketRound == i - 1) / 2; j++)
+                                        {
+                                            <div class="match-wrapper">
+                                                <div class="team-wrapper">TBD</div>
+                                                <div class="team-wrapper">TBD</div>
+                                            </div>
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-    
-    <div class="tournament-teams">
-        <h5 class="header">Teams</h5>
-        <div class="tournament-teams-wrapper">
-            @foreach (var team in _tournament.Teams)
-            {
-                <div class="team-card-wrapper">
-                    <span class="team-name" onclick="@(() => HandleTeamClick(team.Name))">@team.Name</span>
-                    <img class="team-image" src="@team.ImagePath" alt="@team.Name"/>
-                    <span class="@GetRankingClass(team.Ranking) team-ranking">#@team.Ranking</span>
-                    <div class="team-card-players">
-                        @foreach (var player in team.Players)
-                        {
-                            <span class="player-name" onclick="@(() => HandlePlayerClick(player.Nickname))">@player.Nickname</span>
+                            </div>
                         }
                     </div>
                 </div>
             }
-        </div>
-
+            else
+            { 
+                <p>No bracket yet</p>
+                <AuthorizeView Roles="Admin">
+                    <div class="admin-button">
+                        <FluentButton OnClick="@HandleGenerateBracket">Generate Bracket</FluentButton>
+                    </div>
+                </AuthorizeView>
+            }
     </div>
     
+    <div class="tournament-teams">
+        <h5 class="header">Teams</h5>
+        <AuthorizeView Roles="Admin">
+            <div class="admin-button">
+                <FluentButton OnClick="@HandleAddTeams">Add teams</FluentButton>
+            </div>
+        </AuthorizeView>
+
+        @if (_tournament.Teams.Any())
+        {
+            <div class="tournament-teams-wrapper">
+                @foreach (var team in _tournament.Teams)
+                {
+                    <div class="team-card-wrapper">
+                        <span class="team-name" onclick="@(() => HandleTeamClick(team.Name))">@team.Name</span>
+                        <img class="team-image" src="@team.ImagePath" alt="@team.Name"/>
+                        <span class="@GetRankingClass(team.Ranking) team-ranking">#@team.Ranking</span>
+                        <div class="team-card-players">
+                            @foreach (var player in team.Players)
+                            {
+                                <span class="player-name" onclick="@(() => HandlePlayerClick(player.Nickname))">@player.Nickname</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No teams assigned</p>
+        }
+    </div>
 </div>
+
+@if (_isEditDialogOpen)
+{
+    <FluentDialog>
+        <FluentDialogBody>
+            <div class="dialog-wrapper">
+                <div class="object-name-id-wrapper">
+                    <p class="dialog-object-name">@_tournament.Name</p>
+                    <p class="dialog-object-id">ID: @_tournament.Id.ToString()</p>
+                </div>
+                <FluentTextField @bind-Value="@_tournament.Name">Name: </FluentTextField>
+                <FluentDatePicker Label="Start date:" @bind-Value="@_startDate"></FluentDatePicker>
+                <FluentDatePicker Label="End date:" @bind-Value="@_endDate"></FluentDatePicker>
+                <FluentNumberField @bind-Value="@_tournament.Prize">Prize (US Dollars): </FluentNumberField>
+                <label for="object-type">Type:</label>
+                <select id="object-type" class="object-type" @bind="_tournament.Type">
+                    @foreach (var type in Enum.GetValues(typeof(TournamentType)))
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </select>
+                <label for="object-game">Game:</label>
+                <select id="object-game" class="object-game" @bind="_tournament.VideoGameId">
+                    @foreach (var game in _games)
+                    {
+                        <option value="@game.Id">@game.Name</option>
+                    }
+                </select>
+                <div class="dialog-button-wrapper">
+                    <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+                    <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+                </div>
+            </div>
+        </FluentDialogBody>
+    </FluentDialog>
+}
+
+@if (_isGenerateBracketDialogOpen)
+{
+    <FluentDialog>
+        <div class="dialog-button-wrapper">
+            <p>Generate Bracket</p>
+            <p>Teams</p>
+            <div>
+                @foreach (var team in _tournament.Teams)
+                {
+                    <p>@team.Name</p>
+                }
+            </div>
+            <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+            <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+        </div>
+    </FluentDialog>
+}
+
+@if (_isAddTeamsDialogOpen)
+{
+    <FluentDialog>
+        <div class="dialog-button-wrapper">
+            <h4>Add teams</h4>
+            <FluentAutocomplete TOption="Team"
+                                AutoComplete="on"
+                                Autofocus="true"
+                                Label="Select a team"
+                                Placeholder="Select teams"
+                                OnOptionsSearch="@OnSearchAsync"
+                                MaximumSelectedOptions="32"
+                                OptionText="@(item => item.Name)"
+                                @bind-SelectedOptions="@_selectedTeams" />
+
+            <p>
+                <b>Selected</b>: @(String.Join(", ", _selectedTeams.Select(i => i.Name)))
+            </p>
+            
+            <FluentButton @onclick="SaveAddedTeams" Appearance="Appearance.Accent">Save</FluentButton>
+            <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+        </div>
+    </FluentDialog>
+}
 
 @code {
     [Parameter] public string tournamentName { get; set; }
+    private CancellationTokenSource _cts = new();
     private Tournament _tournament = new();
     private Dictionary<(Guid matchId, Guid teamId), int> teamScores = new();
+    
+    private bool _isEditDialogOpen;
+    private bool _isGenerateBracketDialogOpen;
+    private bool _isAddTeamsDialogOpen;
+    
+    private List<VideoGame> _games;
+
+    private DateTime? _startDate;
+    private DateTime? _endDate;
+    
+    private IEnumerable<Team> _selectedTeams = Array.Empty<Team>();
+
+    private async Task OnSearchAsync(OptionsSearchEventArgs<Team> e)
+    {
+        var allTeams = await TeamService.GetAllTeamsAsync(_cts.Token);
+        var teamList = new List<Team>();
+        
+        foreach (var team in allTeams)
+        {
+            if (!_tournament.Teams.Contains(team))
+            {
+                teamList.Add(team);
+            }
+        }
+        
+        e.Items = teamList.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(i => i.Name);
+    }
     
     protected override async Task OnInitializedAsync()
     {
         _tournament = await TournamentService.GetTournamentByNameAsync(tournamentName);
-        
-        foreach (var match in _tournament.Bracket.Matches)
+
+        if (_tournament is not null)
         {
-            teamScores[(match.Id, match.Team1.Id)] = await GetTeamMatchScore(match.Id, match.Team1.Id);
-            teamScores[(match.Id, match.Team2.Id)] = await GetTeamMatchScore(match.Id, match.Team2.Id);
+            _startDate = _tournament.StartDate;
+            _endDate = _tournament.EndDate;
         }
+        
+        if (_tournament.Bracket is not null && _tournament.Bracket.Matches.Any())
+        {
+            foreach (var match in _tournament.Bracket.Matches)
+            {
+                teamScores[(match.Id, match.Team1.Id)] = await GetTeamMatchScore(match.Id, match.Team1.Id);
+                teamScores[(match.Id, match.Team2.Id)] = await GetTeamMatchScore(match.Id, match.Team2.Id);
+            }
+        }
+    }
+    
+    private async Task HandleEditTournamentInfo()
+    {
+        if (_games is null)
+        {
+            _games = await VideoGameService.GetAllVideoGamesAsync();
+        }
+
+        _isEditDialogOpen = true;
+    }
+
+    private async Task HandleGenerateBracket()
+    {
+        _isGenerateBracketDialogOpen = true;
+    }
+
+    private async Task HandleAddTeams()
+    {
+        _isAddTeamsDialogOpen = true;
+    }
+    
+    private void CloseDialog()
+    {
+        _isEditDialogOpen = false;
+        _isGenerateBracketDialogOpen = false;
+        _isAddTeamsDialogOpen = false;
+    }
+
+    private async Task SaveChanges()
+    {
+        if (_tournament is not null)
+        {
+            var updatedTournament = await TournamentService.UpdateTournamentInfoAsync(_tournament, _cts.Token);
+
+            _startDate = updatedTournament.StartDate;
+            _endDate = updatedTournament.EndDate;
+            
+            _isEditDialogOpen = false;
+            _isGenerateBracketDialogOpen = false;
+            
+            NavigationManager.NavigateTo($"/tournaments/{updatedTournament.Name}");
+        }
+    }
+
+    private async Task SaveAddedTeams()
+    {
+        if (_selectedTeams.Any())
+        {
+           await TournamentService.AddTeamsToTournamentAsync(_tournament.Id, _selectedTeams.ToList(), _cts.Token);
+        }
+        
+        _isAddTeamsDialogOpen = false;
+        _selectedTeams = Array.Empty<Team>();
+        StateHasChanged();
     }
     
     private async Task<int> GetTeamMatchScore(Guid matchId, Guid teamId)

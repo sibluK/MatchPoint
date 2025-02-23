@@ -4,30 +4,3 @@
     border-radius: calc(var(--control-corner-radius)* 1px);
     height: calc((var(--base-height-multiplier) + var(--density))* var(--design-unit)* 1px);;
 }
-
-.page-action-wrapper {
-    border-bottom: 1px solid lightgray;
-    padding-bottom: 10px
-}
-
-.page-action-buttons {
-    display: flex;
-    align-items: center;
-}
-
-.add-button {
-    color: white;
-    border: none;
-    background-color: forestgreen;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.1s ease-in-out;
-}
-
-.add-button:hover {
-    background-color: #1c751c;
-}
-
-.add-button:active {
-    background-color: #1f831f;
-}

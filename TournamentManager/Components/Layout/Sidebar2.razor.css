@@ -51,19 +51,14 @@ div.tournament-wrapper > div:last-child:hover {
     margin-bottom: 5px !important;
 }
 
-.tournament-teams-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .tournament-date, .tournament-time {
     text-align: center;
 }
 
 .tournament-teams-wrapper {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 5px;
 }
 
