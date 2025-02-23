@@ -20,7 +20,7 @@
     <div class="page-action-wrapper">
         <h4>Actions:</h4>
         <div class="page-action-buttons">
-            <button onclick="@HandlePlayerCreation" class="add-button" Color="green">Add</button>
+            <button onclick="@HandlePlayerCreation" class="add-button">Add</button>
         </div>
     </div>
 }
@@ -132,9 +132,6 @@
 @if (_isAddDialogOpen)
 {
     <FluentDialog>
-        <FluentDialogHeader>
-            header
-        </FluentDialogHeader>
         <FluentDialogBody>
             <div class="dialog-wrapper">
                 <div class="object-name-id-wrapper">

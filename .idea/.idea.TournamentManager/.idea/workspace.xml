@@ -9,16 +9,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/App.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Players.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Teams.razor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/PlayerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/PlayerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/TeamService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/TeamService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +175,8 @@
       <workItem from="1740053333758" duration="14635000" />
       <workItem from="1740132151873" duration="19341000" />
       <workItem from="1740216440398" duration="25282000" />
-      <workItem from="1740257675982" duration="299000" />
+      <workItem from="1740257675982" duration="580000" />
+      <workItem from="1740321000905" duration="1882000" />
     </task>
     <servers />
   </component>

@@ -11,6 +11,16 @@
 
 <PageTitle>Teams</PageTitle>
 
+@if (IsAdmin)
+{
+    <div class="page-action-wrapper">
+        <h4>Actions:</h4>
+        <div class="page-action-buttons">
+            <button onclick="@HandleTeamCreation" class="add-button">Add</button>
+        </div>
+    </div>
+}
+
 <div>
     <FluentDataGrid Items="@FilteredItems"
                     GridTemplateColumns="0.2fr 0.2fr 0.2fr 0.2fr 0.2fr"
@@ -86,22 +96,69 @@
                     <FluentTextField @bind-Value="@_selectedTeam.ImagePath" Label="Image Path" ReadOnly="true"/>
                     <FluentInputFile
                         AnchorId="MyUploadStream"
-                        DragDropZoneVisible="false"
+                        DragDropZoneVisible="true"
                         Mode="InputFileMode.Stream"
                         Multiple="false"
                         MaximumFileSize="@(20 * 1024 * 1024)"
                         Accept="image/*"
-                        OnFileUploaded="@OnFileUploadedAsync"/>
+                        OnFileUploaded="@OnFileUploadedUpdateAsync"/>
 
                     <FluentButton Appearance="Appearance.Accent" Id="MyUploadStream">
                         Upload files
                     </FluentButton>
                     <div class="dialog-button-wrapper">
                         <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
-                        <FluentButton @onclick="CloseEditDialog">Cancel</FluentButton>
+                        <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
                     </div>
                 </div>
             }
+        </FluentDialogBody>
+    </FluentDialog>
+}
+
+@if (_isAddDialogOpen)
+{
+    <FluentDialog>
+        <FluentDialogBody>
+            <div class="dialog-wrapper">
+                <div class="object-name-id-wrapper">
+                    <p class="dialog-object-name">@_frameTeam.Name</p>
+                    <p class="dialog-object-id">ID: @_frameTeam.Id.ToString()</p>
+                </div>
+
+                <div class="image-wrapper">
+                    <img class="dialog-object-image" src="@_frameTeam.ImagePath" alt="Team Image"/>
+                </div>
+
+                <FluentTextField @bind-Value="@_frameTeam.Name">Name: </FluentTextField>
+                <FluentNumberField @bind-Value="@_frameTeam.Points">Points: </FluentNumberField>
+                <FluentNumberField @bind-Value="@_frameTeam.Ranking">Ranking: </FluentNumberField>
+                <label for="object-region">Region:</label>
+                <select id="object-region" class="object-region" @bind="_frameTeam.Region">
+                    @foreach (var region in Enum.GetValues(typeof(Region)))
+                    {
+                        <option value="@region">@region</option>
+                    }
+                </select>
+                <FluentTextField @bind-Value="@_frameTeam.ImagePath" Label="Image Path" ReadOnly="true"/>
+                <FluentInputFile
+                    AnchorId="MyUploadStream"
+                    DragDropZoneVisible="true"
+                    Mode="InputFileMode.Stream"
+                    Multiple="false"
+                    MaximumFileSize="@(20 * 1024 * 1024)"
+                    Accept="image/*"
+                    OnFileUploaded="@OnFileUploadedCreateAsync"/>
+
+                <FluentButton Appearance="Appearance.Accent" Id="MyUploadStream">
+                    Upload files
+                </FluentButton>
+
+                <div class="dialog-button-wrapper">
+                    <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+                    <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+                </div>
+            </div>
         </FluentDialogBody>
     </FluentDialog>
 }
@@ -132,7 +189,9 @@
     
     //Fields for the dialog window
     private bool _isEditDialogOpen;
+    private bool _isAddDialogOpen;
     private Team? _selectedTeam;
+    private Team? _frameTeam;
 
     protected override async Task OnInitializedAsync()
     {
@@ -146,9 +205,91 @@
         items = (await TeamService.GetAllTeamsAsync(cts.Token)).AsQueryable();
         
         _isEditDialogOpen = false;
+        _isAddDialogOpen = false;
         _selectedTeam = null;
+        _frameTeam = null;
+    }
+    
+    private async Task HandleEditTeam(Team team)
+    {
+        _selectedTeam = new Team
+        {
+            Id = team.Id,
+            Name = team.Name,
+            Points = team.Points,
+            Ranking = team.Ranking,
+            Region = team.Region,
+            ImagePath = team.ImagePath
+        };
+
+        _isEditDialogOpen = true;
+    }
+    
+    private async Task HandleTeamCreation()
+    {
+        var cts = new CancellationTokenSource();
+        
+        _frameTeam = new Team();
+        _isAddDialogOpen = true;
     }
 
+    private void CloseDialog()
+    {
+        _isEditDialogOpen = false;
+        _isAddDialogOpen = false;
+        _selectedTeam = null;
+        _frameTeam = null;
+    }
+
+    private async Task SaveChanges()
+    {
+        var cts = new CancellationTokenSource();
+        
+        if (_selectedTeam is not null)
+        {
+            await TeamService.UpdateTeamAsync(_selectedTeam, cts.Token);
+            
+            _isEditDialogOpen = false;
+        }
+        
+        if (_frameTeam is not null)
+        {
+            await TeamService.CreateTeamAsync(_frameTeam, cts.Token);
+
+            _isAddDialogOpen = false;
+        }
+    }
+    
+    private async Task OnFileUploadedUpdateAsync(FluentInputFileEventArgs file)
+    {
+        if (_selectedTeam != null)
+        {
+            _selectedTeam.ImagePath = await SaveImageAsync(file);
+        }
+    }
+    
+    private async Task OnFileUploadedCreateAsync(FluentInputFileEventArgs file)
+    {
+        if (_frameTeam is not null)
+        {
+            _frameTeam.ImagePath = await SaveImageAsync(file);
+        }
+    }
+
+    private async Task<string> SaveImageAsync(FluentInputFileEventArgs file)
+    {
+        var fileName = Path.GetFileName(file.Name);
+        var filePath = Path.Combine("wwwroot", "Images", "Team", fileName);
+        
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.Stream!.CopyToAsync(stream);
+            await file.Stream.DisposeAsync();
+        }
+        
+        return $"Images/Team/{fileName}";
+    }
+    
     private void HandlePlayerFilter(ChangeEventArgs args)
     {
         if (args.Value is string value)
@@ -171,60 +312,5 @@
         {
             Navigation.NavigateTo($"/teams/{team.Name}", forceLoad: true);
         }
-    }
-    
-    private async Task HandleEditTeam(Team team)
-    {
-        _selectedTeam = new Team
-        {
-            Id = team.Id,
-            Name = team.Name,
-            Points = team.Points,
-            Ranking = team.Ranking,
-            Region = team.Region,
-            ImagePath = team.ImagePath
-        };
-
-        _isEditDialogOpen = true;
-    }
-
-    private void CloseEditDialog()
-    {
-        _isEditDialogOpen = false;
-        _selectedTeam = null;
-    }
-
-    private async Task SaveChanges()
-    {
-        var cts = new CancellationTokenSource();
-        
-        if (_selectedTeam is not null)
-        {
-            await TeamService.UpdateTeamAsync(_selectedTeam, cts.Token);
-            
-            _isEditDialogOpen = false;
-        }
-    }
-    
-    private async Task OnFileUploadedAsync(FluentInputFileEventArgs file)
-    {
-        if (_selectedTeam != null)
-        {
-            _selectedTeam.ImagePath = await SaveImageAsync(file);
-        }
-    }
-
-    private async Task<string> SaveImageAsync(FluentInputFileEventArgs file)
-    {
-        var fileName = Path.GetFileName(file.Name);
-        var filePath = Path.Combine("wwwroot", "Images", "Team", fileName);
-        
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.Stream!.CopyToAsync(stream);
-            await file.Stream.DisposeAsync();
-        }
-        
-        return $"Images/Team/{fileName}";
     }
 }
