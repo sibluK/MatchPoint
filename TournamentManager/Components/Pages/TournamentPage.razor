@@ -203,16 +203,42 @@
 @if (_isGenerateBracketDialogOpen)
 {
     <FluentDialog>
-        <div class="dialog-button-wrapper">
-            <p>Generate Bracket</p>
-            <p>Teams</p>
-            <div>
-                @foreach (var team in _tournament.Teams)
-                {
-                    <p>@team.Name</p>
-                }
+        <div class="dialog-wrapper">
+            <div class="object-name-id-wrapper">
+                <h4 class="dialog-object-name">Generate Bracket</h4>
+                <h6 class="dialog-object-id">ID: @_frameBracket.Id</h6>
             </div>
-            <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+            <h5 class="dialog-section-name">Teams:</h5>
+
+            @foreach (var (team, index) in _tournament.Teams.Select((team, index) => (team, index + 1)))
+            {
+                <div class="dialog-team-wrapper">
+                    <span>@index. </span>
+                    <img src="@team.ImagePath" alt="Team photo"/>
+                    <span>@team.Name</span>
+                </div>
+            }
+            @if (CalculateNumberOfRounds(_tournament.Teams.Count) % 1 != 0)
+            {
+                <h5 class="dialog-section-name">Number of rounds: <span>(Wrong number of teams)</span></h5>
+                <p>Allowed number of teams: 2, 4, 8, 16, 32</p>
+            }
+            else
+            {
+                <span class="dialog-section-name">Number of rounds: <span>@CalculateNumberOfRounds(_tournament.Teams.Count)</span></span>
+            }
+
+
+            <label for="object-type">Type:</label>
+            <select id="object-type" class="object-type" @bind="_frameBracket.Type">
+                @foreach (var type in Enum.GetValues(typeof(BracketType)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+        </div>
+        <div class="dialog-button-wrapper">
+            <FluentButton @onclick="GenerateBracket" Appearance="Appearance.Accent">Generate</FluentButton>
             <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
         </div>
     </FluentDialog>
@@ -226,7 +252,6 @@
             <FluentAutocomplete TOption="Team"
                                 AutoComplete="on"
                                 Autofocus="true"
-                                Label="Select a team"
                                 Placeholder="Select teams"
                                 OnOptionsSearch="@OnSearchAsync"
                                 MaximumSelectedOptions="32"
@@ -257,6 +282,8 @@
 
     private DateTime? _startDate;
     private DateTime? _endDate;
+
+    private Bracket _frameBracket;
     
     private IEnumerable<Team> _selectedTeams = Array.Empty<Team>();
 
@@ -309,6 +336,7 @@
 
     private async Task HandleGenerateBracket()
     {
+        _frameBracket = new();
         _isGenerateBracketDialogOpen = true;
     }
 
@@ -338,6 +366,11 @@
             
             NavigationManager.NavigateTo($"/tournaments/{updatedTournament.Name}");
         }
+    }
+
+    private async Task GenerateBracket()
+    {
+        
     }
 
     private async Task SaveAddedTeams()
@@ -391,6 +424,11 @@
             return winnerTeamId == teamId ? "team-wrapper winner-team" : "team-wrapper loser-team";
         }
         return winnerTeamId == teamId ? "team-wrapper winner-team" : "team-wrapper";
+    }
+
+    private double CalculateNumberOfRounds(int numberOfTeams)
+    {
+        return Math.Log(numberOfTeams, 2);
     }
 
     private void HandleTeamClick(string name)

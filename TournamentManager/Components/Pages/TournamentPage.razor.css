@@ -212,6 +212,20 @@
     transform: translateY(-10px);
 }
 
+.dialog-team-wrapper {
+    display: flex;
+    gap: 5px;
+}
+
+.dialog-team-wrapper img {
+    width: 15px;
+    height: 15px;
+}
+
+.dialog-team-wrapper span {
+    
+}
+
 @media screen and (max-width: 1500px) {
     .team-card-players {
         padding: 5px;

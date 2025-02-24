@@ -7,6 +7,7 @@
 
 .object-name-id-wrapper {
     display: flex;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -29,4 +30,12 @@
     width: 200px;
 }
 
+.dialog-section-name {
+    margin-bottom: 0;
+}
+
+.object-name-id-wrapper h4,
+.object-name-id-wrapper h6 {
+    margin-bottom: 0;
+}
 
