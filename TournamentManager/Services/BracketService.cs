@@ -40,9 +40,9 @@ public class BracketService
             { 
                 Console.WriteLine($"Match number in round: ({j})");
                 Random random = new Random();
-
-                var team1 = new Team();
-                var team2 = new Team();
+                
+                var team1 = (Team?)null;
+                var team2 = (Team?)null;
                 
                 if (teams.Count != 0)
                 {
@@ -54,6 +54,22 @@ public class BracketService
                     minus++;
                 }
                 
+                if (bracket == null)
+                {
+                    Console.WriteLine("Bracket is null!");
+                    return;
+                }
+                if (bracket.Id == Guid.Empty)
+                {
+                    Console.WriteLine("BracketId is empty!");
+                    return;
+                }
+                
+                if (team1 == null || team2 == null)
+                {
+                    Console.WriteLine($"Error: One of the teams is null in round {i}, match {j}");
+                }
+                
                 var match = new Match
                 {
                     StartDate = DateTime.Now.AddHours(j),
@@ -61,12 +77,15 @@ public class BracketService
                     BracketRound = i,
                     MatchNumber = j,
                     BracketId = bracket.Id,
-                    Team1 = team1,
-                    Team2 = team2,
+                    Team1Id = team1 is not null ? team1.Id : null,
+                    Team2Id = team2 is not null ? team2.Id : null
                 };
                 
                 _dbContext.Matches.Add(match);
-
+                await _dbContext.SaveChangesAsync(ct); 
+                Console.WriteLine($"Match created with ID: {match.Id}");
+                var savedMatch = match;
+                
                 for (var k = 1; k <= GetNumberOfGames(match.BestOf); k++)
                 {
                     var game = new Game
@@ -74,13 +93,20 @@ public class BracketService
                         GameNumber = k,
                         Team1Score = 0,
                         Team2Score = 0,
-                        Match = match
+                        MatchId = savedMatch.Id
                     };
                     _dbContext.Games.Add(game);
                 }
-                
-                Console.WriteLine($"Team 1: {team1.Name}");
-                Console.WriteLine($"Team 2: {team2.Name}");
+
+                if (team1 != null && team2 != null)
+                {
+                    Console.WriteLine($"Team 1: {team1.Name}");
+                    Console.WriteLine($"Team 2: {team2.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("No teams");
+                }
                 
             }
             await _dbContext.SaveChangesAsync(ct);

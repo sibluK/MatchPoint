@@ -81,39 +81,35 @@
                                                         <div>Live</div>
                                                     </div>
                                                 }
-                                                <div class="@GetTeamClass(match.WinnerTeamId, match.Team1.Id)">
-                                                    <img src="@match.Team1.ImagePath"/>
-                                                    <span>@match.Team1.Name</span>
-                                                    <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team1.Id))</span>
-                                                </div>
-                                                <div class="@GetTeamClass(match.WinnerTeamId, match.Team2.Id)">
-                                                    <img src="@match.Team2.ImagePath"/>
-                                                    <span>@match.Team2.Name</span>
-                                                    <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team2.Id))</span>
-                                                </div>
+                                                @if (match.Team1 is not null || match.Team2 is not null)
+                                                {
+                                                    <div class="@GetTeamClass(match.WinnerTeamId, match.Team1.Id)">
+                                                        <img src="@match.Team1.ImagePath"/>
+                                                        <span>@match.Team1.Name</span>
+                                                        <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team1.Id))</span>
+                                                    </div>
+                                                    <div class="@GetTeamClass(match.WinnerTeamId, match.Team2.Id)">
+                                                        <img src="@match.Team2.ImagePath"/>
+                                                        <span>@match.Team2.Name</span>
+                                                        <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team2.Id))</span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+
+
+                                                            <div class="team-wrapper">TBD</div>
+                                                            <div class="team-wrapper">TBD</div>
+        
+                                                }
+  
                                             </div>
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    @if (_tournament.Bracket.NumberOfRounds == i)
-                                    {
-                                        <div class="match-wrapper">
-                                            <div class="team-wrapper">TBD</div>
-                                            <div class="team-wrapper">TBD</div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        @for (var j = 1; j <= _tournament.Bracket.Matches.Count(m => m.BracketRound == i - 1) / 2; j++)
-                                        {
-                                            <div class="match-wrapper">
-                                                <div class="team-wrapper">TBD</div>
-                                                <div class="team-wrapper">TBD</div>
-                                            </div>
-                                        }
-                                    }
+              
                                 }
                             </div>
                         }
@@ -336,8 +332,11 @@
         {
             foreach (var match in _tournament.Bracket.Matches)
             {
-                teamScores[(match.Id, match.Team1.Id)] = await GetTeamMatchScore(match.Id, match.Team1.Id);
-                teamScores[(match.Id, match.Team2.Id)] = await GetTeamMatchScore(match.Id, match.Team2.Id);
+                if (match.Team1 is not null && match.Team2 is not null)
+                {
+                    teamScores[(match.Id, match.Team1.Id)] = await GetTeamMatchScore(match.Id, match.Team1.Id);
+                    teamScores[(match.Id, match.Team2.Id)] = await GetTeamMatchScore(match.Id, match.Team2.Id);
+                }
             }
         }
     }

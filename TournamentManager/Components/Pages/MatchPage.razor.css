@@ -236,6 +236,10 @@
     opacity: 0.8;
 }
 
+.map-not-picked-text {
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 1500px) {
     .match-information-wrapper,
     .head-to-head-section,
