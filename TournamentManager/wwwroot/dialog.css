@@ -7,6 +7,7 @@
 
 .object-name-id-wrapper {
     display: flex;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -29,24 +30,12 @@
     width: 200px;
 }
 
-.action-button {
-    padding: 2px 3px;
-    width: 60px;
-    font-size: 0.9em;
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+.dialog-section-name {
+    margin-bottom: 0;
 }
 
-.edit-button {
-    background-color: #f4f4f8;
-    margin-right: 5px;
+.object-name-id-wrapper h4,
+.object-name-id-wrapper h6 {
+    margin-bottom: 0;
 }
 
-.edit-button:hover {
-    background-color: #8f8e8e;
-}
-
-.dialog-button-wrapper {
-    margin-left: auto;
-    margin-top: 10px;
-}

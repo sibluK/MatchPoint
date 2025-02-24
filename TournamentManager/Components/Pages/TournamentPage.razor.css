@@ -25,7 +25,6 @@
     padding: 20px;
     border-radius: 10px;
     flex-wrap: wrap;
-    margin-bottom: 2rem;
 }
 
 .info-wrapper {
@@ -116,7 +115,6 @@
 .bracket-wrapper {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
     background-color: black;
     color: white;
     border-radius: 10px;
@@ -138,7 +136,7 @@
     padding: 5px 10px 10px 10px;
     border-radius: 5px;
     cursor: pointer;
-    min-width: 140px;
+    min-width: 160px;
     position: relative;
 }
 
@@ -172,7 +170,9 @@
 .tournament-information-wrapper,
 .brackets-wrapper,
 .tournament-teams {
+    position: relative;
     width: 70%;
+    margin-bottom: 2rem;
 }
 
 .winner-team {
@@ -195,6 +195,35 @@
     right: 10px;
     font-size: 0.8em;
     opacity: 0.6;
+}
+
+.object-type, .object-game {
+    background: padding-box linear-gradient(var(--neutral-fill-input-rest), var(--neutral-fill-input-rest)), border-box var(--neutral-stroke-input-rest);
+    border: calc(var(--stroke-width)* 1px) solid transparent;
+    border-radius: calc(var(--control-corner-radius)* 1px);
+    height: calc((var(--base-height-multiplier) + var(--density))* var(--design-unit)* 1px);;
+}
+
+.admin-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: right;
+    transform: translateY(-10px);
+}
+
+.dialog-team-wrapper {
+    display: flex;
+    gap: 5px;
+}
+
+.dialog-team-wrapper img {
+    width: 15px;
+    height: 15px;
+}
+
+.dialog-team-wrapper span {
+    
 }
 
 @media screen and (max-width: 1500px) {

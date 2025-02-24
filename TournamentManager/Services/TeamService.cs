@@ -31,6 +31,25 @@ public class TeamService
         }
     }
 
+    public async Task CreateTeamAsync(Team team, CancellationToken ct)
+    {
+        Console.WriteLine($"Creating player...{team.Id}, {team.Name}");
+
+        try
+        {
+            await _dbContext.Teams.AddAsync(team, ct);
+            await _dbContext.SaveChangesAsync(ct);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Operation cancelled.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating team: {ex.Message}");
+        }
+    }
+
     public async Task UpdateTeamAsync(Team team, CancellationToken ct)
     {
         var existingTeam = await _dbContext.Teams.FirstOrDefaultAsync(x => x.Id == team.Id, ct);

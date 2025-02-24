@@ -10,13 +10,20 @@
 @inject MatchService MatchService;
 @inject NavigationManager NavigationManager
 
-<PageTitle>@_match.Team1.Name vs @_match.Team2.Name</PageTitle>
+<PageTitle>@(_match?.Team1?.Name ?? "TBD") vs @(_match?.Team2?.Name ?? "TBD")</PageTitle>
 
 <div class="match-page-wrapper">
     <div class="match-information-wrapper">
         <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
-            <span>@_match.Team1.Name</span>
-            <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+            @if (_match.Team1 is not null)
+            {
+                <span>@_match.Team1.Name</span>
+                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+            }
+            else
+            {
+                <span>TBD</span>
+            }
         </div>
         <div class="match-info">
             @if (_match.Status != ActivityStatus.Ended)
@@ -32,8 +39,15 @@
             <span onclick="@(() => HandleTournamentClick(_match.Bracket.Tournament.Name))" class="match-tournament">@_match.Bracket.Tournament.Name</span>
         </div>
         <div onclick="@(() => HandleTeamClick(_match.Team2.Name))" class="match-team">
-            <span>@_match.Team2.Name</span>
-            <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+            @if (_match.Team2 is not null)
+            {
+                <span>@_match.Team2.Name</span>
+                <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+            }
+            else
+            {
+                <span>TBD</span>
+            }
         </div>
     </div>
     
@@ -41,23 +55,37 @@
         <h5 class="header">Head to Head (past 20 games)</h5>
         <div class="head-to-head-wrapper">
             <div class="head-to-head-team">
-                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                <span class="head-to-head-team-name">@_match.Team1.Name</span>
-                <div class="team-wins">
-                    <span class="wins-number">@_headToHeadScores.Item1</span>
-                    <span class="wins-text">Wins</span>
-                </div>
+                @if (_match.Team1 is not null)
+                {
+                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                    <span class="head-to-head-team-name">@_match.Team1.Name</span>
+                    <div class="team-wins">
+                        <span class="wins-number">@_headToHeadScores.Item1</span>
+                        <span class="wins-text">Wins</span>
+                    </div>
+                }
+                else
+                {
+                    <span>TBD</span>
+                }
             </div>
             
             <div class="spacer"></div>
 
             <div class="head-to-head-team">
-                <div class="team-wins">
-                    <span class="wins-number">@_headToHeadScores.Item2</span>
-                    <span class="wins-text">Wins</span>
-                </div>
-                <span class="head-to-head-team-name">@_match.Team2.Name</span>
-                <img class="head-to-head-team-image" src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                @if (_match.Team2 is not null)
+                {
+                    <div class="team-wins">
+                        <span class="wins-number">@_headToHeadScores.Item2</span>
+                        <span class="wins-text">Wins</span>
+                    </div>
+                    <span class="head-to-head-team-name">@_match.Team2.Name</span>
+                    <img class="head-to-head-team-image" src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                }
+                else
+                {
+                    <span>TBD</span>
+                }
             </div>
         </div>
     </div>
@@ -70,18 +98,39 @@
                 {
                     <div class="game">
                         <div class="game-map">
-                            <img class="map-image" src="@game.Map.ImagePath" alt="@game.Map.Name"/>
-                            <span class="map-name">@game.Map.Name</span>
+                            @if (game.Map is not null)
+                            {
+                                <img class="map-image" src="@game.Map.ImagePath" alt="@game.Map.Name"/>
+                                <span class="map-name">@game.Map.Name</span>
+                            }
+                            else
+                            {
+                                <span class="map-name map-not-picked-text">Map not picked</span>
+                            }
                         </div>
                         <div class="@GetStylingForGameWinner(game.WinnerTeamId)">
                             <div class="team-score">
-                                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                <span class="score">@game.Team1Score</span>
+                                @if (_match.Team1 is not null)
+                                {
+                                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                    <span class="score">@game.Team1Score</span>
+                                }
+                                else
+                                {
+                                    <span>TBD</span>
+                                }
                             </div>
                             <div onclick="@(() => HandleGameStatsClick(game.Id))" class="game-stats-button">Stats</div>
                             <div class="team-score">
-                                <span class="score">@game.Team2Score</span>
-                                <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                @if (_match.Team2 is not null)
+                                {
+                                    <span class="score">@game.Team2Score</span>
+                                    <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                }
+                                else
+                                {
+                                    <span>TBD</span>
+                                }
                             </div>
                         </div>
                     </div>
@@ -93,19 +142,30 @@
             <div class="map-winrate-wrapper">
                 @foreach (var game in _games)
                 {
-                    var winRates = _mapWinRates.TryGetValue(game.Map.Id, out var rates) ? rates : (0, 0);
+                    (int, int)? winRates = null;
+                    if (game.Map is not null)
+                    {
+                        winRates = _mapWinRates.TryGetValue(game.Map.Id, out var rates) ? rates : (0, 0);
+                    }
 
                     <div class="game">
                         <div class="game-team-scores">
-                            <div class="team-percentage">
-                                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                <span class="percentage">@winRates.Item1%</span>
-                            </div>
-                            <div>@game.Map.Name</div>
-                            <div class="team-percentage">
-                                <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
-                                <span class="percentage">@winRates.Item2%</span>
-                            </div>
+                            @if (winRates is not null && game.Map is not null && _match.Team1 is not null && _match.Team2 is not null)
+                            {
+                                <div class="team-percentage">
+                                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                    <span class="percentage">@winRates.Value.Item1%</span>
+                                </div>
+                                <div>@game.Map.Name</div>
+                                <div class="team-percentage">
+                                    <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                    <span class="percentage">@winRates.Value.Item2%</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <span>Map not picked</span>
+                            }
                         </div>
                     </div>
                 }
@@ -125,33 +185,48 @@
     {
         _match = await MatchService.GetMatchByIdAsync(Guid.Parse(matchId));
         _games = await GameService.GetMatchGames(Guid.Parse(matchId));
-        _headToHeadScores = await MatchService.GetHeadToHeadScore(_match.Team1.Id, _match.Team2.Id);
-        
-        _mapWinRates.Clear();
-    
-        foreach (var game in _games)
+        if (_match.Team1 is not null && _match.Team2 is not null)
         {
-            int team1WinRate = await MatchService.GetMapWinrate(_match.Team1.Id, game.Map.Id);
-            int team2WinRate = await MatchService.GetMapWinrate(_match.Team2.Id, game.Map.Id);
+            _headToHeadScores = await MatchService.GetHeadToHeadScore(_match.Team1.Id, _match.Team2.Id);
+            
+            _mapWinRates.Clear();
+    
+            foreach (var game in _games)
+            {
+                if (game.Map is not null)
+                {
+                    int team1WinRate = await MatchService.GetMapWinrate(_match.Team1.Id, game.Map.Id);
+                    int team2WinRate = await MatchService.GetMapWinrate(_match.Team2.Id, game.Map.Id);
         
-            _mapWinRates[game.Map.Id] = (team1WinRate, team2WinRate);
+                    _mapWinRates[game.Map.Id] = (team1WinRate, team2WinRate);
+                }
+            }
         }
     }
 
     private string GetStylingForGameWinner(Guid? winnerId)
     {
-        if (winnerId == _match.Team1.Id)
-            return "game-team-scores left";
+        if (_match.Team1 != null && _match.Team2 != null)
+        {
+            if (winnerId == _match.Team1.Id)
+                return "game-team-scores left";
         
-        if (winnerId == _match.Team2.Id)
-            return "game-team-scores right";
-
+            if (winnerId == _match.Team2.Id)
+                return "game-team-scores right";
+        }
         return "game-team-scores";
     }
 
-    private void HandleTeamClick(string teamName)
+    private void HandleTeamClick(string? teamName)
     {
-        NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
+        if (teamName is not null)
+        {
+            NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
+        }
+        else
+        {
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+        }
     }
 
     private void HandleTournamentClick(string tournamentName)

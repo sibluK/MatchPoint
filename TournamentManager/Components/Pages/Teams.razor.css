@@ -1,4 +1,4 @@
-﻿.region {
+﻿.region, .object-region {
     background: padding-box linear-gradient(var(--neutral-fill-input-rest), var(--neutral-fill-input-rest)), border-box var(--neutral-stroke-input-rest);
     border: calc(var(--stroke-width)* 1px) solid transparent;
     border-radius: calc(var(--control-corner-radius)* 1px);

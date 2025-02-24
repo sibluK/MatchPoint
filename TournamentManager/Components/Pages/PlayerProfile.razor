@@ -11,8 +11,6 @@
 
 <PageTitle>Profile - @player.Nickname</PageTitle>
 
-@if (player != null)
-{
     <div class="player-information">
         <div class="player-image-wrapper">
             <img class="player-image" src="@player.ImagePath" alt="Photo of @player.Nickname"/>
@@ -22,10 +20,19 @@
             <p class="player-name">@player.Name</p>
             <p class="player-nationality-age">@player.Nationality, @(_helpers.CalculateAge(player.Birthday))</p>
             
-            <div class="player-team-wrapper" onclick="@(() => HandleTeamClick(player.Team.Name))">
-                <img class="player-team-image" src="@player.Team.ImagePath"/>
-                <p class="player-team-name">@player.Team.Name</p>
-            </div>
+            @if (player.Team is not null)
+            {
+                <div class="player-team-wrapper" onclick="@(() => HandleTeamClick(player.Team.Name))">
+                    <img class="player-team-image" src="@player.Team.ImagePath" alt="@player.Name" />
+                    <p class="player-team-name">@player.Team.Name</p>
+                </div>
+            }
+            else
+            {
+                <div class="player-team-wrapper">
+                    <p class="player-team-name">No team</p>
+                </div>
+            }
             
             <div class="player-status-wrapper">
                 <p class="player-status">@player.Status</p>
@@ -41,8 +48,15 @@
         <FluentTab>
             <Header>Team</Header>
             <Content>
-                <p>@player.Team.Name</p>
-                <img src="@player.Team.ImagePath"/>
+                @if (player.Team is not null)
+                {
+                    <p>@player.Team.Name</p>
+                    <img src="@player.Team.ImagePath" alt="@player.Team.Name"/>
+                }
+                else
+                {
+                    <p class="player-team-name">No team</p>
+                }
             </Content>
         </FluentTab>
         <FluentTab>
@@ -72,14 +86,6 @@
         </FluentTab>
         
     </FluentTabs>
-}
-else
-{
-    <h3>Player does not exist</h3>
-}
-
-
-
 
 @code {
     
@@ -98,7 +104,7 @@ else
         player = await PlayerService.GetPlayerAndTeamByNicknameAsync(Nickname, cts.Token);
         stats = await PlayerService.GetPlayerStatsByNicknameAsync(Nickname, cts.Token);
         
-        if (player == null)
+        if (player == null || stats == null)
         {
             Navigation.NavigateTo("/players");
         }

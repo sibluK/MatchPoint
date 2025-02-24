@@ -9,13 +9,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/MainLayout.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Home.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Home.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/PlayerProfile.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Layout/NavMenu.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Home.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/BracketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/BracketService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,15 +53,22 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/26c9a2fb5243863babc926e4be763daf4128d4f97c4a769cdce1e2e3e5c532/FluentButton.razor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36c6debb2d92c5b09cb925ed47ceead26bc93f9a5d64cc961f6865d5961b/FluentDataGrid.razor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/56a854a5077d6d3174e5f0a7b767acbfbbf941ac5f38dd2a2587e0b69cd196/FluentTab.razor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/62614cde63a21e86842f981ca65465e1b921b19e541f2f7f2fff387361f8d2/OptionsSearchEventArgs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7597204134a25228a35a9844e77fcf89deaa11ac995fa4da81d8ca2ac5e443/FluentStack.razor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7c35beda223a5128f1ce0dad827dbf1f12502b80d1cb99a7c2c47fa935799/FluentLabel.razor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d382df578ec93391918cfaa4ce7f4b8f35c9aed1241d6556dc9be26df13c/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c333538d8f8419e6653f459a98486459a863b8a4b30ff6beb6ead8d7d7ae477/AuthorizeView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cac5fa534f7d4cbab179d985825c9173457254ca9c124794f13ff6494b9c1a3/FluentMenuProvider.razor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cec84dbd502bd78a65a06d7a1a14d2dbea5edefe7bd352789cdd9f38a7ef/FluentSpacer.razor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e29d12423b43b7971ddd994e97cd105c6bc4290d128a7c08b556fdef723cc/FluentAutocomplete.razor.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -68,28 +79,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.TournamentManager: http.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;home-page&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.TournamentManager: http.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "admin-panel",
+    "ignore.virus.scanning.warn.message": "true",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.TournamentManager: http">
     <configuration name="TournamentManager: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/TournamentManager/TournamentManager.csproj" />
@@ -165,7 +176,14 @@
       <workItem from="1739994887290" duration="7199000" />
       <workItem from="1740040269047" duration="4192000" />
       <workItem from="1740053333758" duration="14635000" />
-      <workItem from="1740132151873" duration="686000" />
+      <workItem from="1740132151873" duration="19341000" />
+      <workItem from="1740216440398" duration="25282000" />
+      <workItem from="1740257675982" duration="580000" />
+      <workItem from="1740321000905" duration="23413000" />
+      <workItem from="1740383265694" duration="4066000" />
+      <workItem from="1740387426655" duration="503000" />
+      <workItem from="1740388107995" duration="1074000" />
+      <workItem from="1740402453869" duration="25152000" />
     </task>
     <servers />
   </component>

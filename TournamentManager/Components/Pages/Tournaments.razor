@@ -5,11 +5,24 @@
 
 @rendermode InteractiveServer
 
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject TournamentService TournamentService
+@inject TeamService TeamService
+@inject VideoGameService VideoGameService
 @inject NavigationManager Navigation
 @inject IStringLocalizer<Resource> Localizer
 
 <PageTitle>Tournaments</PageTitle>
+
+@if (IsAdmin)
+{
+    <div class="page-action-wrapper">
+        <h4>Actions:</h4>
+        <div class="page-action-buttons">
+            <button onclick="@HandleTournamentCreation" class="add-button">Add</button>
+        </div>
+    </div>
+}
 
 <div class="tournaments-page-wrapper">
     <h3>@Localizer["Featured"]</h3>
@@ -67,14 +80,70 @@
     </div>
 </div>
 
+@if (_isAddDialogOpen)
+{
+    <FluentDialog>
+        <FluentDialogBody>
+            <div class="dialog-wrapper">
+                <div class="object-name-id-wrapper">
+                    <p class="dialog-object-name">@_frameTournament.Name</p>
+                    <p class="dialog-object-id">ID: @_frameTournament.Id.ToString()</p>
+                </div>
+                <FluentTextField @bind-Value="@_frameTournament.Name">Name: </FluentTextField>
+                <FluentDatePicker Label="Start date:" @bind-Value="@_startDate"></FluentDatePicker>
+                <FluentDatePicker Label="End date:" @bind-Value="@_endDate"></FluentDatePicker>
+                <FluentNumberField @bind-Value="@_frameTournament.Prize">Prize (US Dollars): </FluentNumberField>
+                <label for="type">Type:</label>
+                <select id="type" class="type" @bind="_frameTournament.Type">
+                    @foreach (var type in Enum.GetValues(typeof(TournamentType)))
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </select>
+                <label for="object-game">Game:</label>
+                <select id="object-game" class="object-game" @bind="_frameTournament.VideoGameId">
+                    @foreach (var game in _games)
+                    {
+                        <option value="@game.Id">@game.Name</option>
+                    }
+                </select>
+                <div class="dialog-button-wrapper">
+                    <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+                    <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+                </div>
+            </div>
+        </FluentDialogBody>
+    </FluentDialog>
+}
+
 @code {
     private List<Tournament> _tournaments = new();
     private Tournament? _featuredTournament;
     private List<Team> firstColumnTeams = new();
     private List<Team> secondColumnTeams = new();
+    
+    private bool IsAdmin { get; set; }
+    
+    private bool _isAddDialogOpen;
+    private Tournament? _frameTournament;
+    
+    private DateTime? _startDate;
+    private DateTime? _endDate;
+    
+    //Fields for the team select dropdown
+    private List<Team> _teams;
+    private List<VideoGame> _games;
 
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        IsAdmin = user.IsInRole("Admin");
+        
+        _isAddDialogOpen = false;
+        _frameTournament = null;
+        
         _featuredTournament = await TournamentService.GetFeaturedTournamentAsync();
         _tournaments = await TournamentService.GetAllTournamentsAsync();
 
@@ -84,6 +153,50 @@
 
             firstColumnTeams = _featuredTournament.Teams.Take(halfCount).ToList();
             secondColumnTeams = _featuredTournament.Teams.Skip(halfCount).ToList();
+        }
+    }
+    
+    private async Task HandleTournamentCreation()
+    {
+        var cts = new CancellationTokenSource();
+        
+        if (_teams is null)
+        {
+            _teams = await TeamService.GetAllTeamsAsync(cts.Token);
+        }
+
+        if (_games is null)
+        {
+            _games = await VideoGameService.GetAllVideoGamesAsync();
+        }
+        
+        _frameTournament = new Tournament
+        {
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Now,
+        };
+        
+        _isAddDialogOpen = true;
+    }
+    
+    private void CloseDialog()
+    {
+        _isAddDialogOpen = false;
+        _frameTournament = null;
+    }
+
+    private async Task SaveChanges()
+    {
+        var cts = new CancellationTokenSource();
+
+        if (_frameTournament is not null)
+        {
+            _frameTournament.StartDate = _startDate ?? DateTime.Now;
+            _frameTournament.EndDate = _endDate ?? DateTime.Now;
+            
+            await TournamentService.CreateTournamentAsync(_frameTournament, cts.Token);
+        
+            _isAddDialogOpen = false;
         }
     }
 

@@ -52,6 +52,25 @@ public class PlayerService
         }
     }
 
+    public async Task CreatePlayerAsync(Player player, CancellationToken ct)
+    {
+        Console.WriteLine($"Creating player...{player.Nickname}, {player.Id}");
+
+        try
+        {
+            await _dbContext.Players.AddAsync(player, ct);
+            await _dbContext.SaveChangesAsync(ct);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Operation was canceled.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating player: {ex.Message}");
+        }
+    }
+
     public async Task UpdatePlayerAsync(Player player)
     {
         var existingPlayer = await _dbContext.Players.FindAsync(player.Id);

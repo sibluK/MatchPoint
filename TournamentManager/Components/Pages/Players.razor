@@ -1,5 +1,6 @@
 ﻿@page "/players"
 
+@using Microsoft.FluentUI.AspNetCore.Components.Icons.Regular
 @using TournamentManager.Models
 @using TournamentManager.Models.Enums
 @using TournamentManager.Services
@@ -13,6 +14,16 @@
 @inject IStringLocalizer<Resource> Localizer
 
 <PageTitle>Players</PageTitle>
+
+@if (IsAdmin)
+{
+    <div class="page-action-wrapper">
+        <h4>Actions:</h4>
+        <div class="page-action-buttons">
+            <button onclick="@HandlePlayerCreation" class="add-button">Add</button>
+        </div>
+    </div>
+}
 
 <FluentDataGrid Items="@FilteredItems"
                 GridTemplateColumns="0.2fr 0.2fr 0.1fr"
@@ -98,23 +109,81 @@
                     <FluentTextField @bind-Value="@_selectedPlayer.ImagePath" Label="Image Path" ReadOnly="true"/>
                     <FluentInputFile
                         AnchorId="MyUploadStream"
-                        DragDropZoneVisible="false"
+                        DragDropZoneVisible="true"
                         Mode="InputFileMode.Stream"
                         Multiple="false"
                         MaximumFileSize="@(20 * 1024 * 1024)"
                         Accept="image/*"
-                        OnFileUploaded="@OnFileUploadedAsync"/>
+                        OnFileUploaded="@OnFileUploadedUpdateAsync"/>
 
                     <FluentButton Appearance="Appearance.Accent" Id="MyUploadStream">
                         Upload files
                     </FluentButton>
                     <div class="dialog-button-wrapper">
                         <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
-                        <FluentButton @onclick="CloseEditDialog">Cancel</FluentButton>
+                        <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
                     </div>
                 </div>
             }
         </FluentDialogBody>
+    </FluentDialog>
+}
+
+@if (_isAddDialogOpen)
+{
+    <FluentDialog>
+        <FluentDialogBody>
+            <div class="dialog-wrapper">
+                <div class="object-name-id-wrapper">
+                    <p class="dialog-object-name">@_framePlayer.Nickname</p>
+                    <p class="dialog-object-id">ID: @_framePlayer.Id.ToString()</p>
+                </div>
+
+                <div class="image-wrapper">
+                    <img class="dialog-object-image" src="@_framePlayer.ImagePath" alt="Player Image"/>
+                </div>
+
+                <FluentTextField @bind-Value="@_framePlayer.Nickname">Nickname: </FluentTextField>
+                <label for="activity-status">Status:</label>
+                <select id="activity-status" class="activity-status" @bind="_framePlayer.Status">
+                    @foreach (var status in Enum.GetValues(typeof(PlayerStatus)))
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+                <FluentTextField @bind-Value="@_framePlayer.Name">Name: </FluentTextField>
+                <FluentTextField @bind-Value="@_framePlayer.Nationality">Nationality: </FluentTextField>
+                <FluentDatePicker Label="Birthday:" @bind-Value="@_framePlayer.Birthday"></FluentDatePicker>
+                <FluentNumberField @bind-Value="@_framePlayer.Rating">Rating: </FluentNumberField>
+                <label for="object-team">Team:</label>
+                <select id="object-team" class="object-team" @bind="_framePlayer.TeamId">
+                    @foreach (var team in _teams)
+                    {
+                        <option value="@team.Id">@team.Name</option>
+                    }
+                </select>
+                <FluentTextField @bind-Value="@_framePlayer.ImagePath" Label="Image Path" ReadOnly="true"/>
+                <FluentInputFile
+                    AnchorId="MyUploadStream"
+                    DragDropZoneVisible="true"
+                    Mode="InputFileMode.Stream"
+                    Multiple="false"
+                    MaximumFileSize="@(20 * 1024 * 1024)"
+                    Accept="image/*"
+                    OnFileUploaded="@OnFileUploadedCreateAsync"/>
+
+                <FluentButton Appearance="Appearance.Accent" Id="MyUploadStream">
+                    Upload files
+                </FluentButton>
+            </div>
+            
+        </FluentDialogBody>
+        <FluentDialogFooter>
+            <div class="dialog-button-wrapper">
+                <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
+                <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+            </div>
+        </FluentDialogFooter>
     </FluentDialog>
 }
 
@@ -144,7 +213,9 @@
     
     //Fields for the dialog window
     private bool _isEditDialogOpen;
+    private bool _isAddDialogOpen;
     private Player? _selectedPlayer;
+    private Player? _framePlayer;
     
     //Fields for the team select dropdown
     private List<Team> _teams;
@@ -161,9 +232,112 @@
         items = (await PlayerService.GetAllPlayersAsync(cts.Token)).AsQueryable();
 
         _isEditDialogOpen = false;
+        _isAddDialogOpen = false;
         _selectedPlayer = null;
+        _framePlayer = null;
+    }
+    
+    private async Task HandleEditPlayer(Player player)
+    {
+        var cts = new CancellationTokenSource();
+        
+        if (_teams is null)
+        {
+            _teams = await TeamService.GetAllTeamsAsync(cts.Token);
+        }
+
+        _selectedPlayer = new Player
+        {
+            Id = player.Id,
+            Nickname = player.Nickname,
+            Status = player.Status,
+            Name = player.Name,
+            Nationality = player.Nationality,
+            Birthday = player.Birthday,
+            Rating = player.Rating,
+            ImagePath = player.ImagePath,
+            TeamId = player.TeamId,
+        };
+
+        _isEditDialogOpen = true;
+    }
+    
+    private async Task HandlePlayerCreation()
+    {
+        var cts = new CancellationTokenSource();
+        
+        if (_teams is null)
+        {
+            _teams = await TeamService.GetAllTeamsAsync(cts.Token);
+        }
+        
+        _framePlayer = new Player();
+        _isAddDialogOpen = true;
     }
 
+    private void CloseDialog()
+    {
+        _isEditDialogOpen = false;
+        _isAddDialogOpen = false;
+        _selectedPlayer = null;
+        _framePlayer = null;
+    }
+
+    private async Task SaveChanges()
+    {
+        var cts = new CancellationTokenSource();
+        
+        if (_selectedPlayer is not null)
+        {
+            await PlayerService.UpdatePlayerAsync(_selectedPlayer);
+            
+            _isEditDialogOpen = false;
+        }
+
+        if (_framePlayer is not null)
+        {
+            await PlayerService.CreatePlayerAsync(_framePlayer, cts.Token);
+
+            _isAddDialogOpen = false;
+        }
+    }
+    
+    private async Task OnFileUploadedUpdateAsync(FluentInputFileEventArgs file)
+    {
+        if (_selectedPlayer is not null)
+        {
+            _selectedPlayer.ImagePath = await SaveImageAsync(file);
+        }
+    }
+    
+    private async Task OnFileUploadedCreateAsync(FluentInputFileEventArgs file)
+    {
+        if (_framePlayer is not null)
+        {
+            _framePlayer.ImagePath = await SaveImageAsync(file);
+        }
+    }
+
+    private async Task<string> SaveImageAsync(FluentInputFileEventArgs file)
+    {
+        var fileName = Path.GetFileName(file.Name);
+        var filePath = Path.Combine("wwwroot", "Images", "Player", fileName);
+
+        if (File.Exists(filePath))
+        {
+            Console.WriteLine("File with same name is already in the folder.");
+            return "";
+        }
+        
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.Stream!.CopyToAsync(stream);
+            await file.Stream.DisposeAsync();
+        }
+        
+        return $"Images/Player/{fileName}";
+    }
+    
     private void HandlePlayerFilter(ChangeEventArgs args)
     {
         if (args.Value is string value)
@@ -191,68 +365,5 @@
     private string GetFormattedDate(DateTime? date)
     {
         return date?.ToString("d", CultureInfo.CurrentCulture) ?? "N/A"; 
-    }
-
-    private async Task HandleEditPlayer(Player player)
-    {
-        var cts = new CancellationTokenSource();
-        
-        if (_teams is null)
-        {
-            _teams = await TeamService.GetAllTeamsAsync(cts.Token);
-        }
-
-        _selectedPlayer = new Player
-        {
-            Id = player.Id,
-            Nickname = player.Nickname,
-            Status = player.Status,
-            Name = player.Name,
-            Nationality = player.Nationality,
-            Birthday = player.Birthday,
-            Rating = player.Rating,
-            ImagePath = player.ImagePath,
-            TeamId = player.TeamId,
-        };
-
-        _isEditDialogOpen = true;
-    }
-
-    private void CloseEditDialog()
-    {
-        _isEditDialogOpen = false;
-        _selectedPlayer = null;
-    }
-
-    private async Task SaveChanges()
-    {
-        if (_selectedPlayer is not null)
-        {
-            await PlayerService.UpdatePlayerAsync(_selectedPlayer);
-            
-            _isEditDialogOpen = false;
-        }
-    }
-    
-    private async Task OnFileUploadedAsync(FluentInputFileEventArgs file)
-    {
-        if (_selectedPlayer != null)
-        {
-            _selectedPlayer.ImagePath = await SaveImageAsync(file);
-        }
-    }
-
-    private async Task<string> SaveImageAsync(FluentInputFileEventArgs file)
-    {
-        var fileName = Path.GetFileName(file.Name);
-        var filePath = Path.Combine("wwwroot", "Images", "Player", fileName);
-        
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.Stream!.CopyToAsync(stream);
-            await file.Stream.DisposeAsync();
-        }
-        
-        return $"Images/Player/{fileName}";
     }
 }
