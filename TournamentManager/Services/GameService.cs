@@ -20,5 +20,4 @@ public class GameService
             .Where(g => g.MatchId == matchId)
             .ToListAsync();
     }
-    
 }

@@ -10,6 +10,7 @@
 @inject VideoGameService VideoGameService
 @inject TeamService TeamService;
 @inject GameService GameService;
+@inject BracketService BracketService;
 @inject NavigationManager NavigationManager
 
 <PageTitle>@_tournament.Name</PageTitle>
@@ -226,8 +227,24 @@
             else
             {
                 <span class="dialog-section-name">Number of rounds: <span>@CalculateNumberOfRounds(_tournament.Teams.Count)</span></span>
+                <span>Depends on the number of teams chosen</span>
             }
 
+            <label for="object-type">Amount of games per match:</label>
+            <select id="object-type" class="object-type" @bind="_bestOf">
+                @foreach (var bestof in Enum.GetValues(typeof(BestOf)))
+                {
+                    <option value="@bestof">@bestof</option>
+                }
+            </select>
+            
+            <label for="object-type">Amount of games in final match:</label>
+            <select id="object-type" class="object-type" @bind="_bestOfFinal">
+                @foreach (var bestof in Enum.GetValues(typeof(BestOf)))
+                {
+                    <option value="@bestof">@bestof</option>
+                }
+            </select>
 
             <label for="object-type">Type:</label>
             <select id="object-type" class="object-type" @bind="_frameBracket.Type">
@@ -257,7 +274,6 @@
                                 MaximumSelectedOptions="32"
                                 OptionText="@(item => item.Name)"
                                 @bind-SelectedOptions="@_selectedTeams" />
-
             <p>
                 <b>Selected</b>: @(String.Join(", ", _selectedTeams.Select(i => i.Name)))
             </p>
@@ -284,6 +300,8 @@
     private DateTime? _endDate;
 
     private Bracket _frameBracket;
+    private BestOf _bestOf;
+    private BestOf _bestOfFinal;
     
     private IEnumerable<Team> _selectedTeams = Array.Empty<Team>();
 
@@ -370,7 +388,14 @@
 
     private async Task GenerateBracket()
     {
+        var numberOfRounds = CalculateNumberOfRounds(_tournament.Teams.Count);
+
+        _frameBracket.NumberOfRounds = (int)numberOfRounds;
         
+        if (numberOfRounds % 1 == 0)
+        {
+            await BracketService.GenerateBracket(_frameBracket, _tournament.Id, _tournament.Teams.ToList(), _bestOf, _bestOfFinal, _cts.Token);
+        }
     }
 
     private async Task SaveAddedTeams()
