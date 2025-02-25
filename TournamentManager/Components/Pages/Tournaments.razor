@@ -25,43 +25,48 @@
 }
 
 <div class="tournaments-page-wrapper">
-    <h3>@Localizer["Featured"]</h3>
-    <div class="featured-tournament" onclick="@(() => HandleTournamentClick(_featuredTournament.Name))">
-        <div class="tournament-teams-column left-column">
-            @foreach (var team in firstColumnTeams)
-            {
-                <img class="team-image" src="@team.ImagePath"/>
-            }
-        </div>
+    <div class="featured-tournament-wrapper">
+        <h3>@Localizer["Featured"]</h3>
+        <div class="featured-tournament" onclick="@(() => HandleTournamentClick(_featuredTournament.Name))">
 
-        <div class="tournament-information">
-            <h3 class="tournament-name">@_featuredTournament.Name</h3>
-            @if (_featuredTournament.Status == ActivityStatus.Live)
-            {
-                <div class="live-status-wrapper">
-                    <div class="live-bubble"></div>
-                    <p class="tournament-status">Live</p>
-                </div>
-            }
-            else
-            {
-                <span class="tournament-date">@_featuredTournament.StartDate.ToString("D")</span>
-            }
+            <div class="tournament-teams-column left-column">
+                @foreach (var team in firstColumnTeams)
+                {
+                    <img class="team-image" src="@team.ImagePath"/>
+                }
+            </div>
 
-            <span class="tournament-prize">$@_featuredTournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
-        </div>
+            <div class="tournament-information">
+                <h3 class="tournament-name">@_featuredTournament.Name</h3>
+                @if (_featuredTournament.Status == ActivityStatus.Live)
+                {
+                    <div class="live-status-wrapper">
+                        <div class="live-bubble"></div>
+                        <p class="tournament-status">Live</p>
+                    </div>
+                }
+                else
+                {
+                    <span class="tournament-date">@_featuredTournament.StartDate.ToString("D")</span>
+                }
 
-        <div class="tournament-teams-column right-column">
-            @foreach (var team in secondColumnTeams)
-            {
-                <img class="team-image" src="@team.ImagePath"/>
-            }
+                <span class="tournament-prize">$@_featuredTournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
+            </div>
+
+            <div class="tournament-teams-column right-column">
+                @foreach (var team in secondColumnTeams)
+                {
+                    <img class="team-image" src="@team.ImagePath"/>
+                }
+            </div>
+
         </div>
 
     </div>
 
-    <h3>@Localizer["Upcoming_Tournaments"]</h3>
+
     <div class="up-tournaments">
+        <h3>@Localizer["Upcoming_Tournaments"]</h3>
         <div class="up-tournament-list">
             @foreach (var tournament in _tournaments)
             {
@@ -94,7 +99,7 @@
                 <FluentDatePicker Label="End date:" @bind-Value="@_endDate"></FluentDatePicker>
                 <FluentNumberField @bind-Value="@_frameTournament.Prize">Prize (US Dollars): </FluentNumberField>
                 <label for="type">Type:</label>
-                <select id="type" class="type" @bind="_frameTournament.Type">
+                <select id="type" class="object-type" @bind="_frameTournament.Type">
                     @foreach (var type in Enum.GetValues(typeof(TournamentType)))
                     {
                         <option value="@type">@type</option>

@@ -27,6 +27,7 @@ builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<VideoGameService>();
 builder.Services.AddScoped<BracketService>();
+builder.Services.AddScoped<MapService>();
 
 builder.Services.AddHostedService<TournamentStatusUpdater>();
 builder.Services.AddHostedService<MatchStatusUpdater>();

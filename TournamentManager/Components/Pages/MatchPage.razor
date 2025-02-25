@@ -8,23 +8,26 @@
 
 @inject GameService GameService;
 @inject MatchService MatchService;
+@inject MapService MapService;
 @inject NavigationManager NavigationManager
 
 <PageTitle>@(_match?.Team1?.Name ?? "TBD") vs @(_match?.Team2?.Name ?? "TBD")</PageTitle>
 
 <div class="match-page-wrapper">
     <div class="match-information-wrapper">
-        <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
-            @if (_match.Team1 is not null)
-            {
+        @if (_match.Team1 is not null)
+        {
+            <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
                 <span>@_match.Team1.Name</span>
                 <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-            }
-            else
-            {
+            </div>
+        }
+        else
+        {
+            <div class="match-team">
                 <span>TBD</span>
-            }
-        </div>
+            </div>
+        }
         <div class="match-info">
             @if (_match.Status != ActivityStatus.Ended)
             {
@@ -55,7 +58,7 @@
         <h5 class="header">Head to Head (past 20 games)</h5>
         <div class="head-to-head-wrapper">
             <div class="head-to-head-team">
-                @if (_match.Team1 is not null)
+                @if (_match.Team1 is not null && _headToHeadScores is not null)
                 {
                     <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
                     <span class="head-to-head-team-name">@_match.Team1.Name</span>
@@ -73,7 +76,7 @@
             <div class="spacer"></div>
 
             <div class="head-to-head-team">
-                @if (_match.Team2 is not null)
+                @if (_match.Team2 is not null && _headToHeadScores is not null)
                 {
                     <div class="team-wins">
                         <span class="wins-number">@_headToHeadScores.Item2</span>
@@ -92,47 +95,60 @@
     
     <div class="games-mapwinrates-wrapper">
         <div class="games-section">
-            <h5 class="header">Games</h5>
+            <h5 class="header">Games (@_match.BestOf)</h5>
+            <AuthorizeView Roles="Admin">
+                @if (_games is not null)
+                {
+                    <div class="admin-button">
+                        <FluentButton OnClick="@OpenMapPickDialog">Edit games</FluentButton>
+                        @if (_games.Any(g => g.Map != null))
+                        {
+                            <FluentButton OnClick="@ResetGames">Reset</FluentButton>
+                        }
+                    </div>
+                }
+            </AuthorizeView>
             <div class="game-wrapper">
                 @foreach (var game in _games)
                 {
                     <div class="game">
-                        <div class="game-map">
-                            @if (game.Map is not null)
-                            {
+                        
+                        @if (game.Map is not null)
+                        {
+                            <div class="game-map">
                                 <img class="map-image" src="@game.Map.ImagePath" alt="@game.Map.Name"/>
                                 <span class="map-name">@game.Map.Name</span>
-                            }
-                            else
-                            {
-                                <span class="map-name map-not-picked-text">Map not picked</span>
-                            }
-                        </div>
-                        <div class="@GetStylingForGameWinner(game.WinnerTeamId)">
-                            <div class="team-score">
-                                @if (_match.Team1 is not null)
-                                {
-                                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                    <span class="score">@game.Team1Score</span>
-                                }
-                                else
-                                {
-                                    <span>TBD</span>
-                                }
                             </div>
-                            <div onclick="@(() => HandleGameStatsClick(game.Id))" class="game-stats-button">Stats</div>
-                            <div class="team-score">
-                                @if (_match.Team2 is not null)
-                                {
-                                    <span class="score">@game.Team2Score</span>
-                                    <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
-                                }
-                                else
-                                {
-                                    <span>TBD</span>
-                                }
+                            <div class="@GetStylingForGameWinner(game.WinnerTeamId)">
+                                <div class="team-score">
+                                    @if (_match.Team1 is not null)
+                                    {
+                                        <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                        <span class="score">@game.Team1Score</span>
+                                    }
+                                    else
+                                    {
+                                        <span>TBD</span>
+                                    }
+                                </div>
+                                <div onclick="@(() => HandleGameStatsClick(game.Id))" class="game-stats-button">Stats</div>
+                                <div class="team-score">
+                                    @if (_match.Team2 is not null)
+                                    {
+                                        <span class="score">@game.Team2Score</span>
+                                        <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                    }
+                                    else
+                                    {
+                                        <span>TBD</span>
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <span class="map-not-picked-text">@game.GameNumber. Map not picked</span>
+                        }
                     </div>
                 }
             </div>
@@ -150,21 +166,29 @@
 
                     <div class="game">
                         <div class="game-team-scores">
-                            @if (winRates is not null && game.Map is not null && _match.Team1 is not null && _match.Team2 is not null)
+                            @if (winRates is not null && game.Map is not null)
                             {
-                                <div class="team-percentage">
-                                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                    <span class="percentage">@winRates.Value.Item1%</span>
-                                </div>
+                                if (_match.Team1 is not null)
+                                {
+                                    <div class="team-percentage">
+                                        <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                        <span class="percentage">@winRates.Value.Item1%</span>
+                                    </div>
+                                } 
+                                
                                 <div>@game.Map.Name</div>
-                                <div class="team-percentage">
-                                    <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
-                                    <span class="percentage">@winRates.Value.Item2%</span>
-                                </div>
+                                
+                                if (_match.Team2 is not null)
+                                {
+                                    <div class="team-percentage">
+                                        <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                        <span class="percentage">@winRates.Value.Item2%</span>
+                                    </div>
+                                }
                             }
                             else
                             {
-                                <span>Map not picked</span>
+                                <span>@game.GameNumber. Map not picked</span>
                             }
                         </div>
                     </div>
@@ -174,12 +198,58 @@
     </div>
 </div>
 
+@if (_isGamesEditDialogOpen)
+{
+    <FluentDialog>
+        <FluentDialogHeader>
+            <h4>Edit games</h4>
+        </FluentDialogHeader>
+        <FluentDialogBody>
+            <div class="dialog-wrapper">
+                @foreach (var game in _games)
+                {
+                    <h5>Game @game.GameNumber information:</h5>
+                    <label for="object-type">Map for game (@game.GameNumber):</label>
+                    <select id="object-type" class="object-type" @bind="@game.MapId">
+                        @foreach (var map in _maps)
+                        {
+                            <option value="@map.Id">@map.Name</option>
+                        }
+                    </select>
+                        
+                    if (_match.Team1 is not null && _match.Team2 is not null)
+                    {
+                        <FluentNumberField @bind-Value="@game.Team1Score">@_match.Team1.Name Final Score: </FluentNumberField>
+                        <FluentNumberField @bind-Value="@game.Team2Score">@_match.Team2.Name Final Score: </FluentNumberField>
+                            
+                        <label for="object-type">Choose winner:</label>
+                        <select id="object-type" class="object-type" @bind="@game.WinnerTeamId">
+                            <option value="@_match.Team1.Id">@_match.Team1.Name</option>
+                            <option value="@_match.Team2.Id">@_match.Team2.Name</option>
+                        </select>
+                    }
+                }
+            </div>
+        </FluentDialogBody>
+
+        <div class="dialog-button-wrapper">
+            <FluentButton @onclick="SaveEditedGames" Appearance="Appearance.Accent">Save</FluentButton>
+            <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+        </div>
+    </FluentDialog>
+}
+
 @code {
     [Parameter] public string matchId { get; set; }
+    private CancellationTokenSource _cts = new();
     private Match _match = new();
     private List<Game> _games = new();
     private Tuple<int, int> _headToHeadScores;
     private Dictionary<Guid, (int team1WinRate, int team2WinRate)> _mapWinRates = new();
+
+    private bool _isGamesEditDialogOpen;
+    private List<Map> _maps;
+    private bool _mapsNotPicked;
 
     protected override async Task OnInitializedAsync()
     {
@@ -202,6 +272,8 @@
                 }
             }
         }
+
+        _isGamesEditDialogOpen = false;
     }
 
     private string GetStylingForGameWinner(Guid? winnerId)
@@ -217,16 +289,31 @@
         return "game-team-scores";
     }
 
+    private async void OpenMapPickDialog()
+    {
+        _maps = await MapService.GetAllMapsAsync(_cts.Token);
+        _isGamesEditDialogOpen = true;
+    }
+    
+    private async Task SaveEditedGames()
+    {
+        await GameService.EditGames(_games);
+        _isGamesEditDialogOpen = false;
+    }
+
+    private async Task ResetGames()
+    {
+        await GameService.ResetGames(_games);
+    }
+    
+    private void CloseDialog()
+    {
+        _isGamesEditDialogOpen = false;
+    }
+
     private void HandleTeamClick(string? teamName)
     {
-        if (teamName is not null)
-        {
-            NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
-        }
-        else
-        {
-            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-        }
+        NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
     }
 
     private void HandleTournamentClick(string tournamentName)

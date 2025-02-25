@@ -15,14 +15,6 @@
         <div class="tournament-wrapper" onclick="@(() => HandleTournamentClick(tournament.Name))">
             <p class="tournament-tournament-name">@tournament.Name</p>
             
-            <div class="tournament-teams-wrapper">
-                @foreach (var team in tournament.Teams)
-                {
-                    <img class="tournament-team-image" src="@team.ImagePath"/>
-                }
-            </div>
-
-
             @if (tournament.Status == ActivityStatus.Live)
             {
                 <div class="live-status-wrapper">

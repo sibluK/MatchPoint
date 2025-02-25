@@ -119,4 +119,22 @@ public class TournamentService
             }
         }
     }
+
+    public async Task RemoveTeamFromTournament(Guid tournamentId, Guid teamId, CancellationToken ct)
+    {
+        var tournament = await _dbContext.Tournaments
+            .Include(t => t.Teams)
+            .FirstOrDefaultAsync(t => t.Id == tournamentId, ct);
+        if (tournament == null)
+        {
+            return;
+        }
+        
+        var team = tournament.Teams.FirstOrDefault(t => t.Id == teamId);
+        if (team != null)
+        {
+            tournament.Teams.Remove(team);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
 }

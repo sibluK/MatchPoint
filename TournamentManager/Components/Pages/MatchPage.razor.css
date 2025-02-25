@@ -24,6 +24,7 @@
 .match-team {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     cursor: pointer;
@@ -44,6 +45,7 @@
     flex-direction: column;
     text-align: center;
     justify-content: space-evenly;
+    gap: 5px;
 }
 
 .match-time {
@@ -100,7 +102,16 @@
 }
 
 .games-section {
+    position: relative;
     width: 50%;
+}
+
+.admin-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: right;
+    transform: translateY(-10px);
 }
 
 .game-wrapper, .map-winrate-wrapper {
@@ -111,6 +122,10 @@
     padding: 15px;
     border-radius: 10px;
     gap: 20px;
+}
+
+.map-error {
+    border: 1px solid red !important;
 }
 
 .game {
@@ -151,7 +166,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 5px 0;
 }
 
 .game-team-scores.left {
@@ -237,7 +251,19 @@
 }
 
 .map-not-picked-text {
-    margin-top: 5px;
+    text-align: center;
+}
+
+.object-type {
+    background: padding-box linear-gradient(var(--neutral-fill-input-rest), var(--neutral-fill-input-rest)), border-box var(--neutral-stroke-input-rest);
+    border: calc(var(--stroke-width)* 1px) solid transparent;
+    border-radius: calc(var(--control-corner-radius)* 1px);
+    height: calc((var(--base-height-multiplier) + var(--density))* var(--design-unit)* 1px);;
+}
+
+.dialog-wrapper h5 {
+    padding: 0;
+    margin: 0;
 }
 
 @media screen and (max-width: 1500px) {

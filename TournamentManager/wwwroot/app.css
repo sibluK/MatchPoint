@@ -158,6 +158,7 @@ code {
     gap: 2px;
     justify-content: center;
     align-items: center;
+    transform: translateX(-4px);
 }
 
 .live-bubble {
@@ -193,6 +194,23 @@ code {
 
 .white {
     background-color: white;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: gray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    cursor: grab;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+    opacity: 0;
 }
 
 @keyframes pulse {
