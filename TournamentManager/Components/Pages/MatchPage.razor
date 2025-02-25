@@ -8,6 +8,7 @@
 
 @inject GameService GameService;
 @inject MatchService MatchService;
+@inject MapService MapService;
 @inject NavigationManager NavigationManager
 
 <PageTitle>@(_match?.Team1?.Name ?? "TBD") vs @(_match?.Team2?.Name ?? "TBD")</PageTitle>
@@ -17,8 +18,8 @@
         @if (_match.Team1 is not null)
         {
             <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
-                    <span>@_match.Team1.Name</span>
-                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                <span>@_match.Team1.Name</span>
+                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
             </div>
         }
         else
@@ -95,6 +96,18 @@
     <div class="games-mapwinrates-wrapper">
         <div class="games-section">
             <h5 class="header">Games (@_match.BestOf)</h5>
+            <AuthorizeView Roles="Admin">
+                @if (_games is not null)
+                {
+                    <div class="admin-button">
+                        <FluentButton OnClick="@OpenMapPickDialog">Pick maps</FluentButton>
+                        @if (_games.Any(g => g.Map != null))
+                        {
+                            <FluentButton OnClick="@ResetGames">Reset</FluentButton>
+                        }
+                    </div>
+                }
+            </AuthorizeView>
             <div class="game-wrapper">
                 @foreach (var game in _games)
                 {
@@ -134,7 +147,7 @@
                         }
                         else
                         {
-                            <span class="map-not-picked-text">Map not picked</span>
+                            <span class="map-not-picked-text">@game.GameNumber. Map not picked</span>
                         }
                     </div>
                 }
@@ -167,7 +180,7 @@
                             }
                             else
                             {
-                                <span>Map not picked</span>
+                                <span>@game.GameNumber. TBD</span>
                             }
                         </div>
                     </div>
@@ -177,12 +190,57 @@
     </div>
 </div>
 
+@if (_isGamesEditDialogOpen)
+{
+    <FluentDialog>
+        <FluentDialogHeader>
+            <h4>Pick maps</h4>
+        </FluentDialogHeader>
+        <FluentDialogBody>
+            <div class="dialog-wrapper">
+                @foreach (var game in _games)
+                {
+                    <h5>Game @game.GameNumber information:</h5>
+                    <label for="object-type">Map for game (@game.GameNumber):</label>
+                    <select id="object-type" class="object-type" @bind="@game.MapId">
+                        @foreach (var map in _maps)
+                        {
+                            <option value="@map.Id">@map.Name</option>
+                        }
+                    </select>
+                        
+                    if (_match.Team1 is not null && _match.Team2 is not null)
+                    {
+                        <FluentNumberField @bind-Value="@game.Team1Score">@_match.Team1.Name Final Score: </FluentNumberField>
+                        <FluentNumberField @bind-Value="@game.Team2Score">@_match.Team2.Name Final Score: </FluentNumberField>
+                            
+                        <label for="object-type">Choose winner:</label>
+                        <select id="object-type" class="object-type" @bind="@game.WinnerTeamId">
+                            <option value="@_match.Team1.Id">@_match.Team1.Name</option>
+                            <option value="@_match.Team2.Id">@_match.Team2.Name</option>
+                        </select>
+                    }
+                }
+            </div>
+        </FluentDialogBody>
+
+        <div class="dialog-button-wrapper">
+            <FluentButton @onclick="SaveEditedGames" Appearance="Appearance.Accent">Save</FluentButton>
+            <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+        </div>
+    </FluentDialog>
+}
+
 @code {
     [Parameter] public string matchId { get; set; }
+    private CancellationTokenSource _cts = new();
     private Match _match = new();
     private List<Game> _games = new();
     private Tuple<int, int> _headToHeadScores;
     private Dictionary<Guid, (int team1WinRate, int team2WinRate)> _mapWinRates = new();
+
+    private bool _isGamesEditDialogOpen;
+    private List<Map> _maps;
 
     protected override async Task OnInitializedAsync()
     {
@@ -205,6 +263,8 @@
                 }
             }
         }
+
+        _isGamesEditDialogOpen = false;
     }
 
     private string GetStylingForGameWinner(Guid? winnerId)
@@ -218,6 +278,28 @@
                 return "game-team-scores right";
         }
         return "game-team-scores";
+    }
+
+    private async void OpenMapPickDialog()
+    {
+        _maps = await MapService.GetAllMapsAsync(_cts.Token);
+        _isGamesEditDialogOpen = true;
+    }
+    
+    private async Task SaveEditedGames()
+    {
+        await GameService.EditGames(_games);
+        _isGamesEditDialogOpen = false;
+    }
+
+    private async Task ResetGames()
+    {
+        await GameService.ResetGames(_games);
+    }
+    
+    private void CloseDialog()
+    {
+        _isGamesEditDialogOpen = false;
     }
 
     private void HandleTeamClick(string? teamName)

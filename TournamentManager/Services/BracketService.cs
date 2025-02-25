@@ -88,6 +88,7 @@ public class BracketService
                 
                 for (var k = 1; k <= GetNumberOfGames(match.BestOf); k++)
                 {
+                    Console.WriteLine($"------------------GameNumber: ({k})------------------");
                     var game = new Game
                     {
                         GameNumber = k,

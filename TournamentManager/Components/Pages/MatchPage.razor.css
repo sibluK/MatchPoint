@@ -102,7 +102,16 @@
 }
 
 .games-section {
+    position: relative;
     width: 50%;
+}
+
+.admin-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: right;
+    transform: translateY(-10px);
 }
 
 .game-wrapper, .map-winrate-wrapper {
@@ -153,7 +162,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 5px 0;
 }
 
 .game-team-scores.left {
@@ -240,6 +248,18 @@
 
 .map-not-picked-text {
     text-align: center;
+}
+
+.object-type {
+    background: padding-box linear-gradient(var(--neutral-fill-input-rest), var(--neutral-fill-input-rest)), border-box var(--neutral-stroke-input-rest);
+    border: calc(var(--stroke-width)* 1px) solid transparent;
+    border-radius: calc(var(--control-corner-radius)* 1px);
+    height: calc((var(--base-height-multiplier) + var(--density))* var(--design-unit)* 1px);;
+}
+
+.dialog-wrapper h5 {
+    padding: 0;
+    margin: 0;
 }
 
 @media screen and (max-width: 1500px) {
