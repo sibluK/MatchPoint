@@ -5,7 +5,8 @@
     width: 260px;
     padding-top: 15px;
     position: fixed;
-    height: 100%;
+    height: calc(100vh - 217px);
+    overflow-y: auto;
 }
 
 .sidebar p {
