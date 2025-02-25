@@ -14,17 +14,19 @@
 
 <div class="match-page-wrapper">
     <div class="match-information-wrapper">
-        <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
-            @if (_match.Team1 is not null)
-            {
-                <span>@_match.Team1.Name</span>
-                <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-            }
-            else
-            {
+        @if (_match.Team1 is not null)
+        {
+            <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
+                    <span>@_match.Team1.Name</span>
+                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+            </div>
+        }
+        else
+        {
+            <div class="match-team">
                 <span>TBD</span>
-            }
-        </div>
+            </div>
+        }
         <div class="match-info">
             @if (_match.Status != ActivityStatus.Ended)
             {
@@ -92,47 +94,48 @@
     
     <div class="games-mapwinrates-wrapper">
         <div class="games-section">
-            <h5 class="header">Games</h5>
+            <h5 class="header">Games (@_match.BestOf)</h5>
             <div class="game-wrapper">
                 @foreach (var game in _games)
                 {
                     <div class="game">
-                        <div class="game-map">
-                            @if (game.Map is not null)
-                            {
+                        
+                        @if (game.Map is not null)
+                        {
+                            <div class="game-map">
                                 <img class="map-image" src="@game.Map.ImagePath" alt="@game.Map.Name"/>
                                 <span class="map-name">@game.Map.Name</span>
-                            }
-                            else
-                            {
-                                <span class="map-name map-not-picked-text">Map not picked</span>
-                            }
-                        </div>
-                        <div class="@GetStylingForGameWinner(game.WinnerTeamId)">
-                            <div class="team-score">
-                                @if (_match.Team1 is not null)
-                                {
-                                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                    <span class="score">@game.Team1Score</span>
-                                }
-                                else
-                                {
-                                    <span>TBD</span>
-                                }
                             </div>
-                            <div onclick="@(() => HandleGameStatsClick(game.Id))" class="game-stats-button">Stats</div>
-                            <div class="team-score">
-                                @if (_match.Team2 is not null)
-                                {
-                                    <span class="score">@game.Team2Score</span>
-                                    <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
-                                }
-                                else
-                                {
-                                    <span>TBD</span>
-                                }
+                            <div class="@GetStylingForGameWinner(game.WinnerTeamId)">
+                                <div class="team-score">
+                                    @if (_match.Team1 is not null)
+                                    {
+                                        <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                        <span class="score">@game.Team1Score</span>
+                                    }
+                                    else
+                                    {
+                                        <span>TBD</span>
+                                    }
+                                </div>
+                                <div onclick="@(() => HandleGameStatsClick(game.Id))" class="game-stats-button">Stats</div>
+                                <div class="team-score">
+                                    @if (_match.Team2 is not null)
+                                    {
+                                        <span class="score">@game.Team2Score</span>
+                                        <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                    }
+                                    else
+                                    {
+                                        <span>TBD</span>
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <span class="map-not-picked-text">Map not picked</span>
+                        }
                     </div>
                 }
             </div>
@@ -219,14 +222,7 @@
 
     private void HandleTeamClick(string? teamName)
     {
-        if (teamName is not null)
-        {
-            NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
-        }
-        else
-        {
-            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-        }
+        NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
     }
 
     private void HandleTournamentClick(string tournamentName)

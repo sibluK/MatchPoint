@@ -64,9 +64,9 @@
                             <div class="round-wrapper">
                                 @if (_tournament.Bracket.Matches.Any(m => m.BracketRound == i))
                                 {
-                                    @foreach (var match in _tournament.Bracket.Matches.OrderBy(m => m.MatchNumber))
+                                    foreach (var match in _tournament.Bracket.Matches.OrderBy(m => m.MatchNumber))
                                     {
-                                        @if (match.BracketRound == i)
+                                        if (match.BracketRound == i)
                                         {
                                             <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
                                                 <div class="match-information-wrapper">@match.BestOf</div>
@@ -96,25 +96,22 @@
                                                 }
                                                 else
                                                 {
-
-
-                                                            <div class="team-wrapper">TBD</div>
-                                                            <div class="team-wrapper">TBD</div>
-        
+                                                    <div class="team-wrapper">TBD</div>
+                                                    <div class="team-wrapper">TBD</div>
                                                 }
-  
                                             </div>
                                         }
                                     }
-                                }
-                                else
-                                {
-              
                                 }
                             </div>
                         }
                     </div>
                 </div>
+                <AuthorizeView Roles="Admin">
+                    <div class="admin-button">
+                        <FluentButton OnClick="@DeleteBracket">Delete Bracket</FluentButton>
+                    </div>
+                </AuthorizeView>
             }
             else
             { 
@@ -130,9 +127,12 @@
     <div class="tournament-teams">
         <h5 class="header">Teams</h5>
         <AuthorizeView Roles="Admin">
-            <div class="admin-button">
-                <FluentButton OnClick="@HandleAddTeams">Add teams</FluentButton>
-            </div>
+            @if (_tournament.Bracket is null)
+            {
+                <div class="admin-button">
+                    <FluentButton OnClick="@HandleAddTeams">Add teams</FluentButton>
+                </div>
+            }
         </AuthorizeView>
 
         @if (_tournament.Teams.Any())
@@ -141,6 +141,12 @@
                 @foreach (var team in _tournament.Teams)
                 {
                     <div class="team-card-wrapper">
+                        <AuthorizeView Roles="Admin">
+                            @if (_tournament.Bracket is null)
+                            {
+                                <button onclick="@(() => RemoveTeam(team))" class="remove-team-button">Remove</button>
+                            }
+                        </AuthorizeView>
                         <span class="team-name" onclick="@(() => HandleTeamClick(team.Name))">@team.Name</span>
                         <img class="team-image" src="@team.ImagePath" alt="@team.Name"/>
                         <span class="@GetRankingClass(team.Ranking) team-ranking">#@team.Ranking</span>
@@ -173,7 +179,7 @@
                 <FluentTextField @bind-Value="@_tournament.Name">Name: </FluentTextField>
                 <FluentDatePicker Label="Start date:" @bind-Value="@_startDate"></FluentDatePicker>
                 <FluentDatePicker Label="End date:" @bind-Value="@_endDate"></FluentDatePicker>
-                <FluentNumberField @bind-Value="@_tournament.Prize">Prize (US Dollars): </FluentNumberField>
+                <FluentNumberField @bind-Value="@_tournament.Prize">Prize pool (US Dollars): </FluentNumberField>
                 <label for="object-type">Type:</label>
                 <select id="object-type" class="object-type" @bind="_tournament.Type">
                     @foreach (var type in Enum.GetValues(typeof(TournamentType)))
@@ -200,56 +206,63 @@
 @if (_isGenerateBracketDialogOpen)
 {
     <FluentDialog>
-        <div class="dialog-wrapper">
-            <div class="object-name-id-wrapper">
-                <h4 class="dialog-object-name">Generate Bracket</h4>
-                <h6 class="dialog-object-id">ID: @_frameBracket.Id</h6>
-            </div>
-            <h5 class="dialog-section-name">Teams:</h5>
-
-            @foreach (var (team, index) in _tournament.Teams.Select((team, index) => (team, index + 1)))
-            {
-                <div class="dialog-team-wrapper">
-                    <span>@index. </span>
-                    <img src="@team.ImagePath" alt="Team photo"/>
-                    <span>@team.Name</span>
+        
+            <FluentDialogHeader>
+                <div class="object-name-id-wrapper">
+                    <h4 class="dialog-object-name">Generate Bracket</h4>
+                    <h6 class="dialog-object-id">ID: @_frameBracket.Id</h6>
                 </div>
-            }
-            @if (CalculateNumberOfRounds(_tournament.Teams.Count) % 1 != 0)
-            {
-                <h5 class="dialog-section-name">Number of rounds: <span>(Wrong number of teams)</span></h5>
-                <p>Allowed number of teams: 2, 4, 8, 16, 32</p>
-            }
-            else
-            {
-                <span class="dialog-section-name">Number of rounds: <span>@CalculateNumberOfRounds(_tournament.Teams.Count)</span></span>
-                <span>Depends on the number of teams chosen</span>
-            }
-
-            <label for="object-type">Amount of games per match:</label>
-            <select id="object-type" class="object-type" @bind="_bestOf">
-                @foreach (var bestof in Enum.GetValues(typeof(BestOf)))
-                {
-                    <option value="@bestof">@bestof</option>
-                }
-            </select>
+            </FluentDialogHeader>
             
-            <label for="object-type">Amount of games in final match:</label>
-            <select id="object-type" class="object-type" @bind="_bestOfFinal">
-                @foreach (var bestof in Enum.GetValues(typeof(BestOf)))
-                {
-                    <option value="@bestof">@bestof</option>
-                }
-            </select>
+            <FluentDialogBody>
+                <div class="dialog-wrapper">
+                    <h5 class="dialog-section-name">Teams:</h5>
 
-            <label for="object-type">Type:</label>
-            <select id="object-type" class="object-type" @bind="_frameBracket.Type">
-                @foreach (var type in Enum.GetValues(typeof(BracketType)))
-                {
-                    <option value="@type">@type</option>
-                }
-            </select>
-        </div>
+                    @foreach (var (team, index) in _tournament.Teams.Select((team, index) => (team, index + 1)))
+                    {
+                        <div class="dialog-team-wrapper">
+                            <span>@index. </span>
+                            <img src="@team.ImagePath" alt="Team photo"/>
+                            <span>@team.Name</span>
+                        </div>
+                    }
+                    @if (CalculateNumberOfRounds(_tournament.Teams.Count) % 1 != 0)
+                    {
+                        <h5 class="dialog-section-name">Number of rounds: <span>(Wrong number of teams)</span></h5>
+                        <p>Allowed number of teams: 2, 4, 8, 16, 32</p>
+                    }
+                    else
+                    {
+                        <span class="dialog-section-name">Number of rounds: <span>@CalculateNumberOfRounds(_tournament.Teams.Count)</span></span>
+                        <span class="dialog-hint-text">Depends on the number of teams chosen</span>
+
+                        <label for="object-type">Amount of games per match:</label>
+                        <select id="object-type" class="object-type" @bind="_bestOf">
+                            @foreach (var bestof in Enum.GetValues(typeof(BestOf)))
+                            {
+                                <option value="@bestof">@bestof</option>
+                            }
+                        </select>
+
+                        <label for="object-type">Amount of games in final match:</label>
+                        <select id="object-type" class="object-type" @bind="_bestOfFinal">
+                            @foreach (var bestof in Enum.GetValues(typeof(BestOf)))
+                            {
+                                <option value="@bestof">@bestof</option>
+                            }
+                        </select>
+
+                        <label for="object-type">Type:</label>
+                        <select id="object-type" class="object-type" @bind="_frameBracket.Type">
+                            @foreach (var type in Enum.GetValues(typeof(BracketType)))
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                    }
+                </div>
+            </FluentDialogBody>
+            
         <div class="dialog-button-wrapper">
             <FluentButton @onclick="GenerateBracket" Appearance="Appearance.Accent">Generate</FluentButton>
             <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
@@ -260,20 +273,24 @@
 @if (_isAddTeamsDialogOpen)
 {
     <FluentDialog>
-        <div class="dialog-button-wrapper">
+        <FluentDialogHeader>
             <h4>Add teams</h4>
+        </FluentDialogHeader>
+        <FluentDialogBody>
             <FluentAutocomplete TOption="Team"
                                 AutoComplete="on"
                                 Autofocus="true"
+                                Label="Teams"
                                 Placeholder="Select teams"
                                 OnOptionsSearch="@OnSearchAsync"
                                 MaximumSelectedOptions="32"
                                 OptionText="@(item => item.Name)"
                                 @bind-SelectedOptions="@_selectedTeams" />
-            <p>
-                <b>Selected</b>: @(String.Join(", ", _selectedTeams.Select(i => i.Name)))
-            </p>
-            
+            <p class="number-of-teams-selected">Selected:  @_selectedTeams.Count()</p>
+
+        </FluentDialogBody>
+        
+        <div class="dialog-button-wrapper">
             <FluentButton @onclick="SaveAddedTeams" Appearance="Appearance.Accent">Save</FluentButton>
             <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
         </div>
@@ -395,6 +412,15 @@
         {
             await BracketService.GenerateBracket(_frameBracket, _tournament.Id, _tournament.Teams.ToList(), _bestOf, _bestOfFinal, _cts.Token);
         }
+
+        _isGenerateBracketDialogOpen = false;
+        _frameBracket = null;
+    }
+
+    private async Task DeleteBracket()
+    {
+        Console.WriteLine($"Deleting bracket: {_tournament.Bracket.Id}");
+        await BracketService.DeleteBracket(_tournament.Bracket, _cts.Token);
     }
 
     private async Task SaveAddedTeams()
@@ -402,10 +428,16 @@
         if (_selectedTeams.Any())
         {
            await TournamentService.AddTeamsToTournamentAsync(_tournament.Id, _selectedTeams.ToList(), _cts.Token);
+           StateHasChanged();
         }
         
         _isAddTeamsDialogOpen = false;
         _selectedTeams = Array.Empty<Team>();
+    }
+
+    private async Task RemoveTeam(Team team)
+    {
+        await TournamentService.RemoveTeamFromTournament(_tournament.Id, team.Id, _cts.Token);
         StateHasChanged();
     }
     

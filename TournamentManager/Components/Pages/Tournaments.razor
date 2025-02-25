@@ -94,7 +94,7 @@
                 <FluentDatePicker Label="End date:" @bind-Value="@_endDate"></FluentDatePicker>
                 <FluentNumberField @bind-Value="@_frameTournament.Prize">Prize (US Dollars): </FluentNumberField>
                 <label for="type">Type:</label>
-                <select id="type" class="type" @bind="_frameTournament.Type">
+                <select id="type" class="object-type" @bind="_frameTournament.Type">
                     @foreach (var type in Enum.GetValues(typeof(TournamentType)))
                     {
                         <option value="@type">@type</option>

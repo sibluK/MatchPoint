@@ -5,7 +5,7 @@
     width: 260px;
     padding-top: 15px;
     position: fixed;
-    height: calc(100vh - 217px);
+    height: calc(100% - 270px);
     overflow-y: auto;
 }
 
@@ -21,6 +21,7 @@
 }
 .tournament-tournament-name {
     font-size: 1.1rem;
+    padding-bottom: 0;
 }
 
 .tournament-wrapper {
@@ -28,7 +29,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 7px;
     border-bottom: 1px solid rgba(50, 50, 93, 0.25);
     transition: background-color 0.1s ease-in-out;
     cursor: pointer;
@@ -48,23 +49,10 @@ div.tournament-wrapper > div:last-child:hover {
     border-bottom-right-radius: 10px;
 }
 
-.tournament-tournament-name {
-    margin-bottom: 5px !important;
-}
-
 .tournament-date, .tournament-time {
+    font-size: 0.9em;
+    color: gray;
     text-align: center;
-}
-
-.tournament-teams-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 5px;
-}
-
-.tournament-team-image {
-    width: 20px;
 }
 
 .tournament-status {

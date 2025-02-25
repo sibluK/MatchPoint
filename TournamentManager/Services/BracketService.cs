@@ -72,8 +72,8 @@ public class BracketService
                 
                 var match = new Match
                 {
-                    StartDate = DateTime.Now.AddHours(j),
-                    BestOf = j == numberOfMatches ? bestOfFinal : bestOf,
+                    StartDate = DateTime.Now.AddHours(2),
+                    BestOf = i == bracket.NumberOfRounds ? bestOfFinal : bestOf,
                     BracketRound = i,
                     MatchNumber = j,
                     BracketId = bracket.Id,
@@ -112,6 +112,20 @@ public class BracketService
             await _dbContext.SaveChangesAsync(ct);
             numberOfMatches /= 2;
         }
+    }
+
+    public async Task DeleteBracket(Bracket bracket, CancellationToken ct)
+    {
+        var bracketMatches = _dbContext.Matches.Where(m => m.BracketId == bracket.Id).ToList();
+        
+        foreach (var match in bracketMatches)
+        {
+            var matchGames = _dbContext.Games.Where(g => g.MatchId == match.Id).ToList();
+            _dbContext.Games.RemoveRange(matchGames);
+        }
+        _dbContext.Matches.RemoveRange(bracketMatches);
+        _dbContext.Remove(bracket);
+        await _dbContext.SaveChangesAsync(ct);
     }
 
     public int GetNumberOfGames(BestOf bestOf)

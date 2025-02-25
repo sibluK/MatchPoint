@@ -38,6 +38,10 @@
     color: #a5a4a4;
 }
 
+.match-wrapper .live-status-wrapper {
+
+}
+
 div.matches-wrapper > div:last-child {
     border-bottom: 0 !important;
 }
@@ -50,7 +54,7 @@ div.matches-wrapper > div:last-child {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .team-image {
@@ -63,6 +67,8 @@ div.matches-wrapper > div:last-child {
 
 .match-date, .match-time {
     text-align: center;
+    font-size: 0.9em;
+    color: gray;
 }
 
 .match-status {

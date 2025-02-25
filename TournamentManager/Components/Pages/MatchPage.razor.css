@@ -24,6 +24,7 @@
 .match-team {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     cursor: pointer;
@@ -44,6 +45,7 @@
     flex-direction: column;
     text-align: center;
     justify-content: space-evenly;
+    gap: 5px;
 }
 
 .match-time {
@@ -237,7 +239,7 @@
 }
 
 .map-not-picked-text {
-    margin-top: 5px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1500px) {

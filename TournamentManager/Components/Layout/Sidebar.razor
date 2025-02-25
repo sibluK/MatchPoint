@@ -17,30 +17,31 @@
         }
         @foreach (var match in _matches)
         {
-            <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
-                <p class="match-tournament-name">@match.Bracket.Tournament.Name</p>
+            if (match.Team1 is not null && match.Team2 is not null)
+            {
+                <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
+                    <p class="match-tournament-name">@match.Bracket.Tournament.Name</p>
 
-                <div class="match-teams-wrapper">
-                    <img class="team-image" src="@($"{match.Team1.ImagePath}")"/>
-                    <img class="versus-icon" src="/Images/UI/battle.png"/>
-                    <img class="team-image" src="@($"{match.Team2.ImagePath}")"/>
-                </div>
-                
-                @if (match.Status == ActivityStatus.Live)
-                {
-                    <div class="live-status-wrapper">
-                        <div class="live-bubble"></div>
-                        <p class="match-status">Live</p>
+                    <div class="match-teams-wrapper">
+                        <img class="team-image" src="@($"{match.Team1.ImagePath}")"/>
+                        <span>vs</span>
+                        <img class="team-image" src="@($"{match.Team2.ImagePath}")"/>
                     </div>
-                }
-                else
-                {
-                    <p class="match-date">
-                        @match.StartDate.ToString("MMMM d, dddd", CultureInfo.CurrentCulture)
-                    </p>
-                    <p class="match-time">@match.StartDate.ToString("t", CultureInfo.CurrentCulture)</p>
-                }
-            </div>
+                
+                    @if (match.Status == ActivityStatus.Live)
+                    {
+                        <div class="live-status-wrapper">
+                            <div class="live-bubble"></div>
+                            <p class="match-status">Live</p>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <p class="match-time">@match.StartDate.ToString("t", CultureInfo.CurrentCulture)</p>
+                    }
+                </div>
+            }
         }
     </div>
 

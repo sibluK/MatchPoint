@@ -18,6 +18,7 @@
 
 .dialog-object-id {
     color: gray;
+    text-align: end;
 }
 
 .image-wrapper {
@@ -37,5 +38,10 @@
 .object-name-id-wrapper h4,
 .object-name-id-wrapper h6 {
     margin-bottom: 0;
+}
+
+.dialog-hint-text {
+    color: gray;
+    font-size: 0.9em;
 }
 
