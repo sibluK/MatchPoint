@@ -58,7 +58,7 @@
         <h5 class="header">Head to Head (past 20 games)</h5>
         <div class="head-to-head-wrapper">
             <div class="head-to-head-team">
-                @if (_match.Team1 is not null)
+                @if (_match.Team1 is not null && _headToHeadScores is not null)
                 {
                     <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
                     <span class="head-to-head-team-name">@_match.Team1.Name</span>
@@ -76,7 +76,7 @@
             <div class="spacer"></div>
 
             <div class="head-to-head-team">
-                @if (_match.Team2 is not null)
+                @if (_match.Team2 is not null && _headToHeadScores is not null)
                 {
                     <div class="team-wins">
                         <span class="wins-number">@_headToHeadScores.Item2</span>
@@ -100,7 +100,7 @@
                 @if (_games is not null)
                 {
                     <div class="admin-button">
-                        <FluentButton OnClick="@OpenMapPickDialog">Pick maps</FluentButton>
+                        <FluentButton OnClick="@OpenMapPickDialog">Edit games</FluentButton>
                         @if (_games.Any(g => g.Map != null))
                         {
                             <FluentButton OnClick="@ResetGames">Reset</FluentButton>
@@ -166,21 +166,29 @@
 
                     <div class="game">
                         <div class="game-team-scores">
-                            @if (winRates is not null && game.Map is not null && _match.Team1 is not null && _match.Team2 is not null)
+                            @if (winRates is not null && game.Map is not null)
                             {
-                                <div class="team-percentage">
-                                    <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
-                                    <span class="percentage">@winRates.Value.Item1%</span>
-                                </div>
+                                if (_match.Team1 is not null)
+                                {
+                                    <div class="team-percentage">
+                                        <img src="@_match.Team1.ImagePath" alt="@_match.Team1.Name"/>
+                                        <span class="percentage">@winRates.Value.Item1%</span>
+                                    </div>
+                                } 
+                                
                                 <div>@game.Map.Name</div>
-                                <div class="team-percentage">
-                                    <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
-                                    <span class="percentage">@winRates.Value.Item2%</span>
-                                </div>
+                                
+                                if (_match.Team2 is not null)
+                                {
+                                    <div class="team-percentage">
+                                        <img src="@_match.Team2.ImagePath" alt="@_match.Team2.Name"/>
+                                        <span class="percentage">@winRates.Value.Item2%</span>
+                                    </div>
+                                }
                             }
                             else
                             {
-                                <span>@game.GameNumber. TBD</span>
+                                <span>@game.GameNumber. Map not picked</span>
                             }
                         </div>
                     </div>
@@ -194,7 +202,7 @@
 {
     <FluentDialog>
         <FluentDialogHeader>
-            <h4>Pick maps</h4>
+            <h4>Edit games</h4>
         </FluentDialogHeader>
         <FluentDialogBody>
             <div class="dialog-wrapper">
@@ -241,6 +249,7 @@
 
     private bool _isGamesEditDialogOpen;
     private List<Map> _maps;
+    private bool _mapsNotPicked;
 
     protected override async Task OnInitializedAsync()
     {

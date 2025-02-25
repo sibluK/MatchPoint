@@ -12,12 +12,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/MatchPage.razor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/BracketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/BracketService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-shm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/MapService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/MapService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

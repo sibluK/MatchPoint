@@ -81,13 +81,20 @@
                                                         <div>Live</div>
                                                     </div>
                                                 }
-                                                @if (match.Team1 is not null || match.Team2 is not null)
+                                                @if (match.Team1 is not null)
                                                 {
                                                     <div class="@GetTeamClass(match.WinnerTeamId, match.Team1.Id)">
                                                         <img src="@match.Team1.ImagePath"/>
                                                         <span>@match.Team1.Name</span>
                                                         <span class="score">@teamScores.GetValueOrDefault((match.Id, match.Team1.Id))</span>
                                                     </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="team-wrapper">TBD</div>
+                                                }
+                                                @if (match.Team2 is not null)
+                                                {
                                                     <div class="@GetTeamClass(match.WinnerTeamId, match.Team2.Id)">
                                                         <img src="@match.Team2.ImagePath"/>
                                                         <span>@match.Team2.Name</span>
@@ -96,7 +103,6 @@
                                                 }
                                                 else
                                                 {
-                                                    <div class="team-wrapper">TBD</div>
                                                     <div class="team-wrapper">TBD</div>
                                                 }
                                             </div>

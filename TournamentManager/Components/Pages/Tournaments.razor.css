@@ -12,7 +12,6 @@
 
 .featured-tournament {
     display: flex;
-    width: 70%;
     justify-content: space-between;
     align-content: center;
     text-align: center;
@@ -128,9 +127,15 @@
     height: calc((var(--base-height-multiplier) + var(--density))* var(--design-unit)* 1px);;
 }
 
+.featured-tournament-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
 @media screen and (max-width: 1200px) {
     .up-tournaments,
-    .featured-tournament{
+    .featured-tournament-wrapper {
         width: 100%;
     }
 }
