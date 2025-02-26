@@ -22,7 +22,8 @@
 
 .page-action-wrapper {
     border-bottom: 1px solid lightgray;
-    padding-bottom: 10px
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .page-action-buttons {

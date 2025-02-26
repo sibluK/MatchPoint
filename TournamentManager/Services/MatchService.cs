@@ -36,6 +36,18 @@ public class MatchService
             .ToListAsync();
     }
 
+    public async Task EditMatchDateTime(Match match, CancellationToken ct)
+    {
+        var existingMatch = await _dbContext.Matches.FindAsync(match.Id, ct);
+
+        if (existingMatch != null)
+        {
+            existingMatch.StartDate = match.StartDate;
+        }
+
+        await _dbContext.SaveChangesAsync(ct);
+    }
+
     public async Task<Match> GetMatchByIdAsync(Guid matchId)
     {
         

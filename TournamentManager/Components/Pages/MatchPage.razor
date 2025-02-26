@@ -1,5 +1,6 @@
 ﻿@page "/matches/{matchId}"
 
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using TournamentManager.Models
 @using TournamentManager.Models.Enums
 @using TournamentManager.Services
@@ -15,6 +16,11 @@
 
 <div class="match-page-wrapper">
     <div class="match-information-wrapper">
+        <AuthorizeView Roles="Admin">
+            <div class="edit-match-button admin-button">
+                <FluentButton OnClick="@OpenMatchInfoDialog">Edit Match</FluentButton>
+            </div>
+        </AuthorizeView>
         @if (_match.Team1 is not null)
         {
             <div onclick="@(() => HandleTeamClick(_match.Team1.Name))" class="match-team">
@@ -239,15 +245,42 @@
     </FluentDialog>
 }
 
+@if (_isMatchInfoEdit)
+{
+    <FluentDialog>
+        <FluentDialogHeader>
+            <h4>Edit Match</h4>
+        </FluentDialogHeader>
+        <FluentDialogBody>
+            <div class="dialog-wrapper">
+                <FluentLabel>Start time:</FluentLabel>
+                <FluentDatePicker Value="@_startDateTime"
+                                  ValueChanged="OnDateChanged" />
+
+                <FluentTimePicker Value="@_startDateTime"
+                                  ValueChanged="OnTimeChanged" />
+
+            </div>
+        </FluentDialogBody>
+
+        <div class="dialog-button-wrapper">
+            <FluentButton @onclick="SaveEditedMatch" Appearance="Appearance.Accent">Save</FluentButton>
+            <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+        </div>
+    </FluentDialog>
+}
+
 @code {
     [Parameter] public string matchId { get; set; }
     private CancellationTokenSource _cts = new();
     private Match _match = new();
+    private DateTime _startDateTime;
     private List<Game> _games = new();
     private Tuple<int, int> _headToHeadScores;
     private Dictionary<Guid, (int team1WinRate, int team2WinRate)> _mapWinRates = new();
 
     private bool _isGamesEditDialogOpen;
+    private bool _isMatchInfoEdit;
     private List<Map> _maps;
     private bool _mapsNotPicked;
 
@@ -273,7 +306,9 @@
             }
         }
 
+        _startDateTime = _match.StartDate;
         _isGamesEditDialogOpen = false;
+        _isMatchInfoEdit = false;
     }
 
     private string GetStylingForGameWinner(Guid? winnerId)
@@ -294,11 +329,23 @@
         _maps = await MapService.GetAllMapsAsync(_cts.Token);
         _isGamesEditDialogOpen = true;
     }
+
+    private void OpenMatchInfoDialog()
+    {
+        _isMatchInfoEdit = true;
+    }
     
     private async Task SaveEditedGames()
     {
         await GameService.EditGames(_games);
         _isGamesEditDialogOpen = false;
+    }
+
+    private async Task SaveEditedMatch()
+    {
+        _match.StartDate = _startDateTime;
+        await MatchService.EditMatchDateTime(_match, _cts.Token);
+        _isMatchInfoEdit = false;
     }
 
     private async Task ResetGames()
@@ -309,6 +356,25 @@
     private void CloseDialog()
     {
         _isGamesEditDialogOpen = false;
+        _isMatchInfoEdit = false;
+    }
+    
+    private void OnDateChanged(DateTime? newDate)
+    {
+        if (newDate.HasValue)
+        {
+            _startDateTime = new DateTime(newDate.Value.Year, newDate.Value.Month, newDate.Value.Day, 
+                _startDateTime.Hour, _startDateTime.Minute, _startDateTime.Second);
+        }
+    }
+
+    private void OnTimeChanged(DateTime? newTime)
+    {
+        if (newTime.HasValue)
+        {
+            _startDateTime = new DateTime(_startDateTime.Year, _startDateTime.Month, _startDateTime.Day, 
+                newTime.Value.Hour, newTime.Value.Minute, newTime.Value.Second);
+        }
     }
 
     private void HandleTeamClick(string? teamName)

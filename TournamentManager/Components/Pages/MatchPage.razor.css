@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    padding-top: 20px;
 }
 
 .header {
@@ -19,6 +20,7 @@
     background-color: black;
     border-radius: 10px;
     gap: 20px;
+    position: relative;
 }
 
 .match-team {
@@ -112,6 +114,10 @@
     right: 0;
     float: right;
     transform: translateY(-10px);
+}
+
+.edit-match-button {
+    transform: translateY(-40px);
 }
 
 .game-wrapper, .map-winrate-wrapper {
