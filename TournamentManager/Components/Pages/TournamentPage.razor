@@ -16,7 +16,7 @@
 <PageTitle>@_tournament.Name</PageTitle>
 
 <div class="tournament-page-wrapper">
-    <h2>@_tournament.Name</h2>
+
     <div class="tournament-information-wrapper">
         <h5 class="header">Information</h5>
         <AuthorizeView Roles="Admin">
@@ -26,27 +26,32 @@
         </AuthorizeView>
 
         <div class="tournament-information">
-            <div class="info-wrapper">
-                <span class="wrapper-title">Date</span>
-                <span class="wrapper-value">
-                    @_tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
-                    -
-                    @_tournament.EndDate.ToString("MMM d, yyyy", CultureInfo.CurrentCulture)
-                </span>
+            <div class="tournament-info-wrapper">
+                <span class="wrapper-value">@_tournament.Name</span>
             </div>
-            <div class="info-wrapper">
-                <span class="wrapper-title">Teams</span>
-                <span class="wrapper-value">@_tournament.Teams.Count</span>
+            <div class="info-wrapper-container">
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Date</span>
+                    <span class="wrapper-value">
+                        @_tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
+                        -
+                        @_tournament.EndDate.ToString("MMM d, yyyy", CultureInfo.CurrentCulture)
+                    </span>
+                </div>
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Teams</span>
+                    <span class="wrapper-value">@_tournament.Teams.Count</span>
+                </div>
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Type</span>
+                    <span class="wrapper-value">@_tournament.Type</span>
+                </div>
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Prize pool</span>
+                    <span class="wrapper-value">$@_tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
+                </div>
             </div>
-            <div class="info-wrapper">
-                <span class="wrapper-title">Type</span>
-                <span class="wrapper-value">@_tournament.Type</span>
             </div>
-            <div class="info-wrapper">
-                <span class="wrapper-title">Prize pool</span>
-                <span class="wrapper-value">$@_tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
-            </div>
-        </div>
 
     </div>
     
