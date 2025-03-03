@@ -1,9 +1,141 @@
 ﻿@page "/teams/{name}"
-<h3>@name</h3>
+@using TournamentManager.DTOs
+@using TournamentManager.Models
+@using TournamentManager.Services
+
+@rendermode InteractiveServer
+
+@inject TeamService TeamService;
+@inject NavigationManager NavigationManager
 
 <PageTitle>Profile - @name</PageTitle>
 
+<div class="team-page-wrapper">
+    <div class="team-players-container">
+        <h4>Players</h4>
+        <div class="team-players-wrapper">
+            @if (_team.Players.Any())
+            {
+                @foreach (var player in _team.Players)
+                {
+                    <div class="player-card" onclick="@(() => HandlePlayerClick(player.Nickname))">
+                        <img src="@player.ImagePath"/>
+                        <div class="player-card-text-wrapper">
+                            <span class="player-card-nickname">@player.Nickname</span>
+                            <span class="player-card-rating">(#@player.Rating)</span>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div>No players assigned</div>
+            }
+        </div>
+    </div>
+    <div class="team-information-container">
+        <h4>Information</h4>
+        <div class="team-information-wrapper">
+            <div class="logo-name-wrapper">
+                <img src="@_team.ImagePath"/>
+                <span>@_team.Name</span>
+            </div>
+            <div class="region-wrapper">
+                <span class="wrapper-title">Region</span>
+                <span class="wrapper-value">@_team.Region</span>
+            </div>
+            <div class="ranking-wrapper">
+                <span class="wrapper-title">Ranking</span>
+                <span class="wrapper-value">@_team.Ranking</span>
+            </div>
+            <div class="points-wrapper">
+                <span class="wrapper-title">Points</span>
+                <span class="wrapper-value">@_team.Points</span>
+            </div>
+        </div>
+    </div>
+    <div class="team-sections-container">
+        <FluentTabs ActiveTabId="tab-1" Width="100%">
+            <FluentTab>
+                <Header>Stats</Header>
+                <Content>
+                    <div class="team-stats-container">
+                        <div class="stats-card">
+                            <span class="card-value">@_teamStats.MatchesPlayed</span>
+                            <span class="card-title">Matches played</span>
+                        </div>
+                        <div class="stats-card">
+                            <span class="card-value">@_teamStats.GamesPlayed</span>
+                            <span class="card-title">Games played</span>
+                        </div>
+                        <div class="stats-card">
+                            <span class="card-value">@_teamStats.RoundsPlayed</span>
+                            <span class="card-title">Rounds played</span>
+                        </div>
+                        <div class="stats-card">
+                            <span class="card-value">@_teamStats.Wins / @_teamStats.Losses <span class="@GetTeamWinrateClass(_winrate)">(@_winrate%)</span></span>
+                            <span class="card-title">Wins / Losses (past 3 months)</span>
+                        </div>
+                    </div>
+                </Content>
+            </FluentTab>
+            <FluentTab>
+                <Header>Tournaments</Header>
+                <Content>
+                    Tournaments section
+                </Content>
+            </FluentTab>
+            <FluentTab>
+                <Header>Matches</Header>
+                <Content>
+                    Matches section
+                </Content>
+            </FluentTab>
+        </FluentTabs>
+    </div>
+</div>
+
 @code {
-    
     [Parameter] public string name { get; set; }
+    private Team _team;
+    private CancellationTokenSource _cts = new();
+
+    private TeamStats _teamStats;
+    private double _winrate = 0;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _team = await TeamService.GetTeamByNameAsync(name, _cts.Token);
+        if (_team is null)
+        {
+            NavigationManager.NavigateTo("/teams", forceLoad: true);
+        }
+
+        _teamStats = await TeamService.GetTeamStatsByIdAsync(_team.Id, _cts.Token);
+        
+        if(_teamStats is not null && _teamStats.MatchesPlayed != 0)
+        {
+            _winrate = _teamStats.Wins * 100 / _teamStats.MatchesPlayed;
+        }
+    }
+
+    private void HandlePlayerClick(string nickname)
+    {
+        NavigationManager.NavigateTo($"/players/{nickname}");
+    }
+
+    private string GetTeamWinrateClass(double winrate)
+    {
+        if (winrate < 50)
+        {
+            return "below winrate";
+        }
+        
+        if (winrate > 50)
+        {
+            return "above winrate";
+        }
+
+        return "winrate";
+    }
 }

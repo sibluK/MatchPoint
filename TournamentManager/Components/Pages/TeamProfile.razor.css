@@ -1,0 +1,124 @@
+﻿.team-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.team-players-container {
+    
+}
+
+.team-players-wrapper {
+    display: flex;
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    gap: 10px;
+    justify-content: center;
+}
+
+.player-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+    background-color: var(--blackbackground-hover);
+    text-align: center;
+}
+
+.player-card:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.player-card img {
+    max-width: 100%;
+}
+
+.player-card-rating {
+    font-size: 0.8em;
+    color: gray;
+}
+
+.team-information-container {
+    width: 100%;
+}
+
+.team-information-wrapper {
+    display: flex;
+    background-color: black;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 100px;
+    border-radius: 10px;
+}
+
+.logo-name-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.logo-name-wrapper img {
+    width: 80px;
+}
+
+.region-wrapper,
+.ranking-wrapper,
+.points-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper-title {
+    color: gray;
+}
+
+.team-stats-container {
+    margin-top: 10px;
+    columns: 2;
+}
+
+.stats-card {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-wrap: nowrap;
+    margin-bottom: 10px
+}
+
+.card-value {
+    font-size: 1.2em;
+}
+
+.card-title {
+    color: gray;
+}
+
+.winrate {
+    font-size: 0.7em;
+}
+
+.below {
+    color: red;
+}
+
+.above {
+    color: forestgreen;
+}
+
+
+@media screen and (max-width: 968px) {
+    .team-page-wrapper {
+        width: 100%;
+    }
+}
