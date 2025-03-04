@@ -22,7 +22,7 @@ public class MatchStatusUpdater : BackgroundService
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 
                 var allMatches = await dbContext.Matches.ToListAsync(stoppingToken);
-                var currentTime = DateTime.UtcNow;
+                var currentTime = DateTime.Now;
 
                 var liveMatches = allMatches
                     .Where(m => m.StartDate.ToUniversalTime() <= currentTime && m.Status != ActivityStatus.Ended)

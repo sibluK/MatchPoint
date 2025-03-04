@@ -379,16 +379,16 @@
 
     private void HandleTeamClick(string? teamName)
     {
-        NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
+        NavigationManager.NavigateTo($"/teams/{teamName}");
     }
 
     private void HandleTournamentClick(string tournamentName)
     {
-        NavigationManager.NavigateTo($"/tournaments/{tournamentName}", forceLoad: true);
+        NavigationManager.NavigateTo($"/tournaments/{tournamentName}");
     }
 
     private void HandleGameStatsClick(Guid gameId)
     {
-        NavigationManager.NavigateTo($"/games/{gameId}", forceLoad: true);
+        NavigationManager.NavigateTo($"/games/{gameId}");
     }
 }

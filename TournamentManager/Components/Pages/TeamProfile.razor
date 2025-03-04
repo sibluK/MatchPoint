@@ -213,7 +213,7 @@
         _team = await TeamService.GetTeamByNameAsync(name, _cts.Token);
         if (_team is null)
         {
-            NavigationManager.NavigateTo("/teams", forceLoad: true);
+            NavigationManager.NavigateTo("/teams");
         }
 
         _matches = await MatchService.GetAllMatchesByTeamIdAsync(_team.Id, _cts.Token);

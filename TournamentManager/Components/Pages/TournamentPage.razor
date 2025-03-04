@@ -500,17 +500,17 @@
 
     private void HandleTeamClick(string name)
     {
-        NavigationManager.NavigateTo($"teams/{name}", forceLoad: true);
+        NavigationManager.NavigateTo($"teams/{name}");
     }
 
     private void HandlePlayerClick(string nickname)
     {
-        NavigationManager.NavigateTo($"players/{nickname}", forceLoad: true);
+        NavigationManager.NavigateTo($"players/{nickname}");
     }
 
     private void HandleMatchClick(Guid matchId)
     {
-        NavigationManager.NavigateTo($"/matches/{matchId}", forceLoad: true);
+        NavigationManager.NavigateTo($"/matches/{matchId}");
     }
     
 }

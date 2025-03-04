@@ -63,21 +63,21 @@
 
     private void HandleTournamentButton()
     {
-        NavigationManager.NavigateTo("/tournaments", forceLoad: true);
+        NavigationManager.NavigateTo("/tournaments");
     }
 
     private void HandlePlayerRankingButton()
     {
-        NavigationManager.NavigateTo("/players", forceLoad: true);
+        NavigationManager.NavigateTo("/players");
     }
 
     private void HandleTeamClick(string teamName)
     {
-        NavigationManager.NavigateTo($"/teams/{teamName}", forceLoad: true);
+        NavigationManager.NavigateTo($"/teams/{teamName}");
     }
     
     private void HandleMoreTeamsButton()
     {
-        NavigationManager.NavigateTo($"/teams", forceLoad: true);
+        NavigationManager.NavigateTo($"/teams");
     }
 }
