@@ -27,31 +27,49 @@ public async Task EditGames(List<Game> games)
 {
     foreach (var game in games)
     {
+        //Get existing game
         var existingGame = await _dbContext.Games
             .Include(g => g.Match)
                 .ThenInclude(m => m.Bracket)
+                    .ThenInclude(br => br.Tournament)
             .FirstOrDefaultAsync(g => g.Id == game.Id);
 
         if (existingGame == null) continue;
 
+        //Set the winner of the game if it was set
         existingGame.WinnerTeamId = game.WinnerTeamId;
+        
+        //Set the status to ended if a winner was set
+        if (game.WinnerTeamId is not null)
+        {
+            existingGame.Status = ActivityStatus.Ended;
+        }
+        
+        //Set the match that the game belongs to
         var match = existingGame.Match;
 
+        //If the match was a BO1 set the winner of the match and push the winner team to the next round
         if (match.BestOf == BestOf.BO1)
         {
             match.WinnerTeamId = game.WinnerTeamId;
+            match.Status = ActivityStatus.Ended;
             await PushWinnerToNextRound(match);
         }
         else
         {
+            //If the match was BO3 or BO5
+            
+            //Get all match games 
             var matchGames = await _dbContext.Games
                 .Where(g => g.MatchId == match.Id && g.WinnerTeamId != null)
                 .ToListAsync();
 
+            //Count the wins of the teams in B03 or BO5
             var team1Wins = matchGames.Count(g => g.WinnerTeamId == match.Team1Id);
             var team2Wins = matchGames.Count(g => g.WinnerTeamId == match.Team2Id);
             int requiredWins = (int)Math.Ceiling((int)match.BestOf / 2.0);
 
+            //If the team has the amount of wins needed set them as the match winner, change status to ended and push the team to the next round
             if (team1Wins >= requiredWins)
             {
                 match.WinnerTeamId = match.Team1Id;
@@ -72,31 +90,59 @@ public async Task EditGames(List<Game> games)
 
 private async Task PushWinnerToNextRound(Match match)
 {
+    //Set the bracket of the match
     var bracket = match.Bracket;
+    
+    //Return if the bracket is null
     if (bracket == null)
     {
         Console.WriteLine($"Error: Bracket is null for match {match.Id}");
         return;
     }
 
+    //Set the value for the next round in bracket
     var nextRound = match.BracketRound + 1;
 
+    //This match is the final, set the tournament winner
+    if (match.BracketRound == bracket.NumberOfRounds)
+    {
+        var tournament = await _dbContext.Tournaments.FindAsync(bracket.TournamentId);
+        
+        if (tournament != null)
+        {
+            tournament.WinnerId= match.WinnerTeamId;
+            tournament.Status = ActivityStatus.Ended;
+            tournament.EndDate = DateTime.Now;
+            await _dbContext.SaveChangesAsync();
+            Console.WriteLine($"Tournament {tournament.Id} winner set to team {match.WinnerTeamId}");
+        }
+        else
+        {
+            Console.WriteLine($"Error: Tournament not found for bracket {bracket.Id}");
+        }
+        return;
+    }
+
+    //Find the next match in the next round to move the winner team to
     var nextMatch = await _dbContext.Matches
         .Where(m => m.BracketId == bracket.Id && m.BracketRound == nextRound)
         .OrderBy(m => m.MatchNumber)
         .FirstOrDefaultAsync(m => m.MatchNumber == (match.MatchNumber + 1) / 2);
 
+    //Return if the next match is null
     if (nextMatch == null)
     {
         return;
     }
     
+    //Check if the winner team is not already in the next round, return if so
     if (nextMatch.Team1Id == match.WinnerTeamId || nextMatch.Team2Id == match.WinnerTeamId)
     {
         Console.WriteLine($"Skipping duplicate assignment for team {match.WinnerTeamId} in match {nextMatch.Id}");
         return;
     }
     
+    //Set the next match team to the winner team
     if (nextMatch.Team1Id == null)
     {
         nextMatch.Team1Id = match.WinnerTeamId;

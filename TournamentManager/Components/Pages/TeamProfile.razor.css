@@ -116,9 +116,133 @@
     color: forestgreen;
 }
 
+.team-matches-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.upcoming-matches-container {
+
+}
+
+.recent-matches-container {
+
+}
+
+.match-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.match-tournament {
+    font-size: 1.1em;
+}
+
+.match-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.teams-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.team-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-wrapper.loser {
+    opacity: 0.5;
+}
+
+.team-wrapper img {
+    width: 30px;
+    height: 30px;
+}
+
+.team-name, .team-image {
+    cursor: pointer;
+}
+
+.go-to-match-button {
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    align-items: center;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out, outline-color 0.1s ease-in-out;
+}
+
+.go-to-match-button:hover {
+    background-color: black;
+    outline: 1px solid white;
+    color: white;
+}
+
+.go-to-match-button:hover svg {
+    stroke: white;
+}
+
+.go-to-match-button:active {
+    background-color: white;
+    color: black;
+}
+
+.go-to-match-button:active svg {
+    stroke: black;
+}
+
+.go-to-match-button svg {
+    width: 15px;
+    height: 15px;
+    transition: stroke 0.1s ease-in-out;
+}
+
+.match-date {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.all-team-matches-button {
+    width: 100%;
+    padding: 7px 5px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.all-team-matches-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.all-team-matches-button:active {
+    background-color: white;
+    color: black;
+}
 
 @media screen and (max-width: 968px) {
     .team-page-wrapper {
         width: 100%;
+    }
+
+    .team-information-wrapper {
+        padding: 15px;
     }
 }

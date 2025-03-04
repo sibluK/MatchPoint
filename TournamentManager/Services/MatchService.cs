@@ -24,6 +24,30 @@ public class MatchService
             .ToListAsync();
     }
 
+    public async Task<List<Match>> GetAllMatchesByTeamIdAsync(Guid teamId, CancellationToken ct)
+    {
+        try
+        {
+            return await _dbContext.Matches
+                .Include(m => m.Bracket)
+                .ThenInclude(b => b.Tournament)
+                .Include(m => m.Team1)
+                .Include(m => m.Team2)
+                .Where(m => m.Team1Id == teamId || m.Team2Id == teamId)
+                .ToListAsync(ct);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Operation cancelled.");
+            return null!;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null!;
+        }
+    }
+
     public async Task<List<Match>> GetTodaysMatchesAsync()
     {
         return await _dbContext.Matches

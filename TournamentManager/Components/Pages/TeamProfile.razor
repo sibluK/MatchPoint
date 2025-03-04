@@ -1,12 +1,15 @@
 ﻿@page "/teams/{name}"
 @using TournamentManager.DTOs
 @using TournamentManager.Models
+@using TournamentManager.Models.Enums
 @using TournamentManager.Services
 
 @rendermode InteractiveServer
 
 @inject TeamService TeamService;
 @inject NavigationManager NavigationManager
+@inject MatchService MatchService;
+@inject GameService GameService;
 
 <PageTitle>Profile - @name</PageTitle>
 
@@ -80,15 +83,115 @@
                 </Content>
             </FluentTab>
             <FluentTab>
-                <Header>Tournaments</Header>
+                <Header>Matches</Header>
                 <Content>
-                    Tournaments section
+                    <div class="team-matches-container">
+                        <div class="upcoming-matches-container">
+                            <h4>Upcoming matches for @_team.Name</h4>
+
+                            @if (_matches.Any(m => m.Status == ActivityStatus.Upcoming))
+                            {
+                                foreach (var match in _matches.Where(m => m.Status == ActivityStatus.Upcoming).OrderByDescending(m => m.StartDate).Take(3))
+                                {
+                                    <div class="match-wrapper">
+                                        <div class="match-tournament">@match.Bracket.Tournament.Name</div>
+                                        <div class="match-info">
+                                            <span class="match-date">@match.StartDate.ToString("d")</span>
+                                            <div class="teams-wrapper">
+                                                <div class="team-wrapper">
+                                                    <span onclick="@(() => HandleTeamClick(_team.Name))" class="team-name">@_team.Name</span>
+                                                    <img onclick="@(() => HandleTeamClick(_team.Name))" class="team-image" src="@_team.ImagePath"/>
+                                                    <span>@teamScores.GetValueOrDefault((match.Id, _team.Id))</span>
+                                                </div>
+                                                <div class="team-wrapper">:</div>
+                                                @if ((match.Team1Id == _team.Id ? match.Team2Id : match.Team1Id) == null)
+                                                {
+                                                    <div class="team-wrapper">TBD</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="team-wrapper">
+                                                        <span>@teamScores.GetValueOrDefault((match.Id, (Guid)(match.Team1Id == _team.Id ? match.Team2Id : match.Team1Id)))</span>
+                                                        <img onclick="@(() => HandleTeamClick(match.Team1Id == _team.Id ? match.Team2.Name : match.Team1.Name))" class="team-image" src="@(match.Team1Id == _team.Id ? match.Team2.ImagePath : match.Team1.ImagePath)"/>
+                                                        <span onclick="@(() => HandleTeamClick(match.Team1Id == _team.Id ? match.Team2.Name : match.Team1.Name))" class="team-name">@(match.Team1Id == _team.Id ? match.Team2.Name : match.Team1.Name)</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <button class="go-to-match-button" onclick="@(() => HandleMatchClick(match.Id))">
+                                                Match
+                                                <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="miter">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <polyline points="20 13 20 22 2 22 2 4 11 4"/>
+                                                        <polyline points="16 2 22 2 22 8"/>
+                                                        <line x1="12" y1="12" x2="21.6" y2="2.4"/>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="match-wrapper">No upcoming matches</div>
+                            }
+                        </div>
+                        <div class="recent-matches-container">
+                            <h4>Recent results for @_team.Name</h4>
+                            @foreach (var match in _matches.Where(m => m.Status == ActivityStatus.Ended).OrderByDescending(m => m.StartDate).Take(5))
+                            {
+                                    <div class="match-wrapper">
+                                        <div class="match-tournament">@match.Bracket.Tournament.Name</div>
+                                        <div class="match-info">
+                                            <span class="match-date">@match.StartDate.ToString("d")</span>
+                                            <div class="teams-wrapper">
+                                                <div class="team-wrapper @(match.WinnerTeamId == _team.Id ? "winner" : "loser")">
+                                                    <span onclick="@(() => HandleTeamClick(_team.Name))" class="team-name">@_team.Name</span>
+                                                    <img onclick="@(() => HandleTeamClick(_team.Name))" class="team-image" src="@_team.ImagePath"/>
+                                                    <span>@teamScores.GetValueOrDefault((match.Id, _team.Id))</span>
+                                                </div>
+                                                <div class="team-wrapper">:</div>
+                                                @if ((match.Team1Id == _team.Id ? match.Team2Id : match.Team1Id) == null)
+                                                {
+                                                    <div class="team-wrapper">TBD</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="team-wrapper @(match.WinnerTeamId == (match.Team1Id == _team.Id ? match.Team2Id : match.Team1Id) ? "winner" : "loser")">
+                                                        @teamScores.GetValueOrDefault((match.Id, (Guid)(match.Team1Id == _team.Id ? match.Team2Id : match.Team1Id)))
+                                                        <img onclick="@(() => HandleTeamClick(match.Team1Id == _team.Id ? match.Team2.Name : match.Team1.Name))" class="team-image" src="@(match.Team1Id == _team.Id ? match.Team2.ImagePath : match.Team1.ImagePath)"/>
+                                                        <span onclick="@(() => HandleTeamClick(match.Team1Id == _team.Id ? match.Team2.Name : match.Team1.Name))" class="team-name">@(match.Team1Id == _team.Id ? match.Team2.Name : match.Team1.Name)</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <button class="go-to-match-button" onclick="@(() => HandleMatchClick(match.Id))">
+                                                Match
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="miter">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <polyline points="20 13 20 22 2 22 2 4 11 4"/>
+                                                        <polyline points="16 2 22 2 22 8"/>
+                                                        <line x1="12" y1="12" x2="21.6" y2="2.4"/>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                            }
+                            <button class="all-team-matches-button">
+                                See all results for @_team.Name
+                            </button>
+                        </div>
+                    </div>
                 </Content>
             </FluentTab>
             <FluentTab>
-                <Header>Matches</Header>
+                <Header>Tournaments</Header>
                 <Content>
-                    Matches section
+                    Tournaments section
                 </Content>
             </FluentTab>
         </FluentTabs>
@@ -99,6 +202,8 @@
     [Parameter] public string name { get; set; }
     private Team _team;
     private CancellationTokenSource _cts = new();
+    private List<Match> _matches;
+    private Dictionary<(Guid matchId, Guid teamId), int> teamScores = new();
 
     private TeamStats _teamStats;
     private double _winrate = 0;
@@ -111,11 +216,22 @@
             NavigationManager.NavigateTo("/teams", forceLoad: true);
         }
 
+        _matches = await MatchService.GetAllMatchesByTeamIdAsync(_team.Id, _cts.Token);
+
         _teamStats = await TeamService.GetTeamStatsByIdAsync(_team.Id, _cts.Token);
         
         if(_teamStats is not null && _teamStats.MatchesPlayed != 0)
         {
             _winrate = _teamStats.Wins * 100 / _teamStats.MatchesPlayed;
+        }
+        
+        foreach (var match in _matches)
+        {
+            if (match.Team1 is not null && match.Team2 is not null)
+            {
+                teamScores[(match.Id, match.Team1.Id)] = await GetTeamMatchScore(match.Id, match.Team1.Id);
+                teamScores[(match.Id, match.Team2.Id)] = await GetTeamMatchScore(match.Id, match.Team2.Id);
+            }
         }
     }
 
@@ -123,7 +239,23 @@
     {
         NavigationManager.NavigateTo($"/players/{nickname}");
     }
+    
+    private async Task<int> GetTeamMatchScore(Guid matchId, Guid teamId)
+    {
+        List<Game> matchGames = await GameService.GetMatchGames(matchId);
+        return matchGames.Count(g => g.WinnerTeamId == teamId);
+    }
 
+    private void HandleTeamClick(string name)
+    {
+        NavigationManager.NavigateTo($"/teams/{name}");
+    }
+
+    private void HandleMatchClick(Guid matchId)
+    {
+        NavigationManager.NavigateTo($"/matches/{matchId}");
+    }
+    
     private string GetTeamWinrateClass(double winrate)
     {
         if (winrate < 50)
