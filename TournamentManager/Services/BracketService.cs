@@ -72,7 +72,7 @@ public class BracketService
                 
                 var match = new Match
                 {
-                    StartDate = DateTime.Now.AddHours(2),
+                    StartDate = DateTime.UtcNow.AddHours(3),
                     BestOf = i == bracket.NumberOfRounds ? bestOfFinal : bestOf,
                     BracketRound = i,
                     MatchNumber = j,

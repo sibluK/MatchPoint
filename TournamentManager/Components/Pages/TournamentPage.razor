@@ -75,7 +75,7 @@
                                         {
                                             <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
                                                 <div class="match-information-wrapper">@match.BestOf</div>
-                                                @if (match.StartDate > DateTime.Now && match.Status != ActivityStatus.Ended)
+                                                @if (match.Status == ActivityStatus.Upcoming)
                                                 {
                                                     <div class="match-time">@TimeTillMatch(match.StartDate)</div>
                                                 }
@@ -85,6 +85,10 @@
                                                         <div class="live-bubble"></div>
                                                         <div>Live</div>
                                                     </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="match-time">Ended</div>
                                                 }
                                                 @if (match.Team1 is not null)
                                                 {
@@ -208,6 +212,7 @@
                 <div class="dialog-button-wrapper">
                     <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
                     <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+                    <FluentButton @onclick="DeleteTournament" BackgroundColor="red" Color="white">Delete Tournament</FluentButton>
                 </div>
             </div>
         </FluentDialogBody>
@@ -432,6 +437,13 @@
     {
         Console.WriteLine($"Deleting bracket: {_tournament.Bracket.Id}");
         await BracketService.DeleteBracket(_tournament.Bracket, _cts.Token);
+    }
+
+    private async Task DeleteTournament()
+    {
+        Console.WriteLine($"Deleting tournament: {_tournament.Id}");
+        await TournamentService.DeleteTournamentAsync(_tournament.Id, _cts.Token);
+        NavigationManager.NavigateTo("/tournaments");
     }
 
     private async Task SaveAddedTeams()

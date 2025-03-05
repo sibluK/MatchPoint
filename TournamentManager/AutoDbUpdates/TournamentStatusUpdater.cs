@@ -21,7 +21,7 @@ public class TournamentStatusUpdater : BackgroundService
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 
-                var currentTime = DateTime.Now;
+                var currentTime = DateTime.UtcNow;
                 
                 var liveTournaments = await dbContext.Tournaments
                     .Where(t => t.StartDate <= currentTime && t.EndDate > currentTime)

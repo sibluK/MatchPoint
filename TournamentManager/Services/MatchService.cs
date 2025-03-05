@@ -51,7 +51,7 @@ public class MatchService
     public async Task<List<Match>> GetTodaysMatchesAsync()
     {
         return await _dbContext.Matches
-            .Where(m => m.StartDate.Day == DateTime.Now.Day && m.StartDate.Month == DateTime.Now.Month &&
+            .Where(m => m.StartDate.Day == DateTime.UtcNow.Day && m.StartDate.Month == DateTime.UtcNow.Month &&
                         m.StartDate.Year == DateTime.Now.Year && m.Status != ActivityStatus.Ended)
             .Include(m => m.Bracket)
             .ThenInclude(b => b.Tournament)

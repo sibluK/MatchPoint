@@ -47,6 +47,13 @@ public async Task EditGames(List<Game> games)
         
         //Set the match that the game belongs to
         var match = existingGame.Match;
+        
+        // Get all games related to this match 
+        var matchGames = games.Where(g => g.MatchId == match.Id && g.WinnerTeamId != null).ToList();
+
+        // Count the wins of the teams
+        var team1Wins = matchGames.Count(g => g.WinnerTeamId == match.Team1Id);
+        var team2Wins = matchGames.Count(g => g.WinnerTeamId == match.Team2Id);
 
         //If the match was a BO1 set the winner of the match and push the winner team to the next round
         if (match.BestOf == BestOf.BO1)
@@ -58,25 +65,26 @@ public async Task EditGames(List<Game> games)
         else
         {
             //If the match was BO3 or BO5
-            
-            //Get all match games 
-            var matchGames = await _dbContext.Games
-                .Where(g => g.MatchId == match.Id && g.WinnerTeamId != null)
-                .ToListAsync();
 
-            //Count the wins of the teams in B03 or BO5
-            var team1Wins = matchGames.Count(g => g.WinnerTeamId == match.Team1Id);
-            var team2Wins = matchGames.Count(g => g.WinnerTeamId == match.Team2Id);
-            int requiredWins = (int)Math.Ceiling((int)match.BestOf / 2.0);
+            var requiredWins = 0;
+            
+            if (match.BestOf == BestOf.BO3)
+            {
+                requiredWins = 2;
+            }
+            else if (match.BestOf == BestOf.BO5)
+            {
+                requiredWins = 3;
+            }
 
             //If the team has the amount of wins needed set them as the match winner, change status to ended and push the team to the next round
-            if (team1Wins >= requiredWins)
+            if (team1Wins == requiredWins)
             {
                 match.WinnerTeamId = match.Team1Id;
                 match.Status = ActivityStatus.Ended;
                 await PushWinnerToNextRound(match);
             }
-            else if (team2Wins >= requiredWins)
+            else if (team2Wins == requiredWins)
             {
                 match.WinnerTeamId = match.Team2Id;
                 match.Status = ActivityStatus.Ended;
@@ -112,7 +120,7 @@ private async Task PushWinnerToNextRound(Match match)
         {
             tournament.WinnerId= match.WinnerTeamId;
             tournament.Status = ActivityStatus.Ended;
-            tournament.EndDate = DateTime.Now;
+            tournament.EndDate = DateTime.UtcNow;
             await _dbContext.SaveChangesAsync();
             Console.WriteLine($"Tournament {tournament.Id} winner set to team {match.WinnerTeamId}");
         }

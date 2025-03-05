@@ -58,7 +58,7 @@ public class TeamService
         var team = _dbContext.Teams.FirstOrDefault(x => x.Id == id);
         var games = new List<Game>();
         var roundCount = 0;
-        var threeMonthsAgo = DateTime.Now.AddMonths(-3);
+        var threeMonthsAgo = DateTime.UtcNow.AddMonths(-3);
         
         var matches = await _dbContext.Matches
             .Where(m => m.Team1 == team || m.Team2 == team)

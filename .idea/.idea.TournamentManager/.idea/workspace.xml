@@ -10,11 +10,20 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9d550-c176-4e00-b539-2b9821fbfe3a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/shelf/Uncommitted_changes_before_Update_at_2_20_2025_12_01_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/dataSources/6a71a600-a05e-4d36-a5e3-f70669b2d020.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TournamentManager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/AutoDbUpdates/MatchStatusUpdater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/AutoDbUpdates/MatchStatusUpdater.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/AutoDbUpdates/TournamentStatusUpdater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/AutoDbUpdates/TournamentStatusUpdater.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/TournamentPage.razor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Components/Pages/Tournaments.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Data/app.db-wal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/BracketService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/BracketService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/GameService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/MatchService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/MatchService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/TeamService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/TeamService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TournamentManager/Services/TournamentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TournamentManager/Services/TournamentService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +31,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DpaMonitoringSettings">
-    <option name="autoShow" value="false" />
+    <option name="firstShow" value="false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -44,12 +53,13 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/sibluK/TournamentManager.git",
-    "accountId": "7874d2ce-bc2f-4a45-ab2a-dd7bdb0147fe"
+    "accountId": "7abd3024-b841-45bd-bdbb-ea531e8896b3"
   }
 }]]></component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/26c9a2fb5243863babc926e4be763daf4128d4f97c4a769cdce1e2e3e5c532/FluentButton.razor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/26c9a2fb5243863babc926e4be763daf4128d4f97c4a769cdce1e2e3e5c532/FluentButton.razor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36c6debb2d92c5b09cb925ed47ceead26bc93f9a5d64cc961f6865d5961b/FluentDataGrid.razor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cc5af1f705c6ddc88231bbc582c59efb8e6efe9683f7c7fab78b1be9988ea/FluentDialog.razor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/56a854a5077d6d3174e5f0a7b767acbfbbf941ac5f38dd2a2587e0b69cd196/FluentTab.razor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/62614cde63a21e86842f981ca65465e1b921b19e541f2f7f2fff387361f8d2/OptionsSearchEventArgs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7597204134a25228a35a9844e77fcf89deaa11ac995fa4da81d8ca2ac5e443/FluentStack.razor.cs" root0="FORCE_HIGHLIGHTING" />
@@ -180,6 +190,7 @@
       <workItem from="1740388107995" duration="1074000" />
       <workItem from="1740402453869" duration="25152000" />
       <workItem from="1740574562114" duration="4930000" />
+      <workItem from="1741163779372" duration="7048000" />
     </task>
     <servers />
   </component>

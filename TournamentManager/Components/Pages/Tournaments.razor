@@ -258,9 +258,13 @@
             _frameTournament.StartDate = _startDate ?? DateTime.Now;
             _frameTournament.EndDate = _endDate ?? DateTime.Now;
             
-            await TournamentService.CreateTournamentAsync(_frameTournament, cts.Token);
-        
-            _isAddDialogOpen = false;
+            var message = await TournamentService.CreateTournamentAsync(_frameTournament, cts.Token);
+            if (message is null)
+            {
+                Navigation.NavigateTo($"/tournaments/{_frameTournament.Name}");
+                StateHasChanged();
+                _isAddDialogOpen = false;
+            } 
         }
     }
 
