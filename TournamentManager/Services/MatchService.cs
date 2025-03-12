@@ -24,16 +24,52 @@ public class MatchService
             .ToListAsync();
     }
 
+    public async Task<List<Match>> GetAllMatchesByTeamIdAsync(Guid teamId, CancellationToken ct)
+    {
+        try
+        {
+            return await _dbContext.Matches
+                .Include(m => m.Bracket)
+                .ThenInclude(b => b.Tournament)
+                .Include(m => m.Team1)
+                .Include(m => m.Team2)
+                .Where(m => m.Team1Id == teamId || m.Team2Id == teamId)
+                .ToListAsync(ct);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Operation cancelled.");
+            return null!;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null!;
+        }
+    }
+
     public async Task<List<Match>> GetTodaysMatchesAsync()
     {
         return await _dbContext.Matches
-            .Where(m => m.StartDate.Day == DateTime.Now.Day && m.StartDate.Month == DateTime.Now.Month &&
+            .Where(m => m.StartDate.Day == DateTime.UtcNow.Day && m.StartDate.Month == DateTime.UtcNow.Month &&
                         m.StartDate.Year == DateTime.Now.Year && m.Status != ActivityStatus.Ended)
             .Include(m => m.Bracket)
             .ThenInclude(b => b.Tournament)
             .Include(m => m.Team1)
             .Include(m => m.Team2)
             .ToListAsync();
+    }
+
+    public async Task EditMatchDateTime(Match match, CancellationToken ct)
+    {
+        var existingMatch = await _dbContext.Matches.FindAsync(match.Id, ct);
+
+        if (existingMatch != null)
+        {
+            existingMatch.StartDate = match.StartDate;
+        }
+
+        await _dbContext.SaveChangesAsync(ct);
     }
 
     public async Task<Match> GetMatchByIdAsync(Guid matchId)

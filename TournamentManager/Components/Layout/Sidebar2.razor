@@ -10,29 +10,37 @@
 
 <div class="sidebar">
     <h3>@Localizer["Tournaments"]</h3>
-    @foreach (var tournament in _tournaments)
+    @if (_tournaments.Any())
     {
-        <div class="tournament-wrapper" onclick="@(() => HandleTournamentClick(tournament.Name))">
-            <p class="tournament-tournament-name">@tournament.Name</p>
+        foreach (var tournament in _tournaments)
+        {
+            <div class="tournament-wrapper" onclick="@(() => HandleTournamentClick(tournament.Name))">
+                <p class="tournament-tournament-name">@tournament.Name</p>
             
-            @if (tournament.Status == ActivityStatus.Live)
-            {
-                <div class="live-status-wrapper">
-                    <div class="live-bubble"></div>
-                    <p class="tournament-status">Live</p>
-                </div>
-            }
-            else
-            {
-                <p class="tournament-date">
-                    @tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
-                    - 
-                    @tournament.EndDate.ToString("MMM d", CultureInfo.CurrentCulture)
-                </p>
-            }
-            <p class="tournament-prize">$@tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</p>
-        </div>
+                @if (tournament.Status == ActivityStatus.Live)
+                {
+                    <div class="live-status-wrapper">
+                        <div class="live-bubble"></div>
+                        <p class="tournament-status">Live</p>
+                    </div>
+                }
+                else
+                {
+                    <p class="tournament-date">
+                        @tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
+                        - 
+                        @tournament.EndDate.ToString("MMM d", CultureInfo.CurrentCulture)
+                    </p>
+                }
+                <p class="tournament-prize">$@tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</p>
+            </div>
+        }
     }
+    else
+    {
+        <div class="tournament-wrapper">No upcoming tournaments</div>
+    }
+
 </div>
 
 
@@ -42,7 +50,8 @@
     protected override async Task OnInitializedAsync()
     {
         _tournaments = (await TournamentService.GetAllTournamentsAsync())
-            .OrderBy(t => Math.Abs((t.StartDate - DateTime.UtcNow).Ticks))
+            .Where(t => t.Status == ActivityStatus.Upcoming || t.Status == ActivityStatus.Live)
+            .OrderBy(t => Math.Abs((t.StartDate - DateTime.Now).Ticks))
             .ToList();
         StateHasChanged();
     }

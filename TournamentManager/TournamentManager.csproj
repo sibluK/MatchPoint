@@ -51,4 +51,8 @@
         <DependentUpon>Resource.lt-LT.resx</DependentUpon>
       </Compile>
     </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\Pages\Dialogs\EditPlayer.razor" />
+    </ItemGroup>
 </Project>

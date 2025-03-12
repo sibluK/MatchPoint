@@ -16,7 +16,7 @@
 <PageTitle>@_tournament.Name</PageTitle>
 
 <div class="tournament-page-wrapper">
-    <h2>@_tournament.Name</h2>
+
     <div class="tournament-information-wrapper">
         <h5 class="header">Information</h5>
         <AuthorizeView Roles="Admin">
@@ -26,27 +26,32 @@
         </AuthorizeView>
 
         <div class="tournament-information">
-            <div class="info-wrapper">
-                <span class="wrapper-title">Date</span>
-                <span class="wrapper-value">
-                    @_tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
-                    -
-                    @_tournament.EndDate.ToString("MMM d, yyyy", CultureInfo.CurrentCulture)
-                </span>
+            <div class="tournament-info-wrapper">
+                <span class="wrapper-value">@_tournament.Name</span>
             </div>
-            <div class="info-wrapper">
-                <span class="wrapper-title">Teams</span>
-                <span class="wrapper-value">@_tournament.Teams.Count</span>
+            <div class="info-wrapper-container">
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Date</span>
+                    <span class="wrapper-value">
+                        @_tournament.StartDate.ToString("MMM d", CultureInfo.CurrentCulture)
+                        -
+                        @_tournament.EndDate.ToString("MMM d, yyyy", CultureInfo.CurrentCulture)
+                    </span>
+                </div>
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Teams</span>
+                    <span class="wrapper-value">@_tournament.Teams.Count</span>
+                </div>
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Type</span>
+                    <span class="wrapper-value">@_tournament.Type</span>
+                </div>
+                <div class="info-wrapper">
+                    <span class="wrapper-title">Prize pool</span>
+                    <span class="wrapper-value">$@_tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
+                </div>
             </div>
-            <div class="info-wrapper">
-                <span class="wrapper-title">Type</span>
-                <span class="wrapper-value">@_tournament.Type</span>
             </div>
-            <div class="info-wrapper">
-                <span class="wrapper-title">Prize pool</span>
-                <span class="wrapper-value">$@_tournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
-            </div>
-        </div>
 
     </div>
     
@@ -70,7 +75,7 @@
                                         {
                                             <div class="match-wrapper" onclick="@(() => HandleMatchClick(match.Id))">
                                                 <div class="match-information-wrapper">@match.BestOf</div>
-                                                @if (match.StartDate > DateTime.Now && match.Status != ActivityStatus.Ended)
+                                                @if (match.Status == ActivityStatus.Upcoming)
                                                 {
                                                     <div class="match-time">@TimeTillMatch(match.StartDate)</div>
                                                 }
@@ -80,6 +85,10 @@
                                                         <div class="live-bubble"></div>
                                                         <div>Live</div>
                                                     </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="match-time">Ended</div>
                                                 }
                                                 @if (match.Team1 is not null)
                                                 {
@@ -203,6 +212,7 @@
                 <div class="dialog-button-wrapper">
                     <FluentButton @onclick="SaveChanges" Appearance="Appearance.Accent">Save</FluentButton>
                     <FluentButton @onclick="CloseDialog">Cancel</FluentButton>
+                    <FluentButton @onclick="DeleteTournament" BackgroundColor="red" Color="white">Delete Tournament</FluentButton>
                 </div>
             </div>
         </FluentDialogBody>
@@ -429,6 +439,13 @@
         await BracketService.DeleteBracket(_tournament.Bracket, _cts.Token);
     }
 
+    private async Task DeleteTournament()
+    {
+        Console.WriteLine($"Deleting tournament: {_tournament.Id}");
+        await TournamentService.DeleteTournamentAsync(_tournament.Id, _cts.Token);
+        NavigationManager.NavigateTo("/tournaments");
+    }
+
     private async Task SaveAddedTeams()
     {
         if (_selectedTeams.Any())
@@ -495,17 +512,17 @@
 
     private void HandleTeamClick(string name)
     {
-        NavigationManager.NavigateTo($"teams/{name}", forceLoad: true);
+        NavigationManager.NavigateTo($"teams/{name}");
     }
 
     private void HandlePlayerClick(string nickname)
     {
-        NavigationManager.NavigateTo($"players/{nickname}", forceLoad: true);
+        NavigationManager.NavigateTo($"players/{nickname}");
     }
 
     private void HandleMatchClick(Guid matchId)
     {
-        NavigationManager.NavigateTo($"/matches/{matchId}", forceLoad: true);
+        NavigationManager.NavigateTo($"/matches/{matchId}");
     }
     
 }

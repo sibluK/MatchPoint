@@ -7,10 +7,12 @@ namespace TournamentManager.Services;
 public class TournamentService
 {
     private readonly ApplicationDbContext _dbContext;
+    private readonly BracketService _bracketService;
 
-    public TournamentService(ApplicationDbContext dbContext)
+    public TournamentService(ApplicationDbContext dbContext, BracketService bracketService)
     {
         _dbContext = dbContext;
+        _bracketService = bracketService;
     }
 
     public async Task<List<Tournament>> GetAllTournamentsAsync()
@@ -71,14 +73,23 @@ public class TournamentService
         return null!;
     }
     
-    public async Task CreateTournamentAsync(Tournament tournament, CancellationToken ct)
+    public async Task<string> CreateTournamentAsync(Tournament tournament, CancellationToken ct)
     {
         Console.WriteLine($"Creating tournament...: {tournament.Id}, {tournament.Name}");
 
         try
         {
-            await _dbContext.Tournaments.AddAsync(tournament, ct);
-            await _dbContext.SaveChangesAsync(ct);
+            var existingTournament = await _dbContext.Tournaments.FirstOrDefaultAsync(t => t.Name == tournament.Name);
+
+            if (existingTournament == null)
+            {
+                await _dbContext.Tournaments.AddAsync(tournament, ct);
+                await _dbContext.SaveChangesAsync(ct);
+                return null;
+            }
+
+            return $"Tournament with name: {tournament.Name} already exists!";
+
         }
         catch (OperationCanceledException)
         {
@@ -88,6 +99,8 @@ public class TournamentService
         {
             Console.WriteLine($"Error creating tournament: {ex.Message}");
         }
+
+        return null;
     }
 
     public async Task AddTeamsToTournamentAsync(Guid tournamentId, List<Team> teams, CancellationToken ct)
@@ -136,5 +149,36 @@ public class TournamentService
             tournament.Teams.Remove(team);
             await _dbContext.SaveChangesAsync();
         }
+    }
+
+    public async Task DeleteTournamentAsync(Guid tournamentId, CancellationToken ct)
+    {
+        //Find the tournament
+        var existingTournament = await _dbContext.Tournaments
+            .Include(t => t.Bracket)
+            .FirstOrDefaultAsync(t => t.Id == tournamentId, ct);
+
+        try
+        {
+            //Delete the bracket, matches, and games
+            if (existingTournament != null && existingTournament.Bracket != null)
+            {
+                await _bracketService.DeleteBracket(existingTournament.Bracket, ct);
+            }
+            
+            //Delete the tournament
+            if (existingTournament != null)
+            {
+                _dbContext.Tournaments.Remove(existingTournament);
+            }
+            
+            //Save changes
+            await _dbContext.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting tournament: {ex.Message}");
+        }
+
     }
 }
