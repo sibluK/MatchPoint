@@ -25,44 +25,56 @@
 }
 
 <div class="tournaments-page-wrapper">
-    <div class="featured-tournament-wrapper">
-        <h3>@Localizer["Featured"]</h3>
-        <div class="featured-tournament" onclick="@(() => HandleTournamentClick(_featuredTournament.Name))">
+    @if (_featuredTournament is not null)
+    {
+        <div class="featured-tournament-wrapper">
+            <h3>@Localizer["Featured"]</h3>
+            <div class="featured-tournament" onclick="@(() => HandleTournamentClick(_featuredTournament.Name))">
 
-            <div class="tournament-teams-column left-column">
-                @foreach (var team in firstColumnTeams)
+                @if (firstColumnTeams is not null)
                 {
-                    <img class="team-image" src="@team.ImagePath"/>
-                }
-            </div>
-
-            <div class="tournament-information">
-                <h3 class="tournament-name">@_featuredTournament.Name</h3>
-                @if (_featuredTournament.Status == ActivityStatus.Live)
-                {
-                    <div class="live-status-wrapper">
-                        <div class="live-bubble"></div>
-                        <p class="tournament-status">Live</p>
+                    <div class="tournament-teams-column left-column">
+                        @foreach (var team in firstColumnTeams)
+                        {
+                            <img class="team-image" src="@team.ImagePath"/>
+                        }
                     </div>
                 }
-                else
-                {
-                    <span class="tournament-date">@_featuredTournament.StartDate.ToString("D")</span>
-                }
 
-                <span class="tournament-prize">$@_featuredTournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
-            </div>
+                <div class="tournament-information">
+                    <h3 class="tournament-name">@_featuredTournament.Name</h3>
+                    @if (_featuredTournament.Status == ActivityStatus.Live)
+                    {
+                        <div class="live-status-wrapper">
+                            <div class="live-bubble"></div>
+                            <p class="tournament-status">Live</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <span class="tournament-date">@_featuredTournament.StartDate.ToString("D")</span>
+                    }
 
-            <div class="tournament-teams-column right-column">
-                @foreach (var team in secondColumnTeams)
-                {
-                    <img class="team-image" src="@team.ImagePath"/>
-                }
+                    <span class="tournament-prize">$@_featuredTournament.Prize.ToString("N0", CultureInfo.CurrentCulture)</span>
+                </div>
+
+                <div class="tournament-teams-column right-column">
+                    @if (secondColumnTeams is not null)
+                    {
+                        @foreach (var team in secondColumnTeams)
+                        {
+                            <img class="team-image" src="@team.ImagePath"/>
+                        }
+                    }
+
+                </div>
+
             </div>
 
         </div>
-
-    </div>
+    }
+    
+    
 
 
     <div class="up-tournaments">
@@ -90,7 +102,7 @@
             }
         </div>
     </div>
-    
+
     <div class="up-tournaments">
         <h3>Live tournaments</h3>
         <div class="up-tournament-list">
